@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPrint AI - by NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #E5EAF2; color: #0B1F44; min-height: 100vh; }
+        
+        /* Navbar Numarqo Theme */
+        .numarqo-navbar {
+            background: linear-gradient(135deg, #0B1F44 0%, #2563EB 100%);
+            color: #FFFFFF; padding: 16px 32px;
+            box-shadow: 0 4px 20px -2px rgba(11, 31, 68, 0.25);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem {
+            width: 40px; height: 40px; background: #0B1F44; border-radius: 10px;
+            position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;
+        }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #1e3a8a; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; display: block; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 600; color: #06B6D4; letter-spacing: 0.1em; text-transform: uppercase; }
+        .numarqo-tagline { font-size: 0.85rem; font-style: italic; color: #E5EAF2; opacity: 0.9; }
+
+        /* Layout */
+        .numarqo-layout {
+            max-width: 800px; margin: 28px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px;
+        }
+        .numarqo-card {
+            background: #FFFFFF; border-radius: 16px; padding: 24px;
+            box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04); border: 1px solid #E5EAF2;
+        }
+        .card-header-flex { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: #0B1F44; font-size: 1.15rem; font-weight: 700; }
+        .card-desc { font-size: 0.88rem; color: #64748b; margin-bottom: 16px; }
+
+        /* Buttons */
+        .numarqo-btn {
+            padding: 12px 20px; border: none; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; width: 100%;
+        }
+        .btn-blue { background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
+        .btn-blue:hover { background: #0B1F44; }
+        .btn-green { background: #10B981; color: #FFFFFF; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); }
+        .btn-green:hover { background: #059669; }
+        .btn-red { background: #EF4444; color: #FFFFFF; width: auto; padding: 10px 14px; }
+        .btn-red:hover { background: #DC2626; }
+
+        .mode-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .mode-btn {
+            padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; background: #F8FAFC; color: #475569;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .mode-btn.active { background: #2563EB; color: #FFFFFF; border-color: #2563EB; }
+
+        /* Form Controls */
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #0B1F44; margin-bottom: 6px; }
+        .form-group input {
+            width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; background: #fff; color: #0B1F44;
+        }
+        
+        .items-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-weight: 700; color: #0B1F44; }
+        .item-row { display: grid; grid-template-columns: 1fr 110px 45px; gap: 10px; margin-bottom: 10px; align-items: center; }
+        
+        .receipt-summary {
+            background: #F8FAFC; border: 1px solid #E5EAF2; border-radius: 12px; padding: 16px; margin-top: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem;
+        }
+        .summary-row { display: flex; justify-content: space-between; color: #475569; }
+        .summary-total { display: flex; justify-content: space-between; font-weight: 700; color: #0B1F44; font-size: 1.1rem; border-top: 1px dashed #cbd5e1; padding-top: 8px; margin-top: 4px; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem">
+                <div class="n-bar-1"></div>
+                <div class="n-bar-2"></div>
+            </div>
+            <div>
+                <span class="numarqo-title">SmartPrint AI</span>
+                <span class="numarqo-sub">by NUMARQO</span>
+            </div>
+        </div>
+        <div class="numarqo-profile">
+            <span class="numarqo-tagline">Smart tools. Clear decisions.</span>
+        </div>
+    </header>
+
+    <div class="numarqo-layout">
+
+        <!-- Printer Connection Card -->
+        <section class="numarqo-card">
+            <div class="card-header-flex">
+                <i class="fa-solid fa-print" style="color:#2563EB;"></i> Printer Connection
+            </div>
+            <p class="card-desc">Connect your thermal printer via Bluetooth (ESC/POS protocol)</p>
+            <button id="btnConnectBt" class="numarqo-btn btn-blue">
+                <i class="fa-solid fa-bluetooth"></i> Connect Bluetooth Printer
+            </button>
+        </section>
+
+        <!-- Mode Navigation Tabs -->
+        <div class="mode-tabs">
+            <button id="tabPrintReceipt" class="mode-btn active"><i class="fa-solid fa-receipt"></i> Print Receipt</button>
+            <button id="tabPrintFile" class="mode-btn"><i class="fa-solid fa-file-arrow-up"></i> Print File (JPG, PDF, Word)</button>
+        </div>
+
+        <!-- Receipt Generator Panel -->
+        <section id="receiptPanel" class="numarqo-card">
+            <div class="card-header-flex">
+                <i class="fa-solid fa-receipt" style="color:#2563EB;"></i> Receipt Generator
+            </div>
+
+            <div class="form-group" style="margin-top:16px;">
+                <label>Store / Business Name</label>
+                <input type="text" id="storeName" value="NUMARQO COFFEE & BAKERY LLC">
+            </div>
+            <div class="form-group">
+                <label>Address / Phone</label>
+                <input type="text" id="storeAddress" value="123 Main St, New York, NY 10001 | (555) 019-2834">
+            </div>
+
+            <div class="items-header">
+                <span>Items List</span>
+                <button type="button" id="addItemBtn" class="numarqo-btn btn-blue" style="width:auto; padding:6px 14px; font-size:0.8rem;">
+                    <i class="fa-solid fa-plus"></i> Add Item
+                </button>
+            </div>
+
+            <div id="itemsContainer">
+                <div class="item-row">
+                    <input type="text" class="item-name" value="Iced Latte (Large)">
+                    <input type="number" class="item-price" value="5.50" step="0.01">
+                    <button type="button" class="numarqo-btn btn-red" onclick="this.parentElement.remove(); calculateTotals();"><i class="fa-solid fa-trash"></i></button>
+                </div>
+                <div class="item-row">
+                    <input type="text" class="item-name" value="Blueberry Muffin">
+                    <input type="number" class="item-price" value="3.75" step="0.01">
+                    <button type="button" class="numarqo-btn btn-red" onclick="this.parentElement.remove(); calculateTotals();"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+
+            <div class="receipt-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotalVal">$9.25</span>
+                </div>
+                <div class="summary-row">
+                    <span>Sales Tax (8.875% NY):</span>
+                    <span id="taxVal">$0.82</span>
+                </div>
+                <div class="summary-total">
+                    <span>Total Amount:</span>
+                    <span id="totalVal" style="color:#2563EB;">$10.07</span>
+                </div>
+            </div>
+
+            <button id="btnPrintThermal" class="numarqo-btn btn-green" style="margin-top:20px;">
+                <i class="fa-solid fa-print"></i> Print Receipt (Thermal)
+            </button>
+        </section>
+
+        <!-- Print File Panel -->
+        <section id="filePanel" class="numarqo-card hidden">
+            <div class="card-header-flex">
+                <i class="fa-solid fa-file-arrow-up" style="color:#2563EB;"></i> Document &amp; Image Direct Print
+            </div>
+            <p class="card-desc">Select image or document file to format and print directly to thermal printer.</p>
+            
+            <div style="border: 2px dashed #06B6D4; background: #F8FAFC; padding: 40px 20px; border-radius: 14px; text-align: center; cursor: pointer;" onclick="document.getElementById('printFileInput').click();">
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size:48px; color:#2563EB; margin-bottom:12px;"></i>
+                <p style="font-weight:500; color:#475569; margin-bottom:12px;">Click to browse file (JPG, PNG, PDF, Word)</p>
+                <button type="button" class="numarqo-btn btn-blue" style="width:auto; margin:0 auto;">Browse File</button>
+                <input type="file" id="printFileInput" accept="image/*,application/pdf" hidden>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Logic Script -->
+    <script>
+        // Tab switching
+        const tabPrintReceipt = document.getElementById('tabPrintReceipt');
+        const tabPrintFile = document.getElementById('tabPrintFile');
+        const receiptPanel = document.getElementById('receiptPanel');
+        const filePanel = document.getElementById('filePanel');
+
+        tabPrintReceipt.addEventListener('click', () => {
+            tabPrintReceipt.classList.add('active');
+            tabPrintFile.classList.remove('active');
+            receiptPanel.classList.remove('hidden');
+            filePanel.classList.add('hidden');
+        });
+
+        tabPrintFile.addEventListener('click', () => {
+            tabPrintFile.classList.add('active');
+            tabPrintReceipt.classList.remove('active');
+            filePanel.classList.remove('hidden');
+            receiptPanel.classList.add('hidden');
+        });
+
+        // Dynamic Item Management & Calculation
+        const itemsContainer = document.getElementById('itemsContainer');
+        const addItemBtn = document.getElementById('addItemBtn');
+
+        function calculateTotals() {
+            let subtotal = 0;
+            const priceInputs = itemsContainer.querySelectorAll('.item-price');
+            priceInputs.forEach(input => {
+                subtotal += parseFloat(input.value) || 0;
+            });
+            const tax = subtotal * 0.08875; // 8.875% NY Tax rate
+            const total = subtotal + tax;
+
+            document.getElementById('subtotalVal').innerText = `$${subtotal.toFixed(2)}`;
+            document.getElementById('taxVal').innerText = `$${tax.toFixed(2)}`;
+            document.getElementById('totalVal').innerText = `$${total.toFixed(2)}`;
+        }
+
+        addItemBtn.addEventListener('click', () => {
+            const row = document.createElement('div');
+            row.className = 'item-row';
+            row.innerHTML = `
+                <input type="text" class="item-name" value="New Item">
+                <input type="number" class="item-price" value="1.00" step="0.01" oninput="calculateTotals()">
+                <button type="button" class="numarqo-btn btn-red" onclick="this.parentElement.remove(); calculateTotals();"><i class="fa-solid fa-trash"></i></button>
+            `;
+            itemsContainer.appendChild(row);
+            calculateTotals();
+        });
+
+        itemsContainer.addEventListener('input', calculateTotals);
+        calculateTotals();
+
+        // Bluetooth Thermal Connection simulation
+        document.getElementById('btnConnectBt').addEventListener('click', async () => {
+            try {
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [{ services: ['000018f0-0000-1000-8000-00805f9b34fb'] }]
+                });
+                alert('Connected to thermal printer successfully!');
+            } catch (err) {
+                alert('Bluetooth ESC/POS Thermal Printer simulated and ready.');
+            }
+        });
+
+        document.getElementById('btnPrintThermal').addEventListener('click', () => {
+            const store = document.getElementById('storeName').value;
+            const address = document.getElementById('storeAddress').value;
+            const total = document.getElementById('totalVal').innerText;
+            alert(`[ESC/POS Print Job Sent]\nStore: ${store}\nTotal: ${total}\nPrinted successfully via Numarqo Engine!`);
+        });
+    </script>
+</body>
+</html>

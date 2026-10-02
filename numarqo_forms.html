@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartForms AI Pro - by NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF.js & PDF-Lib & SignaturePad -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #E5EAF2; color: #0B1F44; min-height: 100vh; }
+        
+        /* Navbar Numarqo Theme */
+        .numarqo-navbar {
+            background: linear-gradient(135deg, #0B1F44 0%, #2563EB 100%);
+            color: #FFFFFF; padding: 16px 32px;
+            box-shadow: 0 4px 20px -2px rgba(11, 31, 68, 0.25);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem {
+            width: 40px; height: 40px; background: #0B1F44; border-radius: 10px;
+            position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;
+        }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #1e3a8a; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; display: block; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 600; color: #06B6D4; letter-spacing: 0.1em; text-transform: uppercase; }
+        .numarqo-tagline { font-size: 0.85rem; font-style: italic; color: #E5EAF2; opacity: 0.9; }
+
+        /* Layout */
+        .numarqo-layout {
+            display: grid; grid-template-columns: 260px 1fr; max-width: 1300px; margin: 28px auto; padding: 0 20px; gap: 24px;
+        }
+        .numarqo-sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .numarqo-menu {
+            background: #FFFFFF; border-radius: 16px; padding: 12px;
+            box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04); border: 1px solid #E5EAF2; display: flex; flex-direction: column; gap: 6px;
+        }
+        .numarqo-item {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: #64748b;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem; border-radius: 10px; transition: 0.2s; cursor: pointer;
+        }
+        .numarqo-item:hover, .numarqo-item.active { background: #E5EAF2; color: #2563EB; }
+        
+        .numarqo-widget {
+            background: #FFFFFF; border-radius: 16px; padding: 20px; border: 1px solid #E5EAF2; box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04);
+        }
+        .numarqo-widget h4 { font-size: 0.9rem; color: #0B1F44; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .template-btn {
+            display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 12px; margin-top: 6px; background: #F8FAFC; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: #0B1F44; cursor: pointer; text-align: left; transition: 0.2s;
+        }
+        .template-btn:hover { background: #E0F2FE; border-color: #06B6D4; color: #0284c7; }
+
+        .numarqo-main { display: flex; flex-direction: column; gap: 20px; }
+        .numarqo-card {
+            background: #FFFFFF; border-radius: 16px; padding: 24px;
+            box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04); border: 1px solid #E5EAF2;
+        }
+        .card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: #0B1F44; font-size: 1.15rem; font-weight: 700; }
+        .numarqo-badge { font-size: 0.75rem; background: #E5EAF2; color: #0B1F44; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+        .card-desc { font-size: 0.88rem; color: #64748b; margin-bottom: 20px; }
+
+        .numarqo-dropzone {
+            border: 2px dashed #06B6D4; background: #F8FAFC; padding: 40px 20px; border-radius: 14px; text-align: center; cursor: pointer; transition: 0.2s;
+        }
+        .numarqo-dropzone:hover { border-color: #2563EB; background: #E5EAF2; }
+
+        .numarqo-btn {
+            padding: 10px 20px; border: none; border-radius: 10px; font-weight: 600; font-size: 0.88rem; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-blue { background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
+        .btn-blue:hover { background: #0B1F44; }
+        .btn-green { background: #10B981; color: #FFFFFF; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); }
+        .btn-green:hover { background: #059669; }
+        .btn-gray { background: #E5EAF2; color: #0B1F44; }
+        .btn-gray:hover { background: #cbd5e1; }
+
+        /* Workspace & Overlay */
+        .toolbar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; align-items: center; background: #F8FAFC; padding: 12px; border-radius: 10px; border: 1px solid #E5EAF2; }
+        .pdf-viewer-container { position: relative; display: inline-block; width: 100%; text-align: center; background: #1e293b; border-radius: 12px; padding: 16px; overflow: auto; max-height: 600px; }
+        #pdfRenderCanvas, #editorRenderCanvas { max-width: 100%; border-radius: 6px; }
+        .overlay-container { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 0; height: 0; pointer-events: none; }
+        
+        .draggable-item {
+            position: absolute; pointer-events: auto; cursor: move; border: 1px dashed #2563EB; background: rgba(255,255,255,0.85); padding: 4px; border-radius: 4px;
+        }
+        .draggable-item input { border: none; background: transparent; font-size: 0.9rem; font-weight: 600; color: #0B1F44; outline: none; width: 150px; }
+        .draggable-item img { max-height: 40px; display: block; }
+
+        /* Modal */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.6); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-content { background: #fff; width: 450px; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .canvas-wrapper { border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; height: 200px; margin-bottom: 16px; overflow: hidden; }
+        #signaturePadCanvas { width: 100%; height: 100%; }
+
+        .thumbnail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 12px; margin-top: 12px; }
+        .thumb-box { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #cbd5e1; height: 90px; }
+        .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .history-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; max-height: 250px; overflow-y: auto; }
+        .history-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border: 1px solid #E5EAF2; border-radius: 10px; background: #F8FAFC; }
+        .empty-text { font-size: 0.85rem; color: #94a3b8; text-align: center; padding: 20px 0; }
+
+        .hidden { display: none !important; }
+        @media (max-width: 768px) { .numarqo-layout { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem">
+                <div class="n-bar-1"></div>
+                <div class="n-bar-2"></div>
+            </div>
+            <div>
+                <span class="numarqo-title">SmartForms AI Pro</span>
+                <span class="numarqo-sub">by NUMARQO</span>
+            </div>
+        </div>
+        <div class="numarqo-profile">
+            <span class="numarqo-tagline">Smart tools. Clear decisions.</span>
+        </div>
+    </header>
+
+    <div class="numarqo-layout">
+        <!-- Sidebar -->
+        <aside class="numarqo-sidebar">
+            <div class="numarqo-menu">
+                <a href="#signerSection" class="numarqo-item active" data-target="signerSection"><i class="fa-solid fa-pen-nib"></i> Sign &amp; Fill Form</a>
+                <a href="#makerSection" class="numarqo-item" data-target="makerSection"><i class="fa-solid fa-file-circle-plus"></i> PDF Maker Hub</a>
+                <a href="#editorSection" class="numarqo-item" data-target="editorSection"><i class="fa-solid fa-file-pen"></i> PDF Editor Hub</a>
+                <a href="#converterSection" class="numarqo-item" data-target="converterSection"><i class="fa-solid fa-arrow-right-arrow-left"></i> PDF Converter</a>
+                <a href="#scanHistory" class="numarqo-item" data-target="scanHistory"><i class="fa-solid fa-clock-rotate-left"></i> History Log</a>
+            </div>
+
+            <!-- US Legal Templates Widget -->
+            <div class="numarqo-widget">
+                <h4><i class="fa-solid fa-layer-group"></i> US Legal Templates</h4>
+                <p style="font-size:0.78rem; color:#64748b; margin-bottom:10px;">Quick download official forms:</p>
+                <button class="template-btn" onclick="generateTemplate('w9')"><i class="fa-solid fa-file-invoice"></i> IRS Form W-9</button>
+                <button class="template-btn" onclick="generateTemplate('nda')"><i class="fa-solid fa-shield-halved"></i> Standard NDA</button>
+                <button class="template-btn" onclick="generateTemplate('lease')"><i class="fa-solid fa-key"></i> Lease Agreement</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="numarqo-main">
+            
+            <!-- SECTION 1: SIGN & FILL WORKSPACE -->
+            <div id="signerSection" class="view-section">
+                <section class="numarqo-card">
+                    <div class="card-header-flex">
+                        <h3><i class="fa-solid fa-file-pdf"></i> Document Signer &amp; Form Filler Workspace</h3>
+                        <span class="numarqo-badge">US Letter Format</span>
+                    </div>
+                    <p class="card-desc">Upload any standard PDF contract or form to fill out text fields, add date stamps, and apply digital e-signatures.</p>
+
+                    <div class="numarqo-dropzone" onclick="document.getElementById('pdfFileInput').click();">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size:48px; color:#2563EB; margin-bottom:12px;"></i>
+                        <p style="font-size:0.95rem; font-weight:500; color:#475569; margin-bottom:16px;">Drag &amp; drop your PDF document here, or click to browse</p>
+                        <button type="button" class="numarqo-btn btn-blue">
+                            <i class="fa-solid fa-folder-open"></i> Select PDF Document
+                        </button>
+                        <input type="file" id="pdfFileInput" accept="application/pdf" hidden>
+                    </div>
+                </section>
+
+                <section id="workspaceSection" class="numarqo-card hidden" style="margin-top:20px;">
+                    <div class="toolbar">
+                        <button id="btnAddText" class="numarqo-btn btn-gray"><i class="fa-solid fa-font"></i> Add Text Field</button>
+                        <button id="btnAddDate" class="numarqo-btn btn-gray"><i class="fa-solid fa-calendar-day"></i> Add Date Stamp</button>
+                        <button id="btnOpenSignModal" class="numarqo-btn btn-blue"><i class="fa-solid fa-pen-nib"></i> Add E-Signature</button>
+                        <button id="btnExportPdf" class="numarqo-btn btn-green" style="margin-left: auto;"><i class="fa-solid fa-download"></i> Export Signed PDF</button>
+                    </div>
+
+                    <div class="pdf-viewer-container" id="pdfViewerContainer">
+                        <canvas id="pdfRenderCanvas"></canvas>
+                        <div id="overlayContainer" class="overlay-container"></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECTION 2: PDF MAKER (WORD / IMAGES TO PDF) -->
+            <div id="makerSection" class="view-section hidden">
+                <section class="numarqo-card">
+                    <div class="card-header-flex">
+                        <h3><i class="fa-solid fa-file-circle-plus"></i> PDF Maker (Word &amp; Images to PDF)</h3>
+                        <span class="numarqo-badge">US Letter Standard</span>
+                    </div>
+                    <p class="card-desc">Create professional US Letter PDFs directly from Word/Text files or by combining multiple images (JPG/PNG).</p>
+
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom:20px;">
+                        <div class="numarqo-dropzone" onclick="document.getElementById('makeWordInput').click();">
+                            <i class="fa-solid fa-file-word" style="font-size:36px; color:#2563EB; margin-bottom:8px;"></i>
+                            <p style="font-weight:600; font-size:0.9rem;">Convert Word/Text to PDF</p>
+                            <input type="file" id="makeWordInput" accept=".txt,.doc,.docx" hidden>
+                        </div>
+                        <div class="numarqo-dropzone" onclick="document.getElementById('makeImagesInput').click();">
+                            <i class="fa-solid fa-images" style="font-size:36px; color:#10B981; margin-bottom:8px;"></i>
+                            <p style="font-weight:600; font-size:0.9rem;">Merge Images to PDF</p>
+                            <input type="file" id="makeImagesInput" accept="image/*" multiple hidden>
+                        </div>
+                    </div>
+
+                    <div id="imgMakerPreviewArea" class="hidden">
+                        <h4 style="margin-bottom:8px; font-size:0.95rem;">Staged Images for PDF:</h4>
+                        <div id="makerThumbnails" class="thumbnail-grid"></div>
+                        <button id="btnBuildPdfFromImages" class="numarqo-btn btn-green" style="width:100%; justify-content:center; margin-top:16px;">
+                            <i class="fa-solid fa-file-pdf"></i> Generate PDF from Images (US Letter)
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECTION 3: PDF EDITOR HUB -->
+            <div id="editorSection" class="view-section hidden">
+                <section class="numarqo-card">
+                    <div class="card-header-flex">
+                        <h3><i class="fa-solid fa-file-pen"></i> PDF Editor &amp; Page Manager Hub</h3>
+                        <span class="numarqo-badge">Numarqo Editor</span>
+                    </div>
+                    <p class="card-desc">Manage pages, rotate documents, or inject custom annotations directly into your PDF files.</p>
+
+                    <div class="numarqo-dropzone" onclick="document.getElementById('editorPdfInput').click();">
+                        <i class="fa-solid fa-file-circle-plus" style="font-size:48px; color:#2563EB; margin-bottom:12px;"></i>
+                        <p style="font-size:0.95rem; font-weight:500; color:#475569; margin-bottom:16px;">Upload PDF to edit / rotate pages</p>
+                        <button type="button" class="numarqo-btn btn-blue">
+                            <i class="fa-solid fa-folder-open"></i> Browse PDF for Editing
+                        </button>
+                        <input type="file" id="editorPdfInput" accept="application/pdf" hidden>
+                    </div>
+
+                    <div id="editorWorkspace" class="hidden" style="margin-top:20px;">
+                        <div class="toolbar">
+                            <button id="btnRotatePage" class="numarqo-btn btn-gray"><i class="fa-solid fa-rotate-right"></i> Rotate 90° CW</button>
+                            <button id="btnDownloadEdited" class="numarqo-btn btn-green" style="margin-left:auto;"><i class="fa-solid fa-download"></i> Save Edited PDF</button>
+                        </div>
+                        <div class="pdf-viewer-container">
+                            <canvas id="editorRenderCanvas"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECTION 4: PDF CONVERTER -->
+            <div id="converterSection" class="view-section hidden">
+                <section class="numarqo-card">
+                    <div class="card-header-flex">
+                        <h3><i class="fa-solid fa-arrow-right-arrow-left"></i> Comprehensive PDF Converter</h3>
+                        <span class="numarqo-badge">Format Hub</span>
+                    </div>
+                    <p class="card-desc">Convert PDF files to high-resolution images (JPG) or extract text into Word documents (.doc) instantly.</p>
+
+                    <div class="numarqo-dropzone" onclick="document.getElementById('convertPdfInput').click();">
+                        <i class="fa-solid fa-file-arrow-down" style="font-size:48px; color:#2563EB; margin-bottom:12px;"></i>
+                        <p style="font-size:0.95rem; font-weight:500; color:#475569; margin-bottom:16px;">Upload PDF to Convert</p>
+                        <button type="button" class="numarqo-btn btn-blue">
+                            <i class="fa-solid fa-folder-open"></i> Select PDF File
+                        </button>
+                        <input type="file" id="convertPdfInput" accept="application/pdf" hidden>
+                    </div>
+
+                    <div id="converterResultArea" class="hidden" style="margin-top:20px; text-align:center; background:#F8FAFC; padding:20px; border-radius:12px; border:1px solid #E5EAF2;">
+                        <p id="convertStatusText" style="font-weight:600; margin-bottom:12px; color:#0B1F44;">Processing conversion...</p>
+                        <div id="convertDownloadLinks"></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECTION 5: HISTORY LOG -->
+            <section class="numarqo-card" id="scanHistory" style="margin-top:20px;">
+                <div class="card-header-flex">
+                    <h3><i class="fa-solid fa-clock-rotate-left"></i> Document History Log</h3>
+                    <button id="btnClearHistory" class="numarqo-btn btn-gray" style="padding:6px 12px; font-size:0.8rem;"><i class="fa-solid fa-trash"></i> Clear Log</button>
+                </div>
+                <div id="historyListContainer" class="history-list">
+                    <p class="empty-text">No processed documents in local offline history.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Signature Modal -->
+    <div id="signatureModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="card-header-flex" style="margin-bottom:16px;">
+                <h4><i class="fa-solid fa-pen-fancy" style="color:#2563EB;"></i> Draw Your E-Signature</h4>
+                <button id="btnCloseModal" style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:#64748b;">&times;</button>
+            </div>
+            <div class="canvas-wrapper">
+                <canvas id="signaturePadCanvas"></canvas>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+                <button id="btnClearSignature" class="numarqo-btn btn-gray" style="font-size:0.8rem;">Clear Pad</button>
+                <button id="btnApplySignature" class="numarqo-btn btn-blue" style="font-size:0.8rem;">Apply Signature</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuItems = document.querySelectorAll('.numarqo-menu .numarqo-item');
+            const viewSections = document.querySelectorAll('.view-section');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    menuItems.forEach(m => m.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    viewSections.forEach(sec => {
+                        if (sec.id === targetId) sec.classList.remove('hidden');
+                        else sec.classList.add('hidden');
+                    });
+                });
+            });
+
+            // IndexedDB History Setup
+            const DB_NAME = 'NumarqoFormsDB_v3';
+            const DB_VERSION = 1;
+            let db = null;
+
+            function initDB() {
+                const req = indexedDB.open(DB_NAME, DB_VERSION);
+                req.onupgradeneeded = (e) => {
+                    db = e.target.result;
+                    if (!db.objectStoreNames.contains('docs')) db.createObjectStore('docs', { keyPath: 'id', autoIncrement: true });
+                };
+                req.onsuccess = (e) => {
+                    db = e.target.result;
+                    loadHistory();
+                };
+            }
+            initDB();
+
+            function saveDocToDB(name) {
+                if (!db) return;
+                const tx = db.transaction(['docs'], 'readwrite');
+                tx.objectStore('docs').add({
+                    name: name,
+                    timestamp: new Date().toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short' })
+                });
+                tx.oncomplete = () => loadHistory();
+            }
+
+            function loadHistory() {
+                if (!db) return;
+                const container = document.getElementById('historyListContainer');
+                const tx = db.transaction(['docs'], 'readonly');
+                const req = tx.objectStore('docs').getAll();
+                req.onsuccess = () => {
+                    const records = req.result;
+                    container.innerHTML = '';
+                    if (records.length === 0) {
+                        container.innerHTML = '<p class="empty-text">No processed documents in local offline history.</p>';
+                        return;
+                    }
+                    records.reverse().forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'history-row';
+                        div.innerHTML = `
+                            <div><strong>${item.name}</strong><div style="font-size:0.75rem; color:#64748b;">Processed on ${item.timestamp}</div></div>
+                            <span style="color:#10B981; font-weight:600; font-size:0.8rem;"><i class="fa-solid fa-check-circle"></i> Saved</span>
+                        `;
+                        container.appendChild(div);
+                    });
+                };
+            }
+
+            document.getElementById('btnClearHistory').addEventListener('click', () => {
+                if (!db) return;
+                if (confirm('Clear local history log?')) {
+                    const tx = db.transaction(['docs'], 'readwrite');
+                    tx.objectStore('docs').clear();
+                    tx.oncomplete = () => loadHistory();
+                }
+            });
+
+            // Legal Templates Generator
+            window.generateTemplate = async function(type) {
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                const page = pdfDoc.addPage([612, 792]);
+                const { width, height } = page.getSize();
+                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+                const boldFont = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+
+                let title = '', filename = '', lines = [];
+                if (type === 'w9') {
+                    title = 'REQUEST FOR TAXPAYER IDENTIFICATION NUMBER (IRS FORM W-9)';
+                    filename = 'IRS_Form_W9_Numarqo.pdf';
+                    lines = [
+                        '1. Name: __________________________________________________',
+                        '2. Business Name: __________________________________________',
+                        '3. Federal Tax Classification: [ ] Individual  [ ] C-Corp  [ ] LLC',
+                        '4. Address: ________________________________________________',
+                        'Part I: Taxpayer Identification Number (TIN): ___ - __ - ____',
+                        'Part II: Certification under penalties of perjury.',
+                        'Signature: ___________________________ Date: _____________'
+                    ];
+                } else if (type === 'nda') {
+                    title = 'STANDARD NON-DISCLOSURE AGREEMENT (NDA)';
+                    filename = 'Standard_NDA_Numarqo.pdf';
+                    lines = [
+                        'This Non-Disclosure Agreement is entered into by and between Numarqo & Partner.',
+                        '1. Purpose: Evaluation of confidential business collaboration.',
+                        '2. Confidentiality term: 2 years from execution.',
+                        'Disclosing Party Sign: ___________________ Date: ___________',
+                        'Receiving Party Sign: ___________________ Date: ___________'
+                    ];
+                } else if (type === 'lease') {
+                    title = 'RESIDENTIAL LEASE AGREEMENT (US STANDARD)';
+                    filename = 'Residential_Lease_Numarqo.pdf';
+                    lines = [
+                        'Residential Lease Agreement established under US standard guidelines.',
+                        '1. Property Address: _______________________________________',
+                        '2. Monthly Rent: $________ USD, due on the 1st of each month.',
+                        'Landlord Signature: ______________________ Date: ___________',
+                        'Tenant Signature: ________________________ Date: ___________'
+                    ];
+                }
+
+                page.drawText(title, { x: 50, y: height - 60, size: 11, font: boldFont, color: PDFLib.rgb(0.04, 0.12, 0.27) });
+                page.drawLine({ start: { x: 50, y: height - 70 }, end: { x: width - 50, y: height - 70 }, thickness: 1, color: PDFLib.rgb(0.7, 0.7, 0.7) });
+
+                let y = height - 100;
+                for (const l of lines) {
+                    page.drawText(l, { x: 50, y: y, size: 10, font: font, color: PDFLib.rgb(0.2, 0.2, 0.2) });
+                    y -= 25;
+                }
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+
+                saveDocToDB(filename);
+                alert(`Template ${filename} successfully generated by Numarqo Engine!`);
+            };
+
+            // PDF Form Filler & E-Sign Engine
+            const pdfFileInput = document.getElementById('pdfFileInput');
+            const workspaceSection = document.getElementById('workspaceSection');
+            const pdfRenderCanvas = document.getElementById('pdfRenderCanvas');
+            const overlayContainer = document.getElementById('overlayContainer');
+            
+            const btnAddText = document.getElementById('btnAddText');
+            const btnAddDate = document.getElementById('btnAddDate');
+            const btnOpenSignModal = document.getElementById('btnOpenSignModal');
+            const btnExportPdf = document.getElementById('btnExportPdf');
+
+            const signatureModal = document.getElementById('signatureModal');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+            const btnClearSignature = document.getElementById('btnClearSignature');
+            const btnApplySignature = document.getElementById('btnApplySignature');
+            const signaturePadCanvas = document.getElementById('signaturePadCanvas');
+
+            let mainPdfBytes = null;
+            let mainPdfDoc = null;
+            let signaturePad = new SignaturePad(signaturePadCanvas, { penColor: 'rgb(0, 0, 128)' });
+            let placedElements = [];
+            let currentFileName = 'Document.pdf';
+
+            pdfFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                currentFileName = file.name;
+                mainPdfBytes = await file.arrayBuffer();
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                mainPdfDoc = await pdfjsLib.getDocument({ data: mainPdfBytes }).promise;
+
+                renderPage(1);
+                workspaceSection.classList.remove('hidden');
+            });
+
+            async function renderPage(num) {
+                const page = await mainPdfDoc.getPage(num);
+                const viewport = page.getViewport({ scale: 1.5 });
+                const ctx = pdfRenderCanvas.getContext('2d');
+                pdfRenderCanvas.width = viewport.width;
+                pdfRenderCanvas.height = viewport.height;
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+            }
+
+            btnAddText.addEventListener('click', () => createDraggableField('text', 'Type Text Here'));
+            btnAddDate.addEventListener('click', () => createDraggableField('text', new Date().toLocaleDateString('en-US')));
+
+            function createDraggableField(type, defaultVal) {
+                const div = document.createElement('div');
+                div.className = 'draggable-item';
+                div.style.left = '40px';
+                div.style.top = '40px';
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = defaultVal;
+                div.appendChild(input);
+
+                overlayContainer.appendChild(div);
+                makeDraggable(div);
+                placedElements.push({ type: 'text', element: div, input: input });
+            }
+
+            btnOpenSignModal.addEventListener('click', () => {
+                signatureModal.classList.remove('hidden');
+                signaturePad.clear();
+            });
+            btnCloseModal.addEventListener('click', () => signatureModal.classList.add('hidden'));
+            btnClearSignature.addEventListener('click', () => signaturePad.clear());
+
+            btnApplySignature.addEventListener('click', () => {
+                if (signaturePad.isEmpty()) {
+                    alert('Please draw your signature first!');
+                    return;
+                }
+                const dataUrl = signaturePad.toDataURL();
+                const div = document.createElement('div');
+                div.className = 'draggable-item';
+                div.style.left = '60px';
+                div.style.top = '60px';
+
+                const img = document.createElement('img');
+                img.src = dataUrl;
+                div.appendChild(img);
+
+                overlayContainer.appendChild(div);
+                makeDraggable(div);
+                placedElements.push({ type: 'signature', element: div, dataUrl: dataUrl });
+                signatureModal.classList.add('hidden');
+            });
+
+            function makeDraggable(elm) {
+                let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
+                elm.onmousedown = dragMouseDown;
+                function dragMouseDown(e) {
+                    e.preventDefault();
+                    p3 = e.clientX; p4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    document.onmousemove = elementDrag;
+                }
+                function elementDrag(e) {
+                    e.preventDefault();
+                    p1 = p3 - e.clientX; p2 = p4 - e.clientY;
+                    p3 = e.clientX; p4 = e.clientY;
+                    elm.style.top = (elm.offsetTop - p2) + "px";
+                    elm.style.left = (elm.offsetLeft - p1) + "px";
+                }
+                function closeDragElement() {
+                    document.onmouseup = null; document.onmousemove = null;
+                }
+            }
+
+            btnExportPdf.addEventListener('click', async () => {
+                if (!mainPdfBytes) return;
+                const pdfLibDoc = await PDFLib.PDFDocument.load(mainPdfBytes);
+                const firstPage = pdfLibDoc.getPages()[0];
+                const { width, height } = firstPage.getSize();
+                const canvasW = pdfRenderCanvas.width;
+                const canvasH = pdfRenderCanvas.height;
+                const scaleX = width / canvasW;
+                const scaleY = height / canvasH;
+
+                for (const item of placedElements) {
+                    const rect = item.element.getBoundingClientRect();
+                    const cRect = pdfRenderCanvas.getBoundingClientRect();
+                    const x = (rect.left - cRect.left) * scaleX;
+                    const y = height - ((rect.top - cRect.top + rect.height) * scaleY);
+
+                    if (item.type === 'text') {
+                        firstPage.drawText(item.input.value, { x: x, y: y, size: 12 * scaleY, color: PDFLib.rgb(0,0,0) });
+                    } else if (item.type === 'signature') {
+                        const imgBytes = await fetch(item.dataUrl).then(res => res.arrayBuffer());
+                        const png = await pdfLibDoc.embedPng(imgBytes);
+                        firstPage.drawImage(png, { x: x, y: y, width: 120 * scaleX, height: 50 * scaleY });
+                    }
+                }
+
+                const modifiedBytes = await pdfLibDoc.save();
+                const blob = new Blob([modifiedBytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                const exportName = `Signed_${currentFileName}`;
+                link.download = exportName;
+                link.click();
+
+                saveDocToDB(exportName);
+                alert('Signed PDF successfully exported via Numarqo Engine!');
+            });
+
+            // PDF Maker Hub Logic (Word/Text & Images to PDF)
+            const makeWordInput = document.getElementById('makeWordInput');
+            makeWordInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const text = await file.text();
+
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+                const page = pdfDoc.addPage([612, 792]);
+                const { height } = page.getSize();
+
+                let y = height - 50;
+                const lines = text.split('\n');
+                for (const line of lines) {
+                    if (y < 50) {
+                        page = pdfDoc.addPage([612, 792]);
+                        y = height - 50;
+                    }
+                    page.drawText(line.trim(), { x: 50, y: y, size: 10, font: font, color: PDFLib.rgb(0,0,0) });
+                    y -= 18;
+                }
+
+                const bytes = await pdfDoc.save();
+                const blob = new Blob([bytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                const name = `${file.name.substring(0, file.name.lastIndexOf('.')) || 'Document'}.pdf`;
+                link.download = name;
+                link.click();
+
+                saveDocToDB(name);
+                alert('Word/Text successfully converted to PDF (US Letter)!');
+            });
+
+            const makeImagesInput = document.getElementById('makeImagesInput');
+            const imgMakerPreviewArea = document.getElementById('imgMakerPreviewArea');
+            const makerThumbnails = document.getElementById('makerThumbnails');
+            const btnBuildPdfFromImages = document.getElementById('btnBuildPdfFromImages');
+            let stagedImages = [];
+
+            makeImagesInput.addEventListener('change', (e) => {
+                stagedImages = Array.from(e.target.files);
+                if (stagedImages.length === 0) return;
+                makerThumbnails.innerHTML = '';
+                stagedImages.forEach(file => {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    const box = document.createElement('div');
+                    box.className = 'thumb-box';
+                    box.appendChild(img);
+                    makerThumbnails.appendChild(box);
+                });
+                imgMakerPreviewArea.classList.remove('hidden');
+            });
+
+            btnBuildPdfFromImages.addEventListener('click', async () => {
+                if (stagedImages.length === 0) return;
+                const pdfDoc = await PDFLib.PDFDocument.create();
+
+                for (const file of stagedImages) {
+                    const buf = await file.arrayBuffer();
+                    let img;
+                    if (file.type.includes('png')) img = await pdfDoc.embedPng(buf);
+                    else img = await pdfDoc.embedJpg(buf);
+
+                    const page = pdfDoc.addPage([612, 792]);
+                    const { width, height } = img.scaleToFit(572, 752);
+                    page.drawImage(img, {
+                        x: (612 - width) / 2,
+                        y: (792 - height) / 2,
+                        width: width,
+                        height: height
+                    });
+                }
+
+                const bytes = await pdfDoc.save();
+                const blob = new Blob([bytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                const name = `Merged_Images_${Date.now()}.pdf`;
+                link.download = name;
+                link.click();
+
+                saveDocToDB(name);
+                alert('Images successfully merged into US Letter PDF!');
+            });
+
+            // PDF Editor Hub Logic (Rotate & Edit)
+            const editorPdfInput = document.getElementById('editorPdfInput');
+            const editorWorkspace = document.getElementById('editorWorkspace');
+            const editorRenderCanvas = document.getElementById('editorRenderCanvas');
+            const btnRotatePage = document.getElementById('btnRotatePage');
+            const btnDownloadEdited = document.getElementById('btnDownloadEdited');
+            let editorPdfBytes = null;
+            let editorRotation = 0;
+            let editorFileName = 'Edited.pdf';
+
+            editorPdfInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                editorFileName = file.name;
+                editorPdfBytes = await file.arrayBuffer();
+                editorRotation = 0;
+                renderEditorPreview();
+                editorWorkspace.classList.remove('hidden');
+            });
+
+            async function renderEditorPreview() {
+                const pdf = await pdfjsLib.getDocument({ data: editorPdfBytes }).promise;
+                const page = await pdf.getPage(1);
+                const viewport = page.getViewport({ scale: 1.5, rotation: editorRotation });
+                const ctx = editorRenderCanvas.getContext('2d');
+                editorRenderCanvas.width = viewport.width;
+                editorRenderCanvas.height = viewport.height;
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+            }
+
+            btnRotatePage.addEventListener('click', () => {
+                editorRotation = (editorRotation + 90) % 360;
+                renderEditorPreview();
+            });
+
+            btnDownloadEdited.addEventListener('click', async () => {
+                if (!editorPdfBytes) return;
+                const pdfDoc = await PDFLib.PDFDocument.load(editorPdfBytes);
+                const page = pdfDoc.getPages()[0];
+                page.setRotation(PDFLib.degrees(editorRotation));
+
+                const bytes = await pdfDoc.save();
+                const blob = new Blob([bytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `Rotated_${editorFileName}`;
+                link.click();
+
+                saveDocToDB(`Rotated_${editorFileName}`);
+                alert('Edited PDF successfully saved!');
+            });
+
+            // PDF Converter Logic (PDF to JPG & Word)
+            const convertPdfInput = document.getElementById('convertPdfInput');
+            const converterResultArea = document.getElementById('converterResultArea');
+            const convertStatusText = document.getElementById('convertStatusText');
+            const convertDownloadLinks = document.getElementById('convertDownloadLinks');
+
+            convertPdfInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                converterResultArea.classList.remove('hidden');
+                convertStatusText.innerText = 'Extracting and converting PDF pages...';
+                convertDownloadLinks.innerHTML = '';
+
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+                const page = await pdf.getPage(1);
+                const viewport = page.getViewport({ scale: 2.0 });
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+                const jpgUrl = canvas.toDataURL('image/jpeg', 0.9);
+
+                let fullText = '';
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const p = await pdf.getPage(i);
+                    const txt = await p.getTextContent();
+                    fullText += `--- Page ${i} ---\n` + txt.items.map(item => item.str).join(' ') + '\n\n';
+                }
+                const wordBlob = new Blob([fullText], { type: 'application/msword' });
+                const wordUrl = URL.createObjectURL(wordBlob);
+
+                convertStatusText.innerText = 'Conversion completed successfully!';
+                convertDownloadLinks.innerHTML = `
+                    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+                        <a href="${jpgUrl}" download="${file.name.replace('.pdf', '')}_page1.jpg" class="numarqo-btn btn-blue"><i class="fa-solid fa-download"></i> Download Page as JPG</a>
+                        <a href="${wordUrl}" download="${file.name.replace('.pdf', '')}_converted.doc" class="numarqo-btn btn-green"><i class="fa-solid fa-download"></i> Download as Word (.doc)</a>
+                    </div>
+                `;
+
+                saveDocToDB(`Converted_${file.name}`);
+            });
+        });
+    </script>
+</body>
+</html>
