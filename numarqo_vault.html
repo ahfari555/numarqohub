@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Vault - by NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #E5EAF2; color: #0B1F44; min-height: 100vh; }
+        
+        /* Navbar Numarqo Theme */
+        .numarqo-navbar {
+            background: linear-gradient(135deg, #0B1F44 0%, #2563EB 100%);
+            color: #FFFFFF; padding: 16px 32px;
+            box-shadow: 0 4px 20px -2px rgba(11, 31, 68, 0.25);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem {
+            width: 40px; height: 40px; background: #0B1F44; border-radius: 10px;
+            position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;
+        }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #1e3a8a; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; display: block; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 600; color: #06B6D4; letter-spacing: 0.1em; text-transform: uppercase; }
+        .numarqo-tagline { font-size: 0.85rem; font-style: italic; color: #E5EAF2; opacity: 0.9; }
+
+        /* Layout */
+        .numarqo-layout {
+            max-width: 1000px; margin: 28px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px;
+        }
+        .numarqo-card {
+            background: #FFFFFF; border-radius: 16px; padding: 24px;
+            box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04); border: 1px solid #E5EAF2;
+        }
+        .card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: #0B1F44; font-size: 1.15rem; font-weight: 700; }
+        .numarqo-badge { font-size: 0.75rem; background: #E5EAF2; color: #0B1F44; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+        .card-desc { font-size: 0.88rem; color: #64748b; margin-bottom: 20px; }
+
+        /* Form Controls */
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: #0B1F44; }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; background: #fff; color: #0B1F44; outline: none;
+        }
+        .form-group textarea { height: 80px; resize: vertical; }
+
+        /* Buttons */
+        .numarqo-btn {
+            padding: 10px 20px; border: none; border-radius: 10px; font-weight: 600; font-size: 0.88rem; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-blue { background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
+        .btn-blue:hover { background: #0B1F44; }
+        .btn-gray { background: #E5EAF2; color: #0B1F44; }
+        .btn-gray:hover { background: #cbd5e1; }
+
+        /* Category Tabs */
+        .category-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; border-bottom: 1px solid #E5EAF2; padding-bottom: 12px; }
+        .cat-tab {
+            padding: 8px 16px; border-radius: 8px; background: #F8FAFC; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 600; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 8px;
+        }
+        .cat-tab.active { background: #2563EB; color: #FFFFFF; border-color: #2563EB; }
+
+        /* Vault Item List */
+        .vault-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+        .vault-item { background: #F8FAFC; border: 1px solid #E5EAF2; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+        .vault-item-title { font-weight: 700; color: #0B1F44; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+        .vault-item-content { font-size: 0.85rem; color: #475569; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; word-break: break-all; }
+        .vault-item img, .vault-item video { max-width: 100%; border-radius: 6px; max-height: 150px; object-fit: cover; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem">
+                <div class="n-bar-1"></div>
+                <div class="n-bar-2"></div>
+            </div>
+            <div>
+                <span class="numarqo-title">Secure Vault</span>
+                <span class="numarqo-sub">by NUMARQO</span>
+            </div>
+        </div>
+        <div class="numarqo-profile">
+            <span class="numarqo-tagline">Smart tools. Clear decisions.</span>
+        </div>
+    </header>
+
+    <div class="numarqo-layout">
+        
+        <!-- STEP 1: AUTHENTICATION / CREATE PASSWORD -->
+        <section id="authCard" class="numarqo-card">
+            <div class="card-header-flex">
+                <h3 id="authCardTitle"><i class="fa-solid fa-lock" style="color:#2563EB;"></i> Create Master Password</h3>
+                <span class="numarqo-badge">Client-Side Security</span>
+            </div>
+            <p class="card-desc" id="authCardDesc">Set a new secure master password to encrypt and protect your offline vault data.</p>
+
+            <div class="form-group" style="max-width:400px;">
+                <label id="passLabel">New Master Password</label>
+                <input type="password" id="masterPassInput" placeholder="Enter secure password">
+            </div>
+            <button id="btnAuthAction" class="numarqo-btn btn-blue"><i class="fa-solid fa-shield-keyhole"></i> Set Master Password</button>
+        </section>
+
+        <!-- STEP 2: VAULT CONTENT SECTION (Categorized) -->
+        <div id="vaultContentSection" class="hidden" style="display:flex; flex-direction:column; gap:20px;">
+            
+            <section class="numarqo-card">
+                <div class="card-header-flex">
+                    <h3><i class="fa-solid fa-folder-plus" style="color:#10B981;"></i> Add New Item to Vault</h3>
+                    <button id="btnLockVault" class="numarqo-btn btn-gray" style="padding:6px 12px; font-size:0.8rem;"><i class="fa-solid fa-lock"></i> Lock Vault</button>
+                </div>
+                <p class="card-desc">Simpan data terenkripsi berdasarkan kategori pilihan Anda.</p>
+
+                <form id="vaultForm">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="itemCategory">
+                            <option value="images">Gambar (Images)</option>
+                            <option value="videos">Video</option>
+                            <option value="contacts">Kontak (Contacts)</option>
+                            <option value="apps">Aplikasi &amp; Kunci (Apps)</option>
+                            <option value="notes">Catatan &amp; Passwords (Notes)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Item Title / Label</label>
+                        <input type="text" id="vaultTitle" placeholder="e.g., KTP / AWS Key / My Contact" required>
+                    </div>
+                    <div class="form-group" id="textInputGroup">
+                        <label>Secret Data / Note / Details</label>
+                        <textarea id="vaultSecret" placeholder="Enter secure info..."></textarea>
+                    </div>
+                    <div class="form-group hidden" id="fileInputGroup">
+                        <label>Upload File (Image / Video)</label>
+                        <input type="file" id="vaultFileInput" accept="image/*,video/*">
+                    </div>
+                    <button type="submit" class="numarqo-btn btn-blue"><i class="fa-solid fa-plus"></i> Encrypt &amp; Save</button>
+                </form>
+            </section>
+
+            <section class="numarqo-card">
+                <div class="card-header-flex">
+                    <h3><i class="fa-solid fa-boxes-stacked" style="color:#2563EB;"></i> Categorized Vault Storage</h3>
+                    <span class="numarqo-badge" id="itemCountBadge">0 Items</span>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="category-tabs">
+                    <button class="cat-tab active" data-category="images"><i class="fa-solid fa-image"></i> Gambar</button>
+                    <button class="cat-tab" data-category="videos"><i class="fa-solid fa-video"></i> Video</button>
+                    <button class="cat-tab" data-category="contacts"><i class="fa-solid fa-address-book"></i> Kontak</button>
+                    <button class="cat-tab" data-category="apps"><i class="fa-solid fa-window-maximize"></i> Aplikasi</button>
+                    <button class="cat-tab" data-category="notes"><i class="fa-solid fa-note-sticky"></i> Catatan</button>
+                </div>
+
+                <div id="vaultGrid" class="vault-grid">
+                    <p style="color:#94a3b8; font-size:0.88rem;">No items found in this category.</p>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const authCard = document.getElementById('authCard');
+            const authCardTitle = document.getElementById('authCardTitle');
+            const authCardDesc = document.getElementById('authCardDesc');
+            const passLabel = document.getElementById('passLabel');
+            const masterPassInput = document.getElementById('masterPassInput');
+            const btnAuthAction = document.getElementById('btnAuthAction');
+            
+            const vaultContentSection = document.getElementById('vaultContentSection');
+            const btnLockVault = document.getElementById('btnLockVault');
+            const vaultForm = document.getElementById('vaultForm');
+            const itemCategory = document.getElementById('itemCategory');
+            const textInputGroup = document.getElementById('textInputGroup');
+            const fileInputGroup = document.getElementById('fileInputGroup');
+            const vaultGrid = document.getElementById('vaultGrid');
+            const itemCountBadge = document.getElementById('itemCountBadge');
+            const catTabs = document.querySelectorAll('.cat-tab');
+
+            let vaultItems = JSON.parse(localStorage.getItem('numarqo_vault_categorized') || '[]');
+            let savedMasterHash = localStorage.getItem('numarqo_master_hash');
+            let activeCategory = 'images';
+
+            // Check if master password exists
+            if (!savedMasterHash) {
+                authCardTitle.innerHTML = '<i class="fa-solid fa-lock" style="color:#2563EB;"></i> Create Master Password';
+                authCardDesc.innerText = 'Set a new secure master password to encrypt and protect your offline vault data.';
+                passLabel.innerText = 'New Master Password';
+                btnAuthAction.innerHTML = '<i class="fa-solid fa-shield-keyhole"></i> Set Master Password';
+            } else {
+                authCardTitle.innerHTML = '<i class="fa-solid fa-unlock-keyhole" style="color:#2563EB;"></i> Unlock Vault';
+                authCardDesc.innerText = 'Enter your master password to unlock your secure local document and credential vault.';
+                passLabel.innerText = 'Master Password';
+                btnAuthAction.innerHTML = '<i class="fa-solid fa-key"></i> Unlock Vault';
+            }
+
+            btnAuthAction.addEventListener('click', () => {
+                const pass = masterPassInput.value.trim();
+                if (!pass) {
+                    alert('Please enter a password.');
+                    return;
+                }
+
+                if (!savedMasterHash) {
+                    // Save new hash (simple simulation)
+                    localStorage.setItem('numarqo_master_hash', btoa(pass));
+                    savedMasterHash = btoa(pass);
+                    alert('Master password successfully created!');
+                    openVault();
+                } else {
+                    if (btoa(pass) === savedMasterHash) {
+                        openVault();
+                    } else {
+                        alert('Incorrect master password!');
+                    }
+                }
+            });
+
+            function openVault() {
+                authCard.classList.add('hidden');
+                vaultContentSection.classList.remove('hidden');
+                renderVault();
+            }
+
+            btnLockVault.addEventListener('click', () => {
+                masterPassInput.value = '';
+                vaultContentSection.classList.add('hidden');
+                authCard.classList.remove('hidden');
+            });
+
+            // Toggle input based on category selection
+            itemCategory.addEventListener('change', (e) => {
+                const cat = e.target.value;
+                if (cat === 'images' || cat === 'videos') {
+                    textInputGroup.classList.add('hidden');
+                    fileInputGroup.classList.remove('hidden');
+                } else {
+                    textInputGroup.classList.remove('hidden');
+                    fileInputGroup.classList.add('hidden');
+                }
+            });
+
+            // Category Tab switching
+            catTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    catTabs.forEach(t => t.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    activeCategory = e.currentTarget.getAttribute('data-category');
+                    renderVault();
+                });
+            });
+
+            vaultForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const category = itemCategory.value;
+                const title = document.getElementById('vaultTitle').value;
+
+                if (category === 'images' || category === 'videos') {
+                    const fileInput = document.getElementById('vaultFileInput');
+                    if (fileInput.files.length === 0) {
+                        alert('Please select a file.');
+                        return;
+                    }
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const fileDataUrl = event.target.result;
+                        vaultItems.push({ category, title, secret: fileDataUrl, isFile: true });
+                        localStorage.setItem('numarqo_vault_categorized', JSON.stringify(vaultItems));
+                        vaultForm.reset();
+                        fileInputGroup.classList.add('hidden');
+                        textInputGroup.classList.remove('hidden');
+                        renderVault();
+                        alert('File successfully encrypted and stored!');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    const secret = document.getElementById('vaultSecret').value;
+                    const encryptedSecret = btoa(encodeURIComponent(secret));
+                    vaultItems.push({ category, title, secret: encryptedSecret, isFile: false });
+                    localStorage.setItem('numarqo_vault_categorized', JSON.stringify(vaultItems));
+                    vaultForm.reset();
+                    renderVault();
+                    alert('Secret successfully stored!');
+                }
+            });
+
+            function renderVault() {
+                vaultGrid.innerHTML = '';
+                const filtered = vaultItems.filter(item => item.category === activeCategory);
+                itemCountBadge.innerText = `${filtered.length} Items`;
+
+                if (filtered.length === 0) {
+                    vaultGrid.innerHTML = '<p style="color:#94a3b8; font-size:0.88rem;">No items found in this category.</p>';
+                    return;
+                }
+
+                filtered.forEach((item, index) => {
+                    const globalIndex = vaultItems.indexOf(item);
+                    const div = document.createElement('div');
+                    div.className = 'vault-item';
+
+                    let contentHtml = '';
+                    if (item.isFile) {
+                        if (item.category === 'images') {
+                            contentHtml = `<img src="${item.secret}">`;
+                        } else if (item.category === 'videos') {
+                            contentHtml = `<video controls src="${item.secret}"></video>`;
+                        }
+                    } else {
+                        let decrypted = '';
+                        try {
+                            decrypted = decodeURIComponent(atob(item.secret));
+                        } catch (err) {
+                            decrypted = '[Decryption Error]';
+                        }
+                        contentHtml = `<div class="vault-item-content">${decrypted}</div>`;
+                    }
+
+                    div.innerHTML = `
+                        <div class="vault-item-title"><i class="fa-solid fa-shield" style="color:#2563EB;"></i> ${item.title}</div>
+                        ${contentHtml}
+                        <button class="numarqo-btn btn-gray" style="padding:4px 8px; font-size:0.75rem; width:fit-content; margin-top:4px;" onclick="deleteVaultItem(${globalIndex})"><i class="fa-solid fa-trash"></i> Delete</button>
+                    `;
+                    vaultGrid.appendChild(div);
+                });
+            }
+
+            window.deleteVaultItem = function(index) {
+                if (confirm('Delete this secure item?')) {
+                    vaultItems.splice(index, 1);
+                    localStorage.setItem('numarqo_vault_categorized', JSON.stringify(vaultItems));
+                    renderVault();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

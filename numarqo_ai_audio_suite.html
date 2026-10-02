@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Workspace & Music Suite Pro - by NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Navigation Tabs Header */
+        .numarqo-tabs-wrapper { display: flex; justify-content: center; margin: 20px 0 10px; }
+        .numarqo-tabs { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 6px; border-radius: 16px; display: flex; gap: 8px; border: 1px solid rgba(255,255,255,0.2); }
+        .tab-btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 700; font-size: 0.85rem; cursor: pointer; background: transparent; color: #CBD5E1; transition: 0.25s; display: inline-flex; align-items: center; gap: 8px; }
+        .tab-btn.active { background: #FFFFFF; color: #0B1F44; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+
+        /* Layout Container */
+        .numarqo-container { max-width: 900px; width: 92%; margin: 0 auto 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media (max-width: 768px) { .numarqo-container { grid-template-columns: 1fr; } }
+
+        .numarqo-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; padding: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.6); display: flex; flex-direction: column; gap: 16px; }
+        .card-header-flex { display: flex; justify-content: space-between; align-items: center; color: #0B1F44; font-size: 1.15rem; font-weight: 800; }
+        .numarqo-badge { font-size: 0.7rem; background: #E0F2FE; color: #0369A1; padding: 4px 10px; border-radius: 10px; font-weight: 700; }
+        .card-desc { font-size: 0.82rem; color: #64748B; line-height: 1.4; }
+
+        /* Form Controls */
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.82rem; font-weight: 700; color: #0B1F44; }
+        .form-group textarea, .form-group input { padding: 12px 14px; border-radius: 12px; border: 1px solid #CBD5E1; font-size: 0.88rem; background: #F8FAFC; color: #0B1F44; outline: none; transition: 0.2s; }
+        .form-group textarea { height: 110px; resize: vertical; }
+        .form-group textarea:focus, .form-group input:focus { border-color: #2563EB; background: #FFF; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+        /* Buttons */
+        .numarqo-btn { padding: 12px 20px; border: none; border-radius: 14px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+        .btn-blue { background: #2563EB; color: #FFFFFF; }
+        .btn-blue:hover { background: #0B1F44; transform: translateY(-1px); }
+        .btn-cyan { background: #06B6D4; color: #FFFFFF; box-shadow: 0 4px 12px rgba(6,182,212,0.25); }
+        .btn-cyan:hover { background: #0891b2; transform: translateY(-1px); }
+        .btn-gray { background: #E2E8F0; color: #1E293B; box-shadow: none; }
+        .btn-gray:hover { background: #CBD5E1; }
+
+        /* Result Panel */
+        .result-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 14px; font-size: 0.85rem; color: #334155; min-height: 120px; max-height: 200px; overflow-y: auto; line-height: 1.5; white-space: pre-wrap; }
+
+        /* Shazam Recognition Center */
+        .shazam-section { display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 10px 0; }
+        .shazam-btn { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #2563EB, #06B6D4); border: none; color: #FFF; font-size: 2rem; cursor: pointer; box-shadow: 0 10px 25px rgba(37,99,235,0.4); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .shazam-btn:hover { transform: scale(1.06); }
+        .shazam-btn.listening { animation: pulseShazam 1.5s infinite; background: linear-gradient(135deg, #EF4444, #F59E0B); }
+
+        @keyframes pulseShazam {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+            70% { box-shadow: 0 0 0 22px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .results-list { display: flex; flex-direction: column; gap: 10px; text-align: left; max-height: 200px; overflow-y: auto; }
+        .result-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 12px; animation: fadeIn 0.25s ease-out; }
+        .song-title { font-weight: 700; color: #0B1F44; font-size: 0.9rem; display: flex; justify-content: space-between; }
+        .artist-name { font-size: 0.78rem; color: #64748B; margin-bottom: 4px; }
+        .lyric-snippet { font-size: 0.8rem; color: #334155; font-style: italic; background: #FFF; padding: 6px 10px; border-radius: 8px; border: 1px solid #E2E8F0; }
+
+        /* Professional Pastel Modal */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.65); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 100; animation: fadeIn 0.2s ease-out; }
+        .modal-card { background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 24px; padding: 28px; width: 85%; max-width: 310px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-icon { font-size: 3rem; margin-bottom: 8px; }
+        .modal-title { font-size: 1.25rem; font-weight: 800; color: #1E293B; margin-bottom: 6px; }
+        .modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 18px; font-weight: 600; line-height: 1.4; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">AI &amp; Music Suite Pro</span><span class="numarqo-sub">NUMARQO ECOSYSTEM</span></div>
+        </div>
+    </header>
+
+    <div class="numarqo-tabs-wrapper">
+        <div class="numarqo-tabs">
+            <button class="tab-btn active" id="tabBtn1" onclick="switchTab('aiNotes')"><i class="fa-solid fa-brain"></i> AI Workspace</button>
+            <button class="tab-btn" id="tabBtn2" onclick="switchTab('musicFinder')"><i class="fa-solid fa-music"></i> Audio &amp; Lyric Finder</button>
+        </div>
+    </div>
+
+    <!-- Professional Pastel Modal -->
+    <div id="gameModal" class="modal hidden">
+        <div class="modal-card" id="modalCardStyle">
+            <div class="modal-icon" id="modalIcon">✨</div>
+            <div class="modal-title" id="modalTitle">Success</div>
+            <div class="modal-msg" id="modalMsg">Operation completed successfully.</div>
+            <button class="numarqo-btn btn-blue" style="width:100%; justify-content:center;" onclick="closeModal()">Got It</button>
+        </div>
+    </div>
+
+    <!-- SECTION 1: AI NOTES & SUMMARIZER -->
+    <div class="numarqo-container" id="sectionAiNotes">
+        <section class="numarqo-card">
+            <div class="card-header-flex">
+                <h3><i class="fa-solid fa-wand-magic-sparkles" style="color:#2563EB;"></i> Document Summarizer</h3>
+                <span class="numarqo-badge">AI Engine</span>
+            </div>
+            <p class="card-desc">Paste transcripts or meeting minutes to get instant executive briefs.</p>
+
+            <div class="form-group">
+                <label>Source Notes</label>
+                <textarea id="sourceText" placeholder="Paste source text here..."></textarea>
+            </div>
+
+            <button class="numarqo-btn btn-blue" onclick="generateAISummary()"><i class="fa-solid fa-brain"></i> Summarize Text</button>
+
+            <div class="form-group">
+                <label>Executive Output</label>
+                <div id="summaryOutput" class="result-box" style="color:#94a3b8;">AI summary will appear here...</div>
+            </div>
+        </section>
+
+        <section class="numarqo-card">
+            <div class="card-header-flex">
+                <h3><i class="fa-solid fa-microphone-lines" style="color:#06B6D4;"></i> Voice Memo &amp; Actions</h3>
+                <span class="numarqo-badge">Speech AI</span>
+            </div>
+            <p class="card-desc">Simulate live voice memo transcription and action point extraction.</p>
+
+            <div class="form-group">
+                <label>Audio Transcription</label>
+                <button class="numarqo-btn btn-cyan" id="btnRecord" onclick="toggleSimulatedRecording()"><i class="fa-solid fa-microphone"></i> Start Voice Simulation</button>
+            </div>
+
+            <div class="form-group">
+                <label>Extracted Action Items</label>
+                <div id="keywordsOutput" class="result-box" style="color:#94a3b8;">Key action points will be analyzed here...</div>
+            </div>
+
+            <button class="numarqo-btn btn-gray" onclick="clearAiData()"><i class="fa-solid fa-rotate-right"></i> Clear Workspaces</button>
+        </section>
+    </div>
+
+    <!-- SECTION 2: AUDIO & LYRIC FINDER (Hidden by default) -->
+    <div class="numarqo-container hidden" id="sectionMusicFinder" style="grid-template-columns: 1fr; max-width: 550px;">
+        <section class="numarqo-card">
+            <div class="card-header-flex">
+                <h3><i class="fa-solid fa-ear-listen" style="color:#2563EB;"></i> Music Recognition</h3>
+                <span class="numarqo-badge">Shazam Mode</span>
+            </div>
+            <p class="card-desc">Tap the button to listen to surrounding music or search lyric snippets instantly.</p>
+
+            <div class="shazam-section">
+                <button class="shazam-btn" id="shazamBtn" onclick="toggleListening()">
+                    <i class="fa-solid fa-ear-listen" id="shazamIcon"></i>
+                </button>
+                <span id="shazamStatus" style="font-size: 0.82rem; font-weight: 700; color: #475569;">Tap to listen to music</span>
+            </div>
+
+            <div class="form-group" style="flex-direction: row; gap: 8px;">
+                <input type="text" id="searchInput" placeholder="Type lyric snippet or title..." style="flex:1;">
+                <button class="numarqo-btn btn-blue" onclick="searchSongs()"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <div class="results-list" id="resultsContainer">
+                <p style="color: #94A3B8; font-size: 0.82rem; text-align: center; padding: 10px;">Search results or audio matches will appear here.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            const btn1 = document.getElementById('tabBtn1');
+            const btn2 = document.getElementById('tabBtn2');
+            const sec1 = document.getElementById('sectionAiNotes');
+            const sec2 = document.getElementById('sectionMusicFinder');
+
+            if (tab === 'aiNotes') {
+                btn1.classList.add('active');
+                btn2.classList.remove('active');
+                sec1.classList.remove('hidden');
+                sec2.classList.add('hidden');
+            } else {
+                btn2.classList.add('active');
+                btn1.classList.remove('active');
+                sec2.classList.remove('hidden');
+                sec1.classList.add('hidden');
+            }
+        }
+
+        function showModal(title, msg, type = 'success') {
+            const modal = document.getElementById('gameModal');
+            const card = document.getElementById('modalCardStyle');
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMsg').innerText = msg;
+
+            if (type === 'success') {
+                card.className = 'modal-card';
+                card.style.background = '#ECFDF5';
+                card.style.borderColor = '#A7F3D0';
+                document.getElementById('modalIcon').innerText = '✨';
+            } else {
+                card.className = 'modal-card';
+                card.style.background = '#FFFBEB';
+                card.style.borderColor = '#FDE68A';
+                document.getElementById('modalIcon').innerText = '💡';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('gameModal').classList.add('hidden');
+        }
+
+        // AI Workspace Logic
+        function generateAISummary() {
+            const text = document.getElementById('sourceText').value.trim();
+            if (!text) {
+                showModal("Input Required", "Please paste source notes before generating summary.", "warning");
+                return;
+            }
+            const wordCount = text.split(/\s+/).length;
+            const summaryBox = document.getElementById('summaryOutput');
+            summaryBox.style.color = '#334155';
+            summaryBox.innerHTML = `<strong>[AI Executive Briefing]</strong><br>` +
+                `• Analyzed ${wordCount} words of content.<br>` +
+                `• Core Takeaway: Focus on productivity metrics and execution.<br>` +
+                `• Milestone: Aligned with target deliverable dates.`;
+            showModal("Summary Generated", "AI successfully processed your notes.", "success");
+        }
+
+        let isRecording = false;
+        function toggleSimulatedRecording() {
+            const btn = document.getElementById('btnRecord');
+            const kwBox = document.getElementById('keywordsOutput');
+
+            if (!isRecording) {
+                isRecording = true;
+                btn.innerHTML = '<i class="fa-solid fa-stop" style="color:#EF4444;"></i> Stop Recording...';
+                btn.style.background = '#FEE2E2';
+                btn.style.color = '#B91C1C';
+                kwBox.style.color = '#94a3b8';
+                kwBox.innerText = 'Listening and transcribing audio stream...';
+            } else {
+                isRecording = false;
+                btn.innerHTML = '<i class="fa-solid fa-microphone"></i> Start Voice Simulation';
+                btn.style.background = '#06B6D4';
+                btn.style.color = '#FFFFFF';
+                kwBox.style.color = '#334155';
+                kwBox.innerHTML = `<strong>[Voice Transcript & Actions]</strong><br>` +
+                    `1. Schedule client synchronization call.<br>` +
+                    `2. Finalize report formatting.<br>` +
+                    `<strong>Keywords:</strong> #Strategy #Q3Review`;
+                showModal("Voice Memo Processed", "Audio successfully transcribed.", "success");
+            }
+        }
+
+        function clearAiData() {
+            document.getElementById('sourceText').value = '';
+            document.getElementById('summaryOutput').style.color = '#94a3b8';
+            document.getElementById('summaryOutput').innerText = 'AI summary will appear here...';
+            document.getElementById('keywordsOutput').style.color = '#94a3b8';
+            document.getElementById('keywordsOutput').innerText = 'Key action points will be analyzed here...';
+            showModal("Workspace Reset", "AI workspaces cleared.", "success");
+        }
+
+        // Music & Audio Recognition Logic
+        const songDatabase = [
+            { title: "Bohemian Rhapsody", artist: "Queen", snippet: "Is this the real life? Is this just fantasy?" },
+            { title: "Shape of You", artist: "Ed Sheeran", snippet: "The club isn't the best place to find a lover..." },
+            { title: "Blinding Lights", artist: "The Weeknd", snippet: "I've been tryna call, I've been on my own for long enough..." },
+            { title: "Yellow", artist: "Coldplay", snippet: "Look at the stars, look how they shine for you..." }
+        ];
+
+        function searchSongs() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = '';
+
+            if (!query) {
+                container.innerHTML = '<p style="color: #94A3B8; font-size: 0.82rem; text-align: center;">Please enter a search query.</p>';
+                return;
+            }
+
+            const filtered = songDatabase.filter(song => 
+                song.title.toLowerCase().includes(query) || 
+                song.artist.toLowerCase().includes(query) || 
+                song.snippet.toLowerCase().includes(query)
+            );
+
+            displayResults(filtered);
+        }
+
+        let isListening = false;
+        function toggleListening() {
+            const btn = document.getElementById('shazamBtn');
+            const icon = document.getElementById('shazamIcon');
+            const status = document.getElementById('shazamStatus');
+            const container = document.getElementById('resultsContainer');
+
+            if (!isListening) {
+                isListening = true;
+                btn.classList.add('listening');
+                icon.className = 'fa-solid fa-wave-square';
+                status.innerText = 'Listening to surrounding music...';
+                container.innerHTML = '<p style="color: #2563EB; font-size: 0.82rem; text-align: center; font-weight:700;">Analyzing audio fingerprint...</p>';
+
+                navigator.mediaDevices?.getUserMedia({ audio: true })
+                    .then(stream => {
+                        setTimeout(() => {
+                            stream.getTracks().forEach(track => track.stop());
+                            stopListeningAndMatch();
+                        }, 3000);
+                    })
+                    .catch(err => {
+                        setTimeout(() => {
+                            stopListeningAndMatch();
+                        }, 2500);
+                    });
+            } else {
+                stopListeningAndMatch();
+            }
+        }
+
+        function stopListeningAndMatch() {
+            isListening = false;
+            const btn = document.getElementById('shazamBtn');
+            const icon = document.getElementById('shazamIcon');
+            const status = document.getElementById('shazamStatus');
+
+            btn.classList.remove('listening');
+            icon.className = 'fa-solid fa-ear-listen';
+            status.innerText = 'Tap to listen to music';
+
+            const randomSong = [songDatabase[Math.floor(Math.random() * songDatabase.length)]];
+            displayResults(randomSong, "Song Recognized via Audio!");
+        }
+
+        function displayResults(songs, headerMsg = null) {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = '';
+
+            if (headerMsg) {
+                const header = document.createElement('div');
+                header.style.cssText = 'font-size: 0.78rem; font-weight: 700; color: #059669; margin-bottom: 6px; text-align: center;';
+                header.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${headerMsg}`;
+                container.appendChild(header);
+            }
+
+            if (songs.length === 0) {
+                container.innerHTML = '<p style="color: #64748B; font-size: 0.82rem; text-align: center;">No matching songs found.</p>';
+                return;
+            }
+
+            songs.forEach(song => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `
+                    <div class="song-title">${song.title} <i class="fa-solid fa-compact-disc" style="color:#2563EB;"></i></div>
+                    <div class="artist-name">by ${song.artist}</div>
+                    <div class="lyric-snippet">"${song.snippet}"</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Calculator Vault Pro - NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Container Pro */
+        .calc-container { max-width: 440px; width: 92%; margin: 24px auto; padding: 24px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); position: relative; border: 1px solid rgba(255,255,255,0.6); }
+        .calc-header { font-size: 1.3rem; font-weight: 800; color: #0B1F44; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .calc-desc { font-size: 0.82rem; color: #64748B; margin-bottom: 16px; line-height: 1.4; }
+
+        .display-screen { background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 16px; padding: 16px; text-align: right; margin-bottom: 16px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
+        #vaultInput { width: 100%; border: none; background: transparent; font-size: 1.5rem; font-weight: 800; color: #0B1F44; text-align: right; outline: none; }
+
+        .keypad-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+        .calc-btn { padding: 16px; border-radius: 14px; border: 1px solid #E2E8F0; background: #FFFFFF; font-weight: 700; font-size: 1rem; color: #1E293B; cursor: pointer; transition: 0.15s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .calc-btn:hover { background: #F1F5F9; border-color: #CBD5E1; }
+        .calc-btn.operator { background: #EFF6FF; color: #2563EB; border-color: #BFDBFE; }
+        .calc-btn.action { background: #FEF2F2; color: #DC2626; border-color: #FECACA; }
+        .calc-btn.equals { background: #059669; color: #FFFFFF; border-color: #047857; grid-column: span 2; }
+
+        /* Vault Secret Panel */
+        .vault-panel { display: none; text-align: left; }
+        .vault-title { font-size: 1.1rem; font-weight: 800; color: #059669; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+        .vault-desc { font-size: 0.8rem; color: #475569; margin-bottom: 16px; }
+        
+        .vault-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .vault-stat-card { background: #ECFDF5; border: 1px solid #A7F3D0; border-radius: 14px; padding: 12px; }
+        .stat-label { font-size: 0.72rem; font-weight: 700; color: #065F46; text-transform: uppercase; margin-bottom: 2px; }
+        .stat-val { font-size: 1.1rem; font-weight: 800; color: #047857; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-group label { font-size: 0.78rem; font-weight: 700; color: #1E293B; }
+        .form-input { padding: 10px 12px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.85rem; background: #F8FAFC; outline: none; }
+        .form-input:focus { border-color: #059669; background: #FFF; box-shadow: 0 0 0 3px rgba(5,150,105,0.15); }
+
+        .numarqo-btn { padding: 12px 18px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(37,99,235,0.25); transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
+        .numarqo-btn:hover { background: #0B1F44; transform: translateY(-1px); }
+
+        /* Professional Pastel Modal */
+        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.65); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; border-radius: 28px; z-index: 20; animation: fadeIn 0.2s ease-out; }
+        .modal-card { background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 24px; padding: 28px; width: 85%; max-width: 310px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-icon { font-size: 3rem; margin-bottom: 8px; }
+        .modal-title { font-size: 1.25rem; font-weight: 800; color: #1E293B; margin-bottom: 6px; }
+        .modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 18px; font-weight: 600; line-height: 1.4; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Secure Vault Pro</span><span class="numarqo-sub">NUMARQO PRIVACY</span></div>
+        </div>
+    </header>
+
+    <div class="calc-container">
+        <!-- Professional Modal Popup -->
+        <div id="gameModal" class="modal hidden">
+            <div class="modal-card" id="modalCardStyle">
+                <div class="modal-icon" id="modalIcon">✨</div>
+                <div class="modal-title" id="modalTitle">Success</div>
+                <div class="modal-msg" id="modalMsg">Operation completed successfully.</div>
+                <button class="numarqo-btn" style="width:100%; justify-content:center;" onclick="closeModal()">Got It</button>
+            </div>
+        </div>
+
+        <!-- Kalkulator Mode -->
+        <div id="calculatorView">
+            <div class="calc-header"><i class="fa-solid fa-lock" style="color:#2563EB;"></i> Secure Vault Calculator</div>
+            <p class="calc-desc">Enter PIN (default: <strong>1234</strong>) then press '=' to access encrypted vault.</p>
+
+            <div class="display-screen">
+                <input type="text" id="vaultInput" placeholder="0" readonly>
+            </div>
+
+            <div class="keypad-grid">
+                <button class="calc-btn action" onclick="clearVaultInput()">C</button>
+                <button class="calc-btn operator" onclick="appendVaultNum('(')">(</button>
+                <button class="calc-btn operator" onclick="appendVaultNum(')')">)</button>
+                <button class="calc-btn operator" onclick="appendVaultNum('/')">÷</button>
+
+                <button class="calc-btn" onclick="appendVaultNum('7')">7</button>
+                <button class="calc-btn" onclick="appendVaultNum('8')">8</button>
+                <button class="calc-btn" onclick="appendVaultNum('9')">9</button>
+                <button class="calc-btn operator" onclick="appendVaultNum('*')">×</button>
+
+                <button class="calc-btn" onclick="appendVaultNum('4')">4</button>
+                <button class="calc-btn" onclick="appendVaultNum('5')">5</button>
+                <button class="calc-btn" onclick="appendVaultNum('6')">6</button>
+                <button class="calc-btn operator" onclick="appendVaultNum('-')">-</button>
+
+                <button class="calc-btn" onclick="appendVaultNum('1')">1</button>
+                <button class="calc-btn" onclick="appendVaultNum('2')">2</button>
+                <button class="calc-btn" onclick="appendVaultNum('3')">3</button>
+                <button class="calc-btn operator" onclick="appendVaultNum('+')">+</button>
+
+                <button class="calc-btn" onclick="appendVaultNum('0')" style="grid-column: span 2;">0</button>
+                <button class="calc-btn" onclick="appendVaultNum('.')">.</button>
+                <button class="calc-btn equals" onclick="checkVaultAccess()">=</button>
+            </div>
+        </div>
+
+        <!-- Brankas Rahasia (Vault Mode dengan Change Password) -->
+        <div id="vaultView" class="vault-panel">
+            <div class="vault-title">
+                <span><i class="fa-solid fa-shield-cat"></i> Encrypted Vault</span>
+                <button style="background:none; border:none; color:#DC2626; font-size:0.8rem; font-weight:700; cursor:pointer;" onclick="lockVault()"><i class="fa-solid fa-right-from-bracket"></i> Lock</button>
+            </div>
+            <div class="vault-desc">Welcome to your private local storage. Secured with AES-256 simulation.</div>
+            
+            <div class="vault-stats-grid">
+                <div class="vault-stat-card">
+                    <div class="stat-label">Encrypted Files</div>
+                    <div class="stat-val">12 Files</div>
+                </div>
+                <div class="vault-stat-card">
+                    <div class="stat-label">Security Level</div>
+                    <div class="stat-val">Maximum</div>
+                </div>
+            </div>
+
+            <!-- Form Ubah Password PIN -->
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:14px; margin-bottom:14px;">
+                <div style="font-size:0.85rem; font-weight:800; color:#0B1F44; margin-bottom:10px;"><i class="fa-solid fa-key" style="color:#2563EB;"></i> Change Vault PIN</div>
+                
+                <div class="form-group" style="margin-bottom:8px;">
+                    <label>Current PIN</label>
+                    <input type="password" id="oldPin" class="form-input" placeholder="Enter current PIN" maxlength="6">
+                </div>
+                <div class="form-group" style="margin-bottom:12px;">
+                    <label>New Secret PIN</label>
+                    <input type="password" id="newPin" class="form-input" placeholder="Enter new PIN" maxlength="6">
+                </div>
+                <button class="numarqo-btn" style="margin-bottom:0;" onclick="changeVaultPin()"><i class="fa-solid fa-shield-halved"></i> Update PIN</button>
+            </div>
+
+            <button class="numarqo-btn" style="background:#059669;" onclick="lockVault()"><i class="fa-solid fa-lock"></i> Return to Calculator</button>
+        </div>
+    </div>
+
+    <script>
+        let pinInput = '';
+        let currentVaultPin = localStorage.getItem('numarqo_vault_pin') || '1234';
+
+        function appendVaultNum(val) {
+            pinInput += val;
+            document.getElementById('vaultInput').value = pinInput;
+        }
+
+        function clearVaultInput() {
+            pinInput = '';
+            document.getElementById('vaultInput').value = '';
+        }
+
+        function checkVaultAccess() {
+            if (pinInput === currentVaultPin) {
+                document.getElementById('calculatorView').style.display = 'none';
+                document.getElementById('vaultView').style.display = 'block';
+                pinInput = '';
+                document.getElementById('vaultInput').value = '';
+            } else {
+                try {
+                    let res = eval(pinInput.replace('×', '*').replace('÷', '/'));
+                    document.getElementById('vaultInput').value = res;
+                    pinInput = res.toString();
+                } catch (e) {
+                    document.getElementById('vaultInput').value = 'Error';
+                    pinInput = '';
+                }
+            }
+        }
+
+        function changeVaultPin() {
+            const oldP = document.getElementById('oldPin').value.trim();
+            const newP = document.getElementById('newPin').value.trim();
+
+            if (oldP !== currentVaultPin) {
+                showModal("Incorrect PIN", "The current PIN you entered is incorrect.", "warning");
+                return;
+            }
+            if (!newP || newP.length < 3) {
+                showModal("Invalid PIN", "New PIN must be at least 3 characters long.", "warning");
+                return;
+            }
+
+            currentVaultPin = newP;
+            localStorage.setItem('numarqo_vault_pin', currentVaultPin);
+            document.getElementById('oldPin').value = '';
+            document.getElementById('newPin').value = '';
+            showModal("PIN Updated", "Your secret vault PIN has been successfully changed.", "success");
+        }
+
+        function lockVault() {
+            document.getElementById('vaultView').style.display = 'none';
+            document.getElementById('calculatorView').style.display = 'block';
+        }
+
+        function showModal(title, msg, type) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMsg').innerText = msg;
+            const modal = document.getElementById('gameModal');
+            const card = modal.querySelector('.modal-card');
+            
+            if (type === 'success') {
+                card.style.background = '#ECFDF5';
+                card.style.borderColor = '#A7F3D0';
+                document.getElementById('modalIcon').innerText = '✨';
+            } else {
+                card.style.background = '#FFFBEB';
+                card.style.borderColor = '#FDE68A';
+                document.getElementById('modalIcon').innerText = '💡';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('gameModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

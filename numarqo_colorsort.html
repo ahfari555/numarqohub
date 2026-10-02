@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Sort - Liquid Puzzle | NUMARQO GAMES</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #0B1F44 0%, #1e3a8a 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Navbar Numarqo Theme */
+        .numarqo-navbar {
+            background: rgba(11, 31, 68, 0.9); backdrop-filter: blur(10px);
+            color: #FFFFFF; padding: 16px 32px;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem {
+            width: 40px; height: 40px; background: #0B1F44; border-radius: 10px;
+            position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;
+        }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; display: block; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 600; color: #06B6D4; letter-spacing: 0.1em; text-transform: uppercase; }
+        .numarqo-tagline { font-size: 0.85rem; font-style: italic; color: #E5EAF2; opacity: 0.9; }
+
+        /* Game Layout */
+        .game-container {
+            max-width: 500px; margin: 24px auto; padding: 24px; background: #FFFFFF; border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); text-align: center;
+            display: flex; flex-direction: column; align-items: center; width: 92%; position: relative;
+        }
+        .game-header { font-size: 1.4rem; font-weight: 700; color: #0B1F44; margin-bottom: 4px; display: flex; align-items: center; gap: 10px; justify-content: center; }
+        
+        /* Stats Bar */
+        .stats-bar { display: flex; justify-content: space-between; width: 100%; background: #F8FAFC; border: 1px solid #E5EAF2; padding: 10px 16px; border-radius: 12px; margin-bottom: 16px; font-size: 0.85rem; font-weight: 600; color: #475569; }
+
+        /* Tubes Grid */
+        .tubes-grid {
+            display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; margin: 25px 0; min-height: 220px; align-items: flex-end;
+        }
+        .tube {
+            width: 52px; height: 185px; border: 4px solid #0B1F44; border-top: none; border-radius: 0 0 16px 16px;
+            background: rgba(241, 245, 249, 0.7); display: flex; flex-direction: column-reverse; padding: 4px; gap: 4px;
+            cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s, box-shadow 0.2s; position: relative;
+            transform-origin: bottom center;
+        }
+        .tube.selected {
+            border-color: #2563EB;
+            box-shadow: 0 0 16px rgba(37,99,235,0.45);
+            transform: translateY(-16px) scale(1.05);
+        }
+        .tube.tilting-right {
+            transform: translateY(-12px) rotate(28deg);
+            transform-origin: bottom right;
+        }
+        .tube.tilting-left {
+            transform: translateY(-12px) rotate(-28deg);
+            transform-origin: bottom left;
+        }
+
+        .tube-segment { width: 100%; height: 38px; border-radius: 6px; transition: background-color 0.2s; }
+
+        /* Colors (Numarqo Palette) */
+        .color-1 { background-color: #2563EB; } /* Blue */
+        .color-2 { background-color: #06B6D4; } /* Cyan */
+        .color-3 { background-color: #10B981; } /* Emerald */
+        .color-4 { background-color: #F59E0B; } /* Amber */
+
+        /* Liquid Stream Animation Effect */
+        .stream-effect {
+            position: absolute; width: 6px; background: rgba(37, 99, 235, 0.85); border-radius: 3px;
+            pointer-events: none; z-index: 50; opacity: 0; transition: opacity 0.2s;
+        }
+        .stream-effect.active { opacity: 1; animation: pourStream 0.4s ease-in-out; }
+
+        @keyframes pourStream {
+            0% { height: 0px; opacity: 0; }
+            50% { opacity: 1; }
+            100% { height: 90px; opacity: 0; }
+        }
+
+        /* Controls */
+        .action-group { display: flex; gap: 10px; width: 100%; justify-content: center; margin-top: 10px; }
+        .numarqo-btn {
+            padding: 10px 18px; border: none; border-radius: 12px; font-weight: 600; font-size: 0.88rem; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-blue { background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
+        .btn-blue:hover { background: #0B1F44; }
+        .btn-gray { background: #E5EAF2; color: #0B1F44; }
+        .btn-gray:hover { background: #cbd5e1; }
+
+        .rules-box { text-align: left; background: #F8FAFC; border: 1px solid #E5EAF2; padding: 10px 14px; border-radius: 12px; font-size: 0.76rem; color: #475569; margin-bottom: 14px; width: 100%; }
+        .rules-box ul { padding-left: 14px; margin-top: 2px; }
+
+        /* Pastel Modal Panel */
+        .pastel-modal-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 31, 68, 0.45); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center; z-index: 100;
+            border-radius: 24px; animation: fadeIn 0.2s ease-in-out;
+        }
+        .pastel-modal-card {
+            background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 20px;
+            padding: 24px; width: 85%; max-width: 320px; text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .pastel-modal-icon { font-size: 2.4rem; margin-bottom: 8px; }
+        .pastel-modal-title { font-size: 1.1rem; font-weight: 700; color: #1E293B; margin-bottom: 6px; }
+        .pastel-modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 16px; line-height: 1.4; }
+        .pastel-modal-btn {
+            background: #10B981; color: #FFFFFF; border: none; padding: 8px 20px;
+            border-radius: 10px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(16,185,129,0.2); transition: 0.2s;
+        }
+        .pastel-modal-btn:hover { background: #059669; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem">
+                <div class="n-bar-1"></div>
+                <div class="n-bar-2"></div>
+            </div>
+            <div>
+                <span class="numarqo-title">Color Sort</span>
+                <span class="numarqo-sub">by NUMARQO GAMES</span>
+            </div>
+        </div>
+        <div class="numarqo-profile">
+            <span class="numarqo-tagline">Smart tools. Clear decisions.</span>
+        </div>
+    </header>
+
+    <div class="game-container">
+        
+        <!-- PASTEL MODAL POPUP -->
+        <div id="pastelModal" class="pastel-modal-overlay hidden">
+            <div class="pastel-modal-card">
+                <div class="pastel-modal-icon" id="modalIcon">🎉</div>
+                <div class="pastel-modal-title" id="modalTitle">Level Cleared!</div>
+                <div class="pastel-modal-msg" id="modalMessage">Fantastic sorting! Advancing to the next level...</div>
+                <button class="pastel-modal-btn" id="modalActionBtn">Next Level</button>
+            </div>
+        </div>
+
+        <div class="game-header">
+            <i class="fa-solid fa-flask" style="color:#2563EB;"></i> Color Sort Puzzle
+        </div>
+        
+        <div class="stats-bar">
+            <span id="levelLabel">Level: 1</span>
+            <span id="movesLabel">Moves: 0</span>
+        </div>
+
+        <div class="rules-box">
+            <b>How to Play:</b>
+            <ul>
+                <li>Tap a tube to lift it, tap another tube to pour smoothly.</li>
+                <li>Match liquids of the same color or pour into an empty tube.</li>
+                <li>Sort all matching colors to clear the level!</li>
+            </ul>
+        </div>
+
+        <!-- Tubes Container -->
+        <div class="tubes-grid" id="tubesGrid"></div>
+
+        <div class="action-group">
+            <button id="btnReset" class="numarqo-btn btn-gray"><i class="fa-solid fa-rotate-right"></i> Reset Level</button>
+        </div>
+
+    </div>
+
+    <!-- Game Logic with Fluid Pour Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentLevel = 1;
+            let moves = 0;
+            let tubes = [];
+            let selectedTubeIndex = null;
+            let isAnimating = false;
+
+            const levelLabel = document.getElementById('levelLabel');
+            const movesLabel = document.getElementById('movesLabel');
+            const tubesGrid = document.getElementById('tubesGrid');
+            const pastelModal = document.getElementById('pastelModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalActionBtn = document.getElementById('modalActionBtn');
+
+            function initLevel() {
+                moves = 0;
+                selectedTubeIndex = null;
+                isAnimating = false;
+                levelLabel.innerText = `Level: ${currentLevel}`;
+                movesLabel.innerText = `Moves: ${moves}`;
+
+                if (currentLevel === 1) {
+                    tubes = [
+                        [1, 2, 1, 2],
+                        [2, 1, 2, 1],
+                        []
+                    ];
+                } else if (currentLevel === 2) {
+                    tubes = [
+                        [1, 3, 2, 1],
+                        [2, 1, 3, 3],
+                        [3, 2, 1, 2],
+                        [], []
+                    ];
+                } else {
+                    tubes = [
+                        [4, 1, 2, 3],
+                        [3, 2, 1, 4],
+                        [1, 4, 3, 2],
+                        [2, 3, 4, 1],
+                        [], []
+                    ];
+                }
+                renderTubes();
+            }
+
+            function renderTubes() {
+                tubesGrid.innerHTML = '';
+                tubes.forEach((tube, index) => {
+                    const tubeEl = document.createElement('div');
+                    tubeEl.className = `tube ${selectedTubeIndex === index ? 'selected' : ''}`;
+                    tubeEl.dataset.index = index;
+                    tubeEl.addEventListener('click', () => handleTubeClick(index));
+
+                    tube.forEach(colorCode => {
+                        const segment = document.createElement('div');
+                        segment.className = `tube-segment color-${colorCode}`;
+                        tubeEl.appendChild(segment);
+                    });
+
+                    tubesGrid.appendChild(tubeEl);
+                });
+            }
+
+            function handleTubeClick(index) {
+                if (isAnimating) return;
+
+                if (selectedTubeIndex === null) {
+                    if (tubes[index].length === 0) return;
+                    selectedTubeIndex = index;
+                    renderTubes();
+                } else {
+                    if (selectedTubeIndex === index) {
+                        selectedTubeIndex = null;
+                        renderTubes();
+                    } else {
+                        const sourceIdx = selectedTubeIndex;
+                        const targetIdx = index;
+                        const source = tubes[sourceIdx];
+                        const target = tubes[targetIdx];
+
+                        const liquid = source[source.length - 1];
+                        const canPour = target.length === 0 || (target.length < 4 && target[target.length - 1] === liquid);
+
+                        if (canPour) {
+                            // Jalankan Animasi Menuang Cairan yang Mulus
+                            isAnimating = true;
+                            selectedTubeIndex = null;
+                            
+                            const tubeElements = tubesGrid.querySelectorAll('.tube');
+                            const sourceEl = tubeElements[sourceIdx];
+                            const tiltClass = sourceIdx < targetIdx ? 'tilting-right' : 'tilting-left';
+                            
+                            sourceEl.classList.add(tiltClass);
+
+                            setTimeout(() => {
+                                source.pop();
+                                target.push(liquid);
+                                moves++;
+                                movesLabel.innerText = `Moves: ${moves}`;
+                                
+                                sourceEl.classList.remove(tiltClass);
+                                renderTubes();
+                                isAnimating = false;
+                                checkWin();
+                            }, 350); // Durasi selaras dengan transisi CSS
+
+                        } else {
+                            selectedTubeIndex = index;
+                            renderTubes();
+                        }
+                    }
+                }
+            }
+
+            function checkWin() {
+                let isWon = true;
+                tubes.forEach(tube => {
+                    if (tube.length > 0) {
+                        if (tube.length !== 4) isWon = false;
+                        else {
+                            const first = tube[0];
+                            if (!tube.every(c => c === first)) isWon = false;
+                        }
+                    }
+                });
+
+                if (isWon) {
+                    modalTitle.innerText = "Level Cleared!";
+                    modalMessage.innerText = `Fantastic sorting in ${moves} moves! Ready for the next challenge?`;
+                    pastelModal.classList.remove('hidden');
+
+                    modalActionBtn.onclick = () => {
+                        pastelModal.classList.add('hidden');
+                        currentLevel++;
+                        if (currentLevel > 3) currentLevel = 1;
+                        initLevel();
+                    };
+                }
+            }
+
+            document.getElementById('btnReset').addEventListener('click', () => {
+                if (!isAnimating) initLevel();
+            });
+
+            initLevel();
+        });
+    </script>
+</body>
+</html>

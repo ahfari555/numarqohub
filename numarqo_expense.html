@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense & Tax Tracker - by NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PDF-Lib for Report Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #E5EAF2; color: #0B1F44; min-height: 100vh; }
+        
+        /* Navbar Numarqo Theme */
+        .numarqo-navbar {
+            background: linear-gradient(135deg, #0B1F44 0%, #2563EB 100%);
+            color: #FFFFFF; padding: 16px 32px;
+            box-shadow: 0 4px 20px -2px rgba(11, 31, 68, 0.25);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem {
+            width: 40px; height: 40px; background: #0B1F44; border-radius: 10px;
+            position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;
+        }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #1e3a8a; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; display: block; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 600; color: #06B6D4; letter-spacing: 0.1em; text-transform: uppercase; }
+        .numarqo-tagline { font-size: 0.85rem; font-style: italic; color: #E5EAF2; opacity: 0.9; }
+
+        /* Layout */
+        .numarqo-layout {
+            display: grid; grid-template-columns: 260px 1fr; max-width: 1300px; margin: 28px auto; padding: 0 20px; gap: 24px;
+        }
+        .numarqo-sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .numarqo-menu {
+            background: #FFFFFF; border-radius: 16px; padding: 12px;
+            box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04); border: 1px solid #E5EAF2; display: flex; flex-direction: column; gap: 6px;
+        }
+        .numarqo-item {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: #64748b;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem; border-radius: 10px; transition: 0.2s; cursor: pointer;
+        }
+        .numarqo-item:hover, .numarqo-item.active { background: #E5EAF2; color: #2563EB; }
+        
+        .numarqo-widget {
+            background: #FFFFFF; border-radius: 16px; padding: 20px; border: 1px solid #E5EAF2; box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04);
+        }
+        .numarqo-widget h4 { font-size: 0.9rem; color: #0B1F44; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+
+        .numarqo-main { display: flex; flex-direction: column; gap: 20px; }
+        .numarqo-card {
+            background: #FFFFFF; border-radius: 16px; padding: 24px;
+            box-shadow: 0 4px 16px rgba(11, 31, 68, 0.04); border: 1px solid #E5EAF2;
+        }
+        .card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: #0B1F44; font-size: 1.15rem; font-weight: 700; }
+        .numarqo-badge { font-size: 0.75rem; background: #E5EAF2; color: #0B1F44; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+        .card-desc { font-size: 0.88rem; color: #64748b; margin-bottom: 20px; }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+        .stat-box { background: #F8FAFC; border: 1px solid #E5EAF2; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+        .stat-title { font-size: 0.78rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
+        .stat-val { font-size: 1.25rem; font-weight: 700; color: #0B1F44; }
+
+        /* Form Controls */
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group.full { grid-column: span 2; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: #0B1F44; }
+        .form-group input, .form-group select {
+            padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; background: #fff; color: #0B1F44;
+        }
+
+        /* Buttons */
+        .numarqo-btn {
+            padding: 10px 20px; border: none; border-radius: 10px; font-weight: 600; font-size: 0.88rem; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-blue { background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
+        .btn-blue:hover { background: #0B1F44; }
+        .btn-green { background: #10B981; color: #FFFFFF; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); }
+        .btn-green:hover { background: #059669; }
+        .btn-gray { background: #E5EAF2; color: #0B1F44; }
+        .btn-gray:hover { background: #cbd5e1; }
+
+        /* Table */
+        .expense-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        .expense-table th, .expense-table td { padding: 12px; text-align: left; border-bottom: 1px solid #E5EAF2; font-size: 0.88rem; }
+        .expense-table th { background: #F8FAFC; color: #0B1F44; font-weight: 600; }
+        .expense-table td { color: #475569; }
+
+        .hidden { display: none !important; }
+        @media (max-width: 768px) { .numarqo-layout { grid-template-columns: 1fr; } .stats-grid { grid-template-columns: 1fr; } .form-grid { grid-template-columns: 1fr; } .form-group.full { grid-column: span 1; } }
+    </style>
+</head>
+<body>
+
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem">
+                <div class="n-bar-1"></div>
+                <div class="n-bar-2"></div>
+            </div>
+            <div>
+                <span class="numarqo-title">Expense &amp; Tax Tracker</span>
+                <span class="numarqo-sub">by NUMARQO</span>
+            </div>
+        </div>
+        <div class="numarqo-profile">
+            <span class="numarqo-tagline">Smart tools. Clear decisions.</span>
+        </div>
+    </header>
+
+    <div class="numarqo-layout">
+        <!-- Sidebar -->
+        <aside class="numarqo-sidebar">
+            <div class="numarqo-menu">
+                <a href="#trackerSection" class="numarqo-item active" data-target="trackerSection"><i class="fa-solid fa-receipt"></i> Expense Vault</a>
+                <a href="#taxSection" class="numarqo-item" data-target="taxSection"><i class="fa-solid fa-calculator"></i> IRS Tax Estimator</a>
+            </div>
+
+            <div class="numarqo-widget">
+                <h4><i class="fa-solid fa-circle-info"></i> IRS Guideline</h4>
+                <p style="font-size:0.78rem; color:#64748b; line-height:1.4;">Track ordinary &amp; necessary business expenses to maximize deductions under IRS Schedule C rules.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="numarqo-main">
+            
+            <!-- SECTION 1: EXPENSE VAULT -->
+            <div id="trackerSection" class="view-section">
+                <section class="numarqo-card">
+                    <div class="card-header-flex">
+                        <h3><i class="fa-solid fa-file-invoice-dollar" style="color:#2563EB;"></i> Business Expense Vault</h3>
+                        <span class="numarqo-badge">US Market Ready</span>
+                    </div>
+                    <p class="card-desc">Log your corporate or freelance business purchases and automatically categorize them for tax deductions.</p>
+
+                    <!-- Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-title">Total Expenses</span>
+                            <span class="stat-val" id="totalExpenseVal">$0.00</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-title">Deductible Amount</span>
+                            <span class="stat-val" id="totalDeductibleVal" style="color:#10B981;">$0.00</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-title">Logged Items</span>
+                            <span class="stat-val" id="totalCountVal">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Add Form -->
+                    <form id="expenseForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Expense Description</label>
+                                <input type="text" id="expDesc" placeholder="e.g., Cloud Hosting / Software" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount ($ USD)</label>
+                                <input type="number" id="expAmount" placeholder="0.00" step="0.01" required>
+                            </div>
+                            <div class="form-group">
+                                <label>IRS Category</label>
+                                <select id="expCategory">
+                                    <option value="Software & Tech">Software &amp; Tech (100% Deductible)</option>
+                                    <option value="Travel & Lodging">Travel &amp; Lodging (100% Deductible)</option>
+                                    <option value="Meals & Entertainment">Meals (50% Deductible)</option>
+                                    <option value="Office Supplies">Office Supplies (100% Deductible)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input type="date" id="expDate" required>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:12px;">
+                            <button type="submit" class="numarqo-btn btn-blue"><i class="fa-solid fa-plus"></i> Add Expense</button>
+                            <button type="button" id="btnExportPdf" class="numarqo-btn btn-green" style="margin-left:auto;"><i class="fa-solid fa-file-pdf"></i> Export Tax Report (PDF)</button>
+                        </div>
+                    </form>
+
+                    <!-- Table -->
+                    <div style="margin-top:24px; overflow-x:auto;">
+                        <table class="expense-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expenseTableBody">
+                                <tr>
+                                    <td colspan="5" style="text-align:center; color:#94a3b8;">No expense records found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- SECTION 2: TAX ESTIMATOR -->
+            <div id="taxSection" class="view-section hidden">
+                <section class="numarqo-card">
+                    <div class="card-header-flex">
+                        <h3><i class="fa-solid fa-calculator" style="color:#2563EB;"></i> IRS Self-Employment Tax Estimator</h3>
+                        <span class="numarqo-badge">US Tax Engine</span>
+                    </div>
+                    <p class="card-desc">Estimate your federal self-employment tax obligations (Social Security &amp; Medicare) based on net earnings.</p>
+
+                    <div class="form-grid" style="grid-template-columns: 1fr; max-width:500px; margin-bottom:20px;">
+                        <div class="form-group">
+                            <label>Estimated Annual Net Business Income ($ USD):</label>
+                            <input type="number" id="netIncomeInput" value="75000" step="1000">
+                        </div>
+                        <button type="button" id="btnCalcTax" class="numarqo-btn btn-blue" style="width:fit-content;">Calculate Estimated Tax</button>
+                    </div>
+
+                    <div id="taxResultCard" class="stat-box" style="background:#F8FAFC; max-width:500px; border-left:4px solid #2563EB;">
+                        <span class="stat-title">Estimated SE Tax (approx. 15.3%)</span>
+                        <span class="stat-val" id="estTaxVal">$0.00</span>
+                        <div style="font-size:0.78rem; color:#64748b; margin-top:4px;">Note: Calculated based on standard IRS Schedule SE guidelines. Consult a CPA for official filings.</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuItems = document.querySelectorAll('.numarqo-menu .numarqo-item');
+            const viewSections = document.querySelectorAll('.view-section');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    menuItems.forEach(m => m.classList.remove('active'));
+                    e.currentTarget.classList.add('active');
+                    const targetId = e.currentTarget.getAttribute('data-target');
+                    viewSections.forEach(sec => {
+                        if (sec.id === targetId) sec.classList.remove('hidden');
+                        else sec.classList.add('hidden');
+                    });
+                });
+            });
+
+            // Default date to today
+            document.getElementById('expDate').valueAsDate = new Date();
+
+            let expenses = JSON.parse(localStorage.getItem('numarqo_expenses') || '[]');
+
+            const expenseForm = document.getElementById('expenseForm');
+            const expenseTableBody = document.getElementById('expenseTableBody');
+            const totalExpenseVal = document.getElementById('totalExpenseVal');
+            const totalDeductibleVal = document.getElementById('totalDeductibleVal');
+            const totalCountVal = document.getElementById('totalCountVal');
+
+            function renderExpenses() {
+                expenseTableBody.innerHTML = '';
+                if (expenses.length === 0) {
+                    expenseTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#94a3b8;">No expense records found.</td></tr>';
+                    totalExpenseVal.innerText = '$0.00';
+                    totalDeductibleVal.innerText = '$0.00';
+                    totalCountVal.innerText = '0';
+                    return;
+                }
+
+                let total = 0;
+                let deductible = 0;
+
+                expenses.forEach((item, index) => {
+                    total += item.amount;
+                    if (item.category === 'Meals & Entertainment') {
+                        deductible += item.amount * 0.5;
+                    } else {
+                        deductible += item.amount;
+                    }
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.date}</td>
+                        <td><strong>${item.desc}</strong></td>
+                        <td><span style="background:#E0F2FE; color:#0284c7; padding:4px 8px; border-radius:6px; font-size:0.75rem; font-weight:600;">${item.category}</span></td>
+                        <td>$${item.amount.toFixed(2)}</td>
+                        <td><button class="numarqo-btn btn-gray" style="padding:4px 8px; font-size:0.75rem;" onclick="deleteExpense(${index})"><i class="fa-solid fa-trash"></i></button></td>
+                    `;
+                    expenseTableBody.appendChild(tr);
+                });
+
+                totalExpenseVal.innerText = `$${total.toFixed(2)}`;
+                totalDeductibleVal.innerText = `$${deductible.toFixed(2)}`;
+                totalCountVal.innerText = expenses.length;
+                localStorage.setItem('numarqo_expenses', JSON.stringify(expenses));
+            }
+
+            window.deleteExpense = function(index) {
+                expenses.splice(index, 1);
+                renderExpenses();
+            }
+
+            expenseForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const desc = document.getElementById('expDesc').value;
+                const amount = parseFloat(document.getElementById('expAmount').value);
+                const category = document.getElementById('expCategory').value;
+                const date = document.getElementById('expDate').value;
+
+                expenses.push({ desc, amount, category, date });
+                expenseForm.reset();
+                document.getElementById('expDate').valueAsDate = new Date();
+                renderExpenses();
+                alert('Expense successfully logged into Numarqo Vault!');
+            });
+
+            renderExpenses();
+
+            // Tax Estimator Logic
+            const btnCalcTax = document.getElementById('btnCalcTax');
+            const netIncomeInput = document.getElementById('netIncomeInput');
+            const estTaxVal = document.getElementById('estTaxVal');
+
+            btnCalcTax.addEventListener('click', () => {
+                const net = parseFloat(netIncomeInput.value) || 0;
+                // Simplified IRS Self-Employment tax estimation (approx 15.3% on 92.35% of net earnings)
+                const seTax = net * 0.9235 * 0.153;
+                estTaxVal.innerText = `$${seTax.toFixed(2)}`;
+            });
+            btnCalcTax.click();
+
+            // PDF Tax Report Export
+            document.getElementById('btnExportPdf').addEventListener('click', async () => {
+                if (expenses.length === 0) {
+                    alert('No expenses to export!');
+                    return;
+                }
+
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                const page = pdfDoc.addPage([612, 792]);
+                const { width, height } = page.getSize();
+                const font = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+                const boldFont = await pdfDoc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+
+                page.drawText('NUMARQO EXPENSE & TAX REPORT', { x: 50, y: height - 50, size: 14, font: boldFont, color: PDFLib.rgb(0.04, 0.12, 0.27) });
+                page.drawText(`Generated on: ${new Date().toLocaleDateString('en-US')}`, { x: 50, y: height - 70, size: 9, font: font, color: PDFLib.rgb(0.4, 0.4, 0.4) });
+                page.drawLine({ start: { x: 50, y: height - 80 }, end: { x: width - 50, y: height - 80 }, thickness: 1, color: PDFLib.rgb(0.7, 0.7, 0.7) });
+
+                let y = height - 110;
+                page.drawText('Date          Category                    Description               Amount', { x: 50, y: y, size: 10, font: boldFont, color: PDFLib.rgb(0,0,0) });
+                y -= 20;
+
+                expenses.forEach(item => {
+                    if (y < 50) {
+                        page = pdfDoc.addPage([612, 792]);
+                        y = height - 50;
+                    }
+                    const line = `${item.date}    ${item.category.padEnd(25, ' ')} ${item.desc.padEnd(25, ' ')} $${item.amount.toFixed(2)}`;
+                    page.drawText(line, { x: 50, y: y, size: 9, font: font, color: PDFLib.rgb(0.2, 0.2, 0.2) });
+                    y -= 18;
+                });
+
+                const pdfBytes = await pdfDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `Numarqo_Tax_Report_${Date.now()}.pdf`;
+                link.click();
+                alert('Tax report successfully exported as PDF!');
+            });
+        });
+    </script>
+</body>
+</html>

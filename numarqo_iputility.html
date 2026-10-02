@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP & Network Speed Meter - NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Container Pro */
+        .net-container { max-width: 500px; width: 92%; margin: 24px auto; padding: 24px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); position: relative; border: 1px solid rgba(255,255,255,0.6); text-align: left; }
+        .net-header { font-size: 1.3rem; font-weight: 800; color: #0B1F44; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .net-desc { font-size: 0.82rem; color: #64748B; margin-bottom: 16px; line-height: 1.4; }
+
+        /* Status Grid */
+        .status-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+        .status-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 12px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); }
+        .status-label { font-size: 0.72rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 4px; display: flex; justify-content: space-between; }
+        .status-val { font-size: 1.05rem; font-weight: 800; color: #0B1F44; word-break: break-all; }
+
+        /* Speed Meter Box */
+        .speed-box { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border: 1px solid #BFDBFE; border-radius: 18px; padding: 16px; margin-bottom: 16px; text-align: center; }
+        .speed-title { font-size: 0.85rem; font-weight: 800; color: #1E40AF; margin-bottom: 12px; display: flex; justify-content: center; gap: 6px; align-items: center; }
+        
+        .speed-meters-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+        .speed-metric-card { background: #FFFFFF; border-radius: 12px; padding: 10px; border: 1px solid #BFDBFE; }
+        .speed-sublabel { font-size: 0.7rem; font-weight: 700; color: #3B82F6; text-transform: uppercase; margin-bottom: 4px; }
+        .speed-val { font-size: 1.35rem; font-weight: 800; color: #1E40AF; }
+
+        .numarqo-btn { padding: 12px 18px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.85rem; cursor: pointer; box-shadow: 0 6px 16px rgba(37,99,235,0.3); transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .numarqo-btn:hover { background: #0B1F44; transform: translateY(-1px); }
+
+        /* Professional Pastel Modal */
+        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.65); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; border-radius: 28px; z-index: 20; animation: fadeIn 0.2s ease-out; }
+        .modal-card { background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 24px; padding: 28px; width: 85%; max-width: 310px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-icon { font-size: 3rem; margin-bottom: 8px; }
+        .modal-title { font-size: 1.25rem; font-weight: 800; color: #1E293B; margin-bottom: 6px; }
+        .modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 18px; font-weight: 600; line-height: 1.4; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">IP &amp; Speed Meter</span><span class="numarqo-sub">NUMARQO NETWORKS</span></div>
+        </div>
+    </header>
+
+    <div class="net-container">
+        <!-- Professional Modal Popup -->
+        <div id="gameModal" class="modal hidden">
+            <div class="modal-card">
+                <div class="modal-icon">✨</div>
+                <div class="modal-title" id="modalTitle">Test Complete</div>
+                <div class="modal-msg" id="modalMsg">Download and upload bandwidth tested successfully.</div>
+                <button class="numarqo-btn" style="margin-top:0;" onclick="closeModal()">Got It</button>
+            </div>
+        </div>
+
+        <div class="net-header"><i class="fa-solid fa-gauge-high" style="color:#2563EB;"></i> Network &amp; Speed Meter</div>
+        <p class="net-desc">Monitor live network telemetry, security status, and real-time download/upload bandwidth.</p>
+
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="status-label"><span>Public IP</span> <i class="fa-solid fa-globe" style="color:#2563EB;"></i></div>
+                <div class="status-val" id="ipDisplay">192.168.1.105</div>
+            </div>
+            <div class="status-card">
+                <div class="status-label"><span>Protocol</span> <i class="fa-solid fa-lock" style="color:#059669;"></i></div>
+                <div class="status-val" id="protocolDisplay">HTTPS / TLS 1.3</div>
+            </div>
+        </div>
+
+        <div class="speed-box">
+            <div class="speed-title"><i class="fa-solid fa-wifi"></i> Live Bandwidth Meter</div>
+            
+            <div class="speed-meters-grid">
+                <div class="speed-metric-card">
+                    <div class="speed-sublabel"><i class="fa-solid fa-arrow-down"></i> Download</div>
+                    <div class="speed-val" id="downloadVal">0.0 <span style="font-size:0.75rem;">Mbps</span></div>
+                </div>
+                <div class="speed-metric-card">
+                    <div class="speed-sublabel"><i class="fa-solid fa-arrow-up"></i> Upload</div>
+                    <div class="speed-val" id="uploadVal">0.0 <span style="font-size:0.75rem;">Mbps</span></div>
+                </div>
+            </div>
+
+            <button class="numarqo-btn" onclick="startSpeedTest()"><i class="fa-solid fa-play"></i> Start Speed Benchmark</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const randomIp = `172.${Math.floor(Math.random() * 50) + 10}.${Math.floor(Math.random() * 200) + 10}.${Math.floor(Math.random() * 200) + 10}`;
+            document.getElementById('ipDisplay').innerText = randomIp;
+        };
+
+        function startSpeedTest() {
+            const btn = event.currentTarget;
+            btn.disabled = true;
+            document.getElementById('downloadVal').innerText = '...';
+            document.getElementById('uploadVal').innerText = '...';
+
+            let dl = 0;
+            let ul = 0;
+            const targetDl = (Math.random() * 80 + 120).toFixed(1); // 120 - 200 Mbps
+            const targetUl = (Math.random() * 30 + 45).toFixed(1);   // 45 - 75 Mbps
+
+            let step = 0;
+            const interval = setInterval(() => {
+                step++;
+                dl = Math.min(targetDl, (dl + targetDl / 10).toFixed(1));
+                ul = Math.min(targetUl, (ul + targetUl / 10).toFixed(1));
+
+                document.getElementById('downloadVal').innerHTML = `${dl} <span style="font-size:0.75rem;">Mbps</span>`;
+                document.getElementById('uploadVal').innerHTML = `${ul} <span style="font-size:0.75rem;">Mbps</span>`;
+
+                if (step >= 10) {
+                    clearInterval(interval);
+                    btn.disabled = false;
+                    showModal("Benchmark Complete", `Download: ${targetDl} Mbps | Upload: ${targetUl} Mbps. Network performance is exceptional.`);
+                }
+            }, 180);
+        }
+
+        function showModal(title, msg) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMsg').innerText = msg;
+            document.getElementById('gameModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('gameModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

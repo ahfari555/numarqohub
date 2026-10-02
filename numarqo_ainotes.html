@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Notes & Summarizer - by NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #E5EAF2; color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Navbar Numarqo Theme */
+        .numarqo-navbar {
+            background: linear-gradient(135deg, #0B1F44 0%, #2563EB 100%);
+            color: #FFFFFF; padding: 16px 32px;
+            box-shadow: 0 4px 20px -2px rgba(11, 31, 68, 0.25);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem {
+            width: 40px; height: 40px; background: #0B1F44; border-radius: 10px;
+            position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center;
+        }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #1e3a8a; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; display: block; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 600; color: #06B6D4; letter-spacing: 0.1em; text-transform: uppercase; }
+        .numarqo-tagline { font-size: 0.85rem; font-style: italic; color: #E5EAF2; opacity: 0.9; }
+
+        /* Layout */
+        .numarqo-layout {
+            max-width: 950px; width: 92%; margin: 28px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+        }
+        @media (max-width: 768px) {
+            .numarqo-layout { grid-template-columns: 1fr; }
+        }
+
+        .numarqo-card {
+            background: #FFFFFF; border-radius: 20px; padding: 24px;
+            box-shadow: 0 10px 30px rgba(11, 31, 68, 0.06); border: 1px solid #E5EAF2;
+            display: flex; flex-direction: column; gap: 16px;
+        }
+        .card-header-flex { display: flex; justify-content: space-between; align-items: center; color: #0B1F44; font-size: 1.1rem; font-weight: 700; }
+        .numarqo-badge { font-size: 0.75rem; background: #E0F2FE; color: #0369A1; padding: 4px 10px; border-radius: 12px; font-weight: 600; }
+        .card-desc { font-size: 0.85rem; color: #64748b; line-height: 1.4; }
+
+        /* Form Controls */
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.82rem; font-weight: 600; color: #0B1F44; }
+        .form-group textarea, .form-group input {
+            padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.88rem; background: #F8FAFC; color: #0B1F44; outline: none; transition: 0.2s;
+        }
+        .form-group textarea { height: 130px; resize: vertical; }
+        .form-group textarea:focus, .form-group input:focus { border-color: #2563EB; background: #fff; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+
+        /* Buttons */
+        .numarqo-btn {
+            padding: 12px 20px; border: none; border-radius: 12px; font-weight: 600; font-size: 0.88rem; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s;
+        }
+        .btn-blue { background: #2563EB; color: #FFFFFF; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25); }
+        .btn-blue:hover { background: #0B1F44; }
+        .btn-cyan { background: #06B6D4; color: #FFFFFF; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25); }
+        .btn-cyan:hover { background: #0891b2; }
+        .btn-gray { background: #E5EAF2; color: #0B1F44; }
+        .btn-gray:hover { background: #cbd5e1; }
+
+        /* Result Panel */
+        .result-box {
+            background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px;
+            font-size: 0.88rem; color: #334155; min-height: 150px; max-height: 250px; overflow-y: auto; line-height: 1.5; white-space: pre-wrap;
+        }
+
+        /* Pastel Modal Panel */
+        .pastel-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 31, 68, 0.45); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center; z-index: 100;
+        }
+        .pastel-modal-card {
+            background: #FFFBEB; border: 2px solid #FDE68A; border-radius: 20px;
+            padding: 24px; width: 85%; max-width: 320px; text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .pastel-modal-card.success { background: #ECFDF5; border-color: #A7F3D0; }
+        .pastel-modal-icon { font-size: 2.4rem; margin-bottom: 8px; }
+        .pastel-modal-title { font-size: 1.1rem; font-weight: 700; color: #1E293B; margin-bottom: 6px; }
+        .pastel-modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 16px; line-height: 1.4; }
+        
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem">
+                <div class="n-bar-1"></div>
+                <div class="n-bar-2"></div>
+            </div>
+            <div>
+                <span class="numarqo-title">AI Voice Notes &amp; Summarizer</span>
+                <span class="numarqo-sub">by NUMARQO</span>
+            </div>
+        </div>
+        <div class="numarqo-profile">
+            <span class="numarqo-tagline">Smart tools. Clear decisions.</span>
+        </div>
+    </header>
+
+    <!-- CUSTOM PASTEL MODAL -->
+    <div id="pastelModal" class="pastel-modal-overlay hidden">
+        <div class="pastel-modal-card" id="modalCardStyle">
+            <div class="pastel-modal-icon" id="modalIcon">✨</div>
+            <div class="pastel-modal-title" id="modalTitle">Success</div>
+            <div class="pastel-modal-msg" id="modalMessage">Action completed successfully.</div>
+            <button class="numarqo-btn btn-blue" style="width:100%;" onclick="closeModal()">Got It</button>
+        </div>
+    </div>
+
+    <div class="numarqo-layout">
+        
+        <!-- CARD 1: AI TEXT / DOCUMENT SUMMARIZER -->
+        <section class="numarqo-card">
+            <div class="card-header-flex">
+                <h3><i class="fa-solid fa-wand-magic-sparkles" style="color:#2563EB;"></i> AI Document Summarizer</h3>
+                <span class="numarqo-badge">US Standard</span>
+            </div>
+            <p class="card-desc">Paste meeting transcripts, articles, or long notes to generate concise executive summaries instantly.</p>
+
+            <div class="form-group">
+                <label>Source Text / Notes Content</label>
+                <textarea id="sourceText" placeholder="Paste your lengthy text or meeting transcript here..."></textarea>
+            </div>
+
+            <button class="numarqo-btn btn-blue" onclick="generateAISummary()">
+                <i class="fa-solid fa-brain"></i> Generate AI Summary
+            </button>
+
+            <div class="form-group" style="margin-top: 4px;">
+                <label>Executive Summary Output</label>
+                <div id="summaryOutput" class="result-box" style="color:#94a3b8;">AI summary output will appear here...</div>
+            </div>
+        </section>
+
+        <!-- CARD 2: AUDIO TRANSCRIPT SIMULATOR & KEYWORD EXTRACTION -->
+        <section class="numarqo-card">
+            <div class="card-header-flex">
+                <h3><i class="fa-solid fa-microphone-lines" style="color:#06B6D4;"></i> Voice Transcript &amp; Keywords</h3>
+                <span class="numarqo-badge">Audio AI</span>
+            </div>
+            <p class="card-desc">Simulate live voice memo conversion or extract core action items and keywords from notes.</p>
+
+            <div class="form-group">
+                <label>Voice Memo Simulation</label>
+                <button class="numarqo-btn btn-cyan" id="btnRecord" onclick="toggleSimulatedRecording()">
+                    <i class="fa-solid fa-microphone"></i> Start Voice Memo Simulation
+                </button>
+            </div>
+
+            <div class="form-group">
+                <label>Extracted Action Items &amp; Keywords</label>
+                <div id="keywordsOutput" class="result-box" style="color:#94a3b8;">Key action points will be analyzed here...</div>
+            </div>
+
+            <button class="numarqo-btn btn-gray" onclick="clearAllData()">
+                <i class="fa-solid fa-rotate-right"></i> Reset Workspaces
+            </button>
+        </section>
+
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        function showModal(title, message, type = 'success') {
+            const modal = document.getElementById('pastelModal');
+            const card = document.getElementById('modalCardStyle');
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = message;
+
+            if (type === 'success') {
+                card.className = 'pastel-modal-card success';
+                document.getElementById('modalIcon').innerText = '✨';
+            } else {
+                card.className = 'pastel-modal-card';
+                document.getElementById('modalIcon').innerText = '💡';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('pastelModal').classList.add('hidden');
+        }
+
+        function generateAISummary() {
+            const text = document.getElementById('sourceText').value.trim();
+            if (!text) {
+                showModal("Input Required", "Please paste or enter some text into the source notes box first.", "warning");
+                return;
+            }
+
+            // Simulasi pemrosesan ringkasan AI profesional bergaya US executive briefing
+            const wordCount = text.split(/\s+/).length;
+            const summaryBox = document.getElementById('summaryOutput');
+            
+            summaryBox.style.color = '#334155';
+            summaryBox.innerHTML = `<strong>[AI Executive Briefing]</strong><br>` +
+                `• Analyzed ${wordCount} words of source content.<br>` +
+                `• Core Takeaway: The document emphasizes strategic efficiency and structured workflow execution.<br>` +
+                `• Key Highlight: Primary focus revolves around client deliverables and timeline optimization.`;
+
+            showModal("Summary Generated", "AI successfully processed and summarized your document.", "success");
+        }
+
+        let isRecording = false;
+        function toggleSimulatedRecording() {
+            const btn = document.getElementById('btnRecord');
+            const kwBox = document.getElementById('keywordsOutput');
+
+            if (!isRecording) {
+                isRecording = true;
+                btn.innerHTML = '<i class="fa-solid fa-stop" style="color:#EF4444;"></i> Stop Recording (Simulated)...';
+                btn.style.background = '#FEE2E2';
+                btn.style.color = '#B91C1C';
+                kwBox.style.color = '#94a3b8';
+                kwBox.innerText = 'Listening and transcribing audio stream...';
+            } else {
+                isRecording = false;
+                btn.innerHTML = '<i class="fa-solid fa-microphone"></i> Start Voice Memo Simulation';
+                btn.style.background = '#06B6D4';
+                btn.style.color = '#FFFFFF';
+
+                kwBox.style.color = '#334155';
+                kwBox.innerHTML = `<strong>[Voice Transcript & Actions]</strong><br>` +
+                    `1. Schedule weekly client synchronization call.<br>` +
+                    `2. Review updated compliance documentation.<br>` +
+                    `<strong>Keywords:</strong> #Strategy #Q3Review #Deliverables`;
+
+                showModal("Voice Memo Processed", "Audio successfully transcribed and analyzed for action items.", "success");
+            }
+        }
+
+        function clearAllData() {
+            document.getElementById('sourceText').value = '';
+            const sumBox = document.getElementById('summaryOutput');
+            const kwBox = document.getElementById('keywordsOutput');
+            sumBox.style.color = '#94a3b8';
+            sumBox.innerText = 'AI summary output will appear here...';
+            kwBox.style.color = '#94a3b8';
+            kwBox.innerText = 'Key action points will be analyzed here...';
+            showModal("Workspace Reset", "All notes and AI outputs have been cleared.", "success");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Drop Pro - NUMARQO GAMES</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Game Container */
+        .game-container { max-width: 440px; width: 92%; margin: 20px auto; padding: 22px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.6); }
+        .game-header { font-size: 1.35rem; font-weight: 800; color: #0B1F44; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        /* Dashboard Stats */
+        .stats-bar { display: flex; justify-content: space-between; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 10px 16px; border-radius: 14px; margin-bottom: 14px; font-weight: 700; font-size: 0.82rem; color: #475569; }
+
+        /* Canvas Area - Terang & Bersih */
+        .canvas-wrapper { position: relative; width: 100%; aspect-ratio: 1; background: #F8FAFC; border: 2px solid #CBD5E1; border-radius: 20px; overflow: hidden; margin-bottom: 16px; box-shadow: inset 0 3px 10px rgba(0,0,0,0.06); cursor: crosshair; }
+        canvas { display: block; width: 100%; height: 100%; }
+
+        /* Action Buttons */
+        .action-group { display: flex; gap: 8px; justify-content: center; }
+        .numarqo-btn { padding: 10px 14px; background: #2563EB; color: #FFF; border: none; border-radius: 12px; font-weight: 700; font-size: 0.82rem; cursor: pointer; box-shadow: 0 4px 12px rgba(37,99,235,0.25); transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; flex: 1; justify-content: center; }
+        .numarqo-btn:hover { background: #0B1F44; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(11,31,68,0.3); }
+        .btn-secondary { background: #E2E8F0; color: #1E293B; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .btn-secondary:hover { background: #CBD5E1; color: #0B1F44; }
+        .btn-danger { background: #EF4444; box-shadow: 0 4px 12px rgba(239,68,68,0.25); }
+        .btn-danger:hover { background: #B91C1C; }
+
+        /* Professional Pastel Modal */
+        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.65); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; border-radius: 28px; z-index: 20; animation: fadeIn 0.2s ease-out; }
+        .modal-card { background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 24px; padding: 28px; width: 85%; max-width: 310px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-icon { font-size: 3rem; margin-bottom: 8px; }
+        .modal-title { font-size: 1.25rem; font-weight: 800; color: #1E293B; margin-bottom: 6px; }
+        .modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 18px; font-weight: 600; line-height: 1.4; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Physics Drop Pro</span><span class="numarqo-sub">NUMARQO GAMES</span></div>
+        </div>
+    </header>
+
+    <div class="game-container">
+        <!-- Professional Modal Popup -->
+        <div id="gameModal" class="modal hidden">
+            <div class="modal-card">
+                <div class="modal-icon" id="modalIcon">🎉</div>
+                <div class="modal-title" id="modalTitle">Level Cleared!</div>
+                <div class="modal-msg" id="modalMsg">Brilliant physical path design! Ready for the next challenge?</div>
+                <button class="numarqo-btn" style="width:100%; justify-content:center;" onclick="nextLevel()">Next Level</button>
+            </div>
+        </div>
+
+        <div class="game-header"><i class="fa-solid fa-shapes" style="color:#2563EB;"></i> Physics Drop Puzzle</div>
+        
+        <div class="stats-bar">
+            <span>Level: <strong id="levelVal" style="color:#2563EB;">1</strong></span>
+            <span>Status: <strong id="statusVal" style="color:#059669;">Ready to Draw</strong></span>
+        </div>
+
+        <div class="canvas-wrapper">
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+        </div>
+
+        <div class="action-group">
+            <button class="numarqo-btn btn-secondary" onclick="clearLines()"><i class="fa-solid fa-eraser"></i> Erase</button>
+            <button class="numarqo-btn btn-danger" onclick="resetBall()"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+            <button class="numarqo-btn" onclick="startDrop()"><i class="fa-solid fa-play"></i> Drop</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let level = 1;
+        let isDrawing = false;
+        let userLines = [];
+        let currentLine = [];
+        let gameState = 'IDLE'; // IDLE, DROPPING, WON
+
+        // Konfigurasi Level dengan Keranjang yang jelas dan profesional
+        const levels = {
+            1: { ball: {x: 60, y: 60, vx: 0, vy: 0, radius: 14}, basket: {x: 290, y: 330, w: 70, h: 40}, obstacles: [{x: 160, y: 150, w: 45, h: 130}] },
+            2: { ball: {x: 60, y: 60, vx: 0, vy: 0, radius: 14}, basket: {x: 180, y: 330, w: 70, h: 40}, obstacles: [{x: 90, y: 170, w: 160, h: 22}, {x: 240, y: 220, w: 25, h: 110}] }
+        };
+
+        let currentLevelData = JSON.parse(JSON.stringify(levels[1]));
+
+        // Event listener untuk menggambar garis
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', drawLine);
+        canvas.addEventListener('mouseup', stopDraw);
+        canvas.addEventListener('touchstart', (e) => startDraw(e.touches[0]));
+        canvas.addEventListener('touchmove', (e) => drawLine(e.touches[0]));
+        canvas.addEventListener('touchend', stopDraw);
+
+        function startDraw(e) {
+            if (gameState !== 'IDLE') return;
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            currentLine = [{x: e.clientX - rect.left, y: e.clientY - rect.top}];
+        }
+
+        function drawLine(e) {
+            if (!isDrawing || gameState !== 'IDLE') return;
+            const rect = canvas.getBoundingClientRect();
+            currentLine.push({x: e.clientX - rect.left, y: e.clientY - rect.top});
+            render();
+        }
+
+        function stopDraw() {
+            if (!isDrawing) return;
+            isDrawing = false;
+            if (currentLine.length > 1) {
+                userLines.push([...currentLine]);
+            }
+            currentLine = [];
+        }
+
+        function clearLines() {
+            if (gameState === 'DROPPING') return;
+            userLines = [];
+            resetBall();
+            render();
+        }
+
+        function resetBall() {
+            const lvl = levels[level] || levels[1];
+            currentLevelData.ball = JSON.parse(JSON.stringify(lvl.ball));
+            gameState = 'IDLE';
+            document.getElementById('statusVal').innerText = 'Ready to Draw';
+            document.getElementById('statusVal').style.color = '#059669';
+            render();
+        }
+
+        function startDrop() {
+            if (gameState === 'DROPPING') return;
+            gameState = 'DROPPING';
+            document.getElementById('statusVal').innerText = 'Dropping...';
+            document.getElementById('statusVal').style.color = '#D97706';
+            requestAnimationFrame(updatePhysics);
+        }
+
+        function updatePhysics() {
+            if (gameState !== 'DROPPING') return;
+
+            const b = currentLevelData.ball;
+            b.vy += 0.4; // Gravitasi stabil
+            b.x += b.vx;
+            b.y += b.vy;
+
+            // Deteksi tabrakan dengan rintangan
+            currentLevelData.obstacles.forEach(obs => {
+                if (b.x + b.radius > obs.x && b.x - b.radius < obs.x + obs.w &&
+                    b.y + b.radius > obs.y && b.y - b.radius < obs.y + obs.h) {
+                    b.vy *= -0.3;
+                    b.y = obs.y - b.radius;
+                }
+            });
+
+            // Deteksi tabrakan dengan garis user (Mencegah bola stuck/nyangkut total)
+            userLines.forEach(line => {
+                for (let i = 0; i < line.length - 1; i++) {
+                    let p1 = line[i], p2 = line[i+1];
+                    let dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+                    if (dist === 0) continue;
+                    let dX = p2.x - p1.x, dY = p2.y - p1.y;
+                    let t = ((b.x - p1.x) * dX + (b.y - p1.y) * dY) / (dist * dist);
+                    t = Math.max(0, Math.min(1, t));
+                    let nearestX = p1.x + t * dX;
+                    let nearestY = p1.y + t * dY;
+                    let d = Math.hypot(b.x - nearestX, b.y - nearestY);
+
+                    if (d < b.radius) {
+                        // Pantulan halus & dorongan geser agar bola tidak pernah stuck mati
+                        b.vy = -Math.abs(b.vy) * 0.35 - 0.5; 
+                        b.vx += (b.x > nearestX ? 0.8 : -0.8);
+                        b.y = nearestY - b.radius - 1;
+                    }
+                }
+            });
+
+            // Batas dinding canvas
+            if (b.x < b.radius) { b.x = b.radius; b.vx *= -0.5; }
+            if (b.x > canvas.width - b.radius) { b.x = canvas.width - b.radius; b.vx *= -0.5; }
+
+            // Deteksi masuk ke dalam keranjang (area terbuka di bagian atas mangkuk keranjang)
+            const basket = currentLevelData.basket;
+            if (b.x > basket.x + 5 && b.x < basket.x + basket.w - 5 && 
+                b.y + b.radius >= basket.y + 10 && b.y <= basket.y + basket.h) {
+                gameState = 'WON';
+                document.getElementById('statusVal').innerText = 'Success!';
+                document.getElementById('statusVal').style.color = '#2563EB';
+                showModal();
+                return;
+            }
+
+            // Jatuh ke bawah layar
+            if (b.y > canvas.height + 30) {
+                document.getElementById('statusVal').innerText = 'Missed! Try Again';
+                document.getElementById('statusVal').style.color = '#DC2626';
+                setTimeout(() => resetBall(), 500);
+                return;
+            }
+
+            render();
+            requestAnimationFrame(updatePhysics);
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Render Keranjang Vektor yang Jelas & Profesional (Bentuk Wadah Cekung)
+            const basket = currentLevelData.basket;
+            ctx.fillStyle = '#2563EB';
+            ctx.beginPath();
+            ctx.roundRect(basket.x, basket.y + 10, basket.w, basket.h - 10, [0, 0, 14, 14]);
+            ctx.fill();
+            // Bibir keranjang agar terlihat 3D dan jelas
+            ctx.fillStyle = '#1D4ED8';
+            ctx.fillRect(basket.x - 4, basket.y, basket.w + 8, 10);
+
+            // Render Rintangan
+            ctx.fillStyle = '#64748B';
+            currentLevelData.obstacles.forEach(obs => {
+                ctx.beginPath();
+                ctx.roundRect(obs.x, obs.y, obs.w, obs.h, 6);
+                ctx.fill();
+            });
+
+            // Render Garis User
+            ctx.strokeStyle = '#06B6D4';
+            ctx.lineWidth = 6;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            userLines.forEach(line => {
+                if (line.length < 2) return;
+                ctx.beginPath();
+                ctx.moveTo(line[0].x, line[0].y);
+                for (let i = 1; i < line.length; i++) ctx.lineTo(line[i].x, line[i].y);
+                ctx.stroke();
+            });
+
+            if (currentLine.length > 1) {
+                ctx.beginPath();
+                ctx.moveTo(currentLine[0].x, currentLine[0].y);
+                for (let i = 1; i < currentLine.length; i++) ctx.lineTo(currentLine[i].x, currentLine[i].y);
+                ctx.stroke();
+            }
+
+            // Render Bola
+            const b = currentLevelData.ball;
+            ctx.fillStyle = '#F59E0B';
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#D97706';
+            ctx.stroke();
+        }
+
+        function showModal() {
+            document.getElementById('gameModal').classList.remove('hidden');
+        }
+
+        function nextLevel() {
+            document.getElementById('gameModal').classList.add('hidden');
+            level = level >= 2 ? 1 : level + 1;
+            document.getElementById('levelVal').innerText = level;
+            currentLevelData = JSON.parse(JSON.stringify(levels[level]));
+            userLines = [];
+            resetBall();
+        }
+
+        resetBall();
+        render();
+    </script>
+</body>
+</html>

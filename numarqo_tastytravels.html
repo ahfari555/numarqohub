@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasty Travels Merge - NUMARQO GAMES</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Game Container */
+        .game-container { max-width: 440px; width: 92%; margin: 20px auto; padding: 22px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.6); }
+        .game-header { font-size: 1.35rem; font-weight: 800; color: #0B1F44; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        /* Dashboard Stats */
+        .stats-bar { display: flex; justify-content: space-between; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 10px 16px; border-radius: 14px; margin-bottom: 14px; font-weight: 700; font-size: 0.82rem; color: #475569; }
+        
+        /* Order Card */
+        .order-card { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border: 1px solid #BFDBFE; border-radius: 16px; padding: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(37,99,235,0.06); }
+        .order-info { display: flex; align-items: center; gap: 10px; text-align: left; }
+        .order-food-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 4px 12px rgba(0,0,0,0.12); background: #FFF; border: 2px solid #93C5FD; }
+
+        /* Merge Grid - TERANG & BERSIH (Tidak Gelap) */
+        .merge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background: #E2E8F0; padding: 14px; border-radius: 20px; margin-bottom: 16px; box-shadow: inset 0 3px 10px rgba(0,0,0,0.08); }
+        .merge-cell { background: #FFFFFF; border-radius: 16px; aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.06); transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); user-select: none; border: 2px solid #CBD5E1; position: relative; }
+        .merge-cell:hover { transform: translateY(-3px); border-color: #94A3B8; background: #F8FAFC; }
+        .merge-cell.selected { border-color: #2563EB; box-shadow: 0 0 15px rgba(37,99,235,0.35); background: #EFF6FF; transform: scale(1.05); }
+
+        /* High Quality Food Asset Styling */
+        .food-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; animation: popUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .food-graphic { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 6px 15px rgba(0,0,0,0.15); border: 2px solid rgba(255,255,255,0.8); }
+        .food-lvl { font-size: 0.65rem; font-weight: 800; color: #FFFFFF; background: #0B1F44; padding: 1px 7px; border-radius: 6px; letter-spacing: 0.05em; }
+
+        @keyframes popUp {
+            0% { transform: scale(0.4); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Buttons */
+        .numarqo-btn { padding: 12px 20px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.88rem; cursor: pointer; box-shadow: 0 6px 16px rgba(37,99,235,0.3); transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .numarqo-btn:hover { background: #0B1F44; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(11,31,68,0.4); }
+
+        /* Professional Pastel Modal */
+        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.65); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; border-radius: 28px; z-index: 20; animation: fadeIn 0.2s ease-out; }
+        .modal-card { background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 24px; padding: 28px; width: 85%; max-width: 310px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-card.order-success { background: #FFFBEB; border-color: #FDE68A; }
+        .modal-icon { font-size: 3rem; margin-bottom: 8px; }
+        .modal-title { font-size: 1.25rem; font-weight: 800; color: #1E293B; margin-bottom: 6px; }
+        .modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 18px; font-weight: 600; line-height: 1.4; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Tasty Travels Pro</span><span class="numarqo-sub">NUMARQO GAMES</span></div>
+        </div>
+    </header>
+
+    <div class="game-container">
+        <!-- Professional Modal Popup -->
+        <div id="gameModal" class="modal hidden">
+            <div class="modal-card" id="modalCardStyle">
+                <div class="modal-icon" id="modalIcon">🌟</div>
+                <div class="modal-title" id="modalTitle">Order Fulfilled!</div>
+                <div class="modal-msg" id="modalMsg">Great job serving the VIP customer! +150 Coins earned.</div>
+                <button class="numarqo-btn" style="width:100%; justify-content:center;" onclick="closeModal()">Continue Cooking</button>
+            </div>
+        </div>
+
+        <div class="game-header"><i class="fa-solid fa-utensils" style="color:#2563EB;"></i> Tasty Travels Merge</div>
+        
+        <div class="stats-bar">
+            <span>Coins: <strong id="coinVal" style="color:#2563EB;">300</strong></span>
+            <span>Level: <strong id="levelVal">1</strong></span>
+        </div>
+
+        <div class="order-card">
+            <div class="order-info">
+                <div class="order-food-icon" id="orderIconPreview">☕</div>
+                <div>
+                    <div style="font-size:0.7rem; color:#64748B; font-weight:700; text-transform:uppercase;">Active Order</div>
+                    <div id="orderNameText" style="font-size:0.9rem; font-weight:800; color:#1E293B;">Fresh Coffee (Lvl 2)</div>
+                </div>
+            </div>
+            <button class="numarqo-btn" style="padding:8px 14px; font-size:0.78rem;" onclick="deliverOrder()">Serve</button>
+        </div>
+
+        <div class="merge-grid" id="mergeGrid"></div>
+        
+        <button class="numarqo-btn" onclick="spawnItem()"><i class="fa-solid fa-box-open"></i> Spawn Ingredient (Cost: 20)</button>
+    </div>
+
+    <script>
+        // Katalog aset kuliner dengan grafis vektor gradien halus berkelas tinggi
+        const foodCatalog = {
+            1: { name: 'Coffee Bean', icon: '🌱', bg: 'linear-gradient(135deg, #34D399, #059669)' },
+            2: { name: 'Fresh Coffee', icon: '☕', bg: 'linear-gradient(135deg, #FBBF24, #D97706)' },
+            3: { name: 'Gourmet Burger', icon: '🍔', bg: 'linear-gradient(135deg, #F87171, #DC2626)' },
+            4: { name: 'Artisan Pizza', icon: '🍕', bg: 'linear-gradient(135deg, #A78BFA, #7C3AED)' },
+            5: { name: 'Master Chef Feast', icon: '👑', bg: 'linear-gradient(135deg, #60A5FA, #1D4ED8)' }
+        };
+
+        let board = [1, 2, 0, 0, 1, 0, 0, 0, 0];
+        let coins = 300, level = 1;
+        let targetOrder = 2;
+        let selectedIdx = null;
+
+        function renderBoard() {
+            const grid = document.getElementById('mergeGrid');
+            grid.innerHTML = '';
+            board.forEach((val, idx) => {
+                const cell = document.createElement('div');
+                cell.className = `merge-cell ${selectedIdx === idx ? 'selected' : ''}`;
+                
+                if (val > 0) {
+                    const food = foodCatalog[val];
+                    cell.innerHTML = `
+                        <div class="food-item">
+                            <div class="food-graphic" style="background: ${food.bg};">${food.icon}</div>
+                            <span class="food-lvl">Lvl ${val}</span>
+                        </div>
+                    `;
+                }
+
+                cell.onclick = () => handleCellClick(idx);
+                grid.appendChild(cell);
+            });
+            updateHeader();
+        }
+
+        function updateHeader() {
+            document.getElementById('coinVal').innerText = coins;
+            document.getElementById('levelVal').innerText = level;
+            const targetFood = foodCatalog[targetOrder];
+            document.getElementById('orderIconPreview').innerText = targetFood.icon;
+            document.getElementById('orderIconPreview').style.background = targetFood.bg;
+            document.getElementById('orderIconPreview').style.color = '#FFF';
+            document.getElementById('orderNameText').innerText = `${targetFood.name} (Lvl ${targetOrder})`;
+        }
+
+        function spawnItem() {
+            if (coins < 20) {
+                showModal("Not Enough Coins", "You need at least 20 coins to spawn a new ingredient!", "warning");
+                return;
+            }
+            const emptyIdx = board.indexOf(0);
+            if (emptyIdx === -1) {
+                showModal("Kitchen Full!", "Clear some grid space by merging items before spawning new ones.", "warning");
+                return;
+            }
+            coins -= 20;
+            board[emptyIdx] = 1;
+            renderBoard();
+        }
+
+        function handleCellClick(idx) {
+            if (board[idx] === 0) {
+                if (selectedIdx !== null) {
+                    board[idx] = board[selectedIdx];
+                    board[selectedIdx] = 0;
+                    selectedIdx = null;
+                    renderBoard();
+                }
+                return;
+            }
+
+            if (selectedIdx === null) {
+                selectedIdx = idx;
+                renderBoard();
+            } else {
+                if (selectedIdx === idx) {
+                    selectedIdx = null;
+                } else if (board[selectedIdx] === board[idx] && board[idx] < 5) {
+                    board[idx]++;
+                    board[selectedIdx] = 0;
+                    selectedIdx = null;
+                    coins += board[idx] * 15;
+                    renderBoard();
+                } else {
+                    selectedIdx = idx;
+                }
+                renderBoard();
+            }
+        }
+
+        function deliverOrder() {
+            const idx = board.indexOf(targetOrder);
+            if (idx !== -1) {
+                board[idx] = 0;
+                coins += targetOrder * 100;
+                showModal("Order Fulfilled!", `Customer loved the ${foodCatalog[targetOrder].name}! You earned a generous tip and reward coins.`, "success");
+                targetOrder = targetOrder >= 5 ? 2 : targetOrder + 1;
+                level++;
+                selectedIdx = null;
+                renderBoard();
+            } else {
+                showModal("Missing Order Item", `You don't have the requested item (${foodCatalog[targetOrder].name}) on your kitchen board yet!`, "warning");
+            }
+        }
+
+        function showModal(title, msg, type) {
+            const modal = document.getElementById('gameModal');
+            const card = document.getElementById('modalCardStyle');
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMsg').innerText = msg;
+
+            if (type === 'success') {
+                card.className = 'modal-card order-success';
+                document.getElementById('modalIcon').innerText = '🌟';
+            } else {
+                card.className = 'modal-card';
+                card.style.background = '#FFFBEB';
+                card.style.borderColor = '#FDE68A';
+                document.getElementById('modalIcon').innerText = '💡';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('gameModal').classList.add('hidden');
+        }
+
+        renderBoard();
+    </script>
+</body>
+</html>

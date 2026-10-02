@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Escape Pro - NUMARQO GAMES</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Game Container */
+        .game-container { max-width: 440px; width: 92%; margin: 20px auto; padding: 22px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.6); }
+        .game-header { font-size: 1.35rem; font-weight: 800; color: #0B1F44; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        /* Instruksi / Penjelasan Game yang Jelas */
+        .game-instructions { background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 14px; padding: 10px 14px; margin-bottom: 14px; font-size: 0.78rem; color: #1E40AF; text-align: left; line-height: 1.4; display: flex; gap: 8px; align-items: flex-start; }
+        .game-instructions i { color: #2563EB; font-size: 0.9rem; margin-top: 2px; }
+
+        /* Dashboard Stats */
+        .stats-bar { display: flex; justify-content: space-between; background: #F8FAFC; border: 1px solid #E2E8F0; padding: 10px 16px; border-radius: 14px; margin-bottom: 14px; font-weight: 700; font-size: 0.82rem; color: #475569; }
+
+        /* Board Grid - Terang & Atraktif */
+        .arrow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #E2E8F0; padding: 14px; border-radius: 20px; margin-bottom: 16px; box-shadow: inset 0 3px 10px rgba(0,0,0,0.08); min-height: 250px; align-content: center; }
+        .arrow-tile { background: #FFFFFF; border-radius: 16px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.8rem; color: #2563EB; box-shadow: 0 4px 12px rgba(0,0,0,0.06); transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); border: 2px solid #CBD5E1; }
+        .arrow-tile:hover { transform: translateY(-4px); border-color: #2563EB; background: #EFF6FF; box-shadow: 0 8px 16px rgba(37,99,235,0.2); }
+        
+        /* Animasi Luncur Keluar Berdasarkan Arah Panah */
+        .arrow-tile.fly-up { transform: translateY(-150px) scale(0.8); opacity: 0; }
+        .arrow-tile.fly-right { transform: translateX(150px) scale(0.8); opacity: 0; }
+        .arrow-tile.fly-down { transform: translateY(150px) scale(0.8); opacity: 0; }
+        .arrow-tile.fly-left { transform: translateX(-150px) scale(0.8); opacity: 0; }
+        .arrow-tile.blocked { animation: shakeTile 0.3s ease-in-out; border-color: #EF4444; background: #FEE2E2; color: #EF4444; }
+
+        @keyframes shakeTile { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+        /* Buttons */
+        .numarqo-btn { padding: 12px 20px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.88rem; cursor: pointer; box-shadow: 0 6px 16px rgba(37,99,235,0.3); transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; width: 100%; justify-content: center; }
+        .numarqo-btn:hover { background: #0B1F44; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(11,31,68,0.4); }
+
+        /* Professional Pastel Modal */
+        .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.65); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; border-radius: 28px; z-index: 20; animation: fadeIn 0.2s ease-out; }
+        .modal-card { background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 24px; padding: 28px; width: 85%; max-width: 310px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .modal-icon { font-size: 3rem; margin-bottom: 8px; }
+        .modal-title { font-size: 1.25rem; font-weight: 800; color: #1E293B; margin-bottom: 6px; }
+        .modal-msg { font-size: 0.85rem; color: #475569; margin-bottom: 18px; font-weight: 600; line-height: 1.4; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Arrow Escape Pro</span><span class="numarqo-sub">NUMARQO GAMES</span></div>
+        </div>
+    </header>
+
+    <div class="game-container">
+        <!-- Professional Modal Popup -->
+        <div id="gameModal" class="modal hidden">
+            <div class="modal-card">
+                <div class="modal-icon">🎉</div>
+                <div class="modal-title">Level Cleared!</div>
+                <div class="modal-msg" id="modalScoreText">Brilliant tactical escape! Ready for the next stage?</div>
+                <button class="numarqo-btn" onclick="nextLevel()">Next Level</button>
+            </div>
+        </div>
+
+        <div class="game-header"><i class="fa-solid fa-compass" style="color:#2563EB;"></i> Arrow Escape Puzzle</div>
+        
+        <!-- Penjelasan Gamenya -->
+        <div class="game-instructions">
+            <i class="fa-solid fa-circle-info"></i>
+            <div><strong>How to Play:</strong> Tap the arrow blocks to clear them from the board. Make sure their direction is clear of blocking tiles to slide out successfully!</div>
+        </div>
+
+        <div class="stats-bar">
+            <span id="levelLabel">Level: 1</span>
+            <span id="scoreLabel">Score: 0</span>
+        </div>
+
+        <div class="arrow-grid" id="arrowGrid"></div>
+        
+        <button class="numarqo-btn" onclick="initLevel()"><i class="fa-solid fa-rotate-right"></i> Reset Level</button>
+    </div>
+
+    <script>
+        const directions = [
+            { icon: 'fa-arrow-up', class: 'fly-up', r: -1, c: 0 },
+            { icon: 'fa-arrow-right', class: 'fly-right', r: 0, c: 1 },
+            { icon: 'fa-arrow-down', class: 'fly-down', r: 1, c: 0 },
+            { icon: 'fa-arrow-left', class: 'fly-left', r: 0, c: -1 }
+        ];
+
+        let currentLevel = 1;
+        let score = 0;
+        let gridData = []; // Menyimpan grid 3x3 [row][col] -> dirIndex atau null
+
+        function initLevel() {
+            document.getElementById('gameModal').classList.add('hidden');
+            
+            // Buat data acak untuk grid 3x3
+            gridData = [];
+            for (let r = 0; r < 3; r++) {
+                let row = [];
+                for (let c = 0; c < 3; c++) {
+                    // 80% kemungkinan terisi panah acak, 20% kosong untuk variasi
+                    row.push(Math.random() < 0.85 ? Math.floor(Math.random() * 4) : null);
+                }
+                gridData.push(row);
+            }
+
+            // Pastikan tidak kosong total di awal
+            if (gridData.flat().every(v => v === null)) {
+                gridData[1][1] = 0;
+            }
+
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const gridEl = document.getElementById('arrowGrid');
+            gridEl.innerHTML = '';
+
+            for (let r = 0; r < 3; r++) {
+                for (let c = 0; c < 3; c++) {
+                    const tile = document.createElement('div');
+                    tile.className = 'arrow-tile';
+                    const dirIdx = gridData[r][c];
+
+                    if (dirIdx !== null) {
+                        tile.innerHTML = `<i class="fa-solid ${directions[dirIdx].icon}"></i>`;
+                        tile.onclick = () => tryClearTile(r, c, dirIdx, tile);
+                    } else {
+                        tile.style.visibility = 'hidden';
+                    }
+                    gridEl.appendChild(tile);
+                }
+            }
+            document.getElementById('levelLabel').innerText = `Level: ${currentLevel}`;
+            document.getElementById('scoreLabel').innerText = `Score: ${score}`;
+        }
+
+        function tryClearTile(r, c, dirIdx, tileEl) {
+            const dir = directions[dirIdx];
+            let nextR = r + dir.r;
+            let nextC = c + dir.c;
+            let isBlocked = false;
+
+            // Cek apakah jalur ke arah panah tersebut terhalang ubin lain di dalam grid 3x3
+            while (nextR >= 0 && nextR < 3 && nextC >= 0 && nextC < 3) {
+                if (gridData[nextR][nextC] !== null) {
+                    isBlocked = true;
+                    break;
+                }
+                nextR += dir.r;
+                nextC += dir.c;
+            }
+
+            if (isBlocked) {
+                // Berikan efek getar merah jika jalur terhalang
+                tileEl.classList.add('blocked');
+                setTimeout(() => tileEl.classList.remove('blocked'), 300);
+            } else {
+                // Jalur bebas, jalankan animasi luncur keluar
+                tileEl.classList.add(dir.class);
+                setTimeout(() => {
+                    gridData[r][c] = null;
+                    score += 50;
+                    renderGrid();
+                    checkWinCondition();
+                }, 200);
+            }
+        }
+
+        function checkWinCondition() {
+            const remaining = gridData.flat().filter(v => v !== null).length;
+            if (remaining === 0) {
+                document.getElementById('modalScoreText').innerText = `Amazing tactical play! Total Score: ${score}`;
+                document.getElementById('gameModal').classList.remove('hidden');
+            }
+        }
+
+        function nextLevel() {
+            currentLevel++;
+            score += 200;
+            initLevel();
+        }
+
+        initLevel();
+    </script>
+</body>
+</html>

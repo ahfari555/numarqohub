@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song &amp; Lyric Finder - by NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        /* Container */
+        .game-container { max-width: 500px; width: 92%; margin: 24px auto; padding: 24px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.6); }
+        .game-header { font-size: 1.35rem; font-weight: 800; color: #0B1F44; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .game-desc { font-size: 0.85rem; color: #64748B; margin-bottom: 20px; line-height: 1.4; }
+
+        /* Search Input Group */
+        .search-group { display: flex; gap: 8px; margin-bottom: 20px; }
+        .search-input { flex: 1; padding: 12px 16px; border-radius: 14px; border: 1px solid #CBD5E1; font-size: 0.9rem; outline: none; background: #F8FAFC; color: #0B1F44; transition: 0.2s; }
+        .search-input:focus { border-color: #2563EB; background: #FFF; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        
+        .numarqo-btn { padding: 12px 20px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 16px rgba(37,99,235,0.3); transition: 0.2s; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
+        .numarqo-btn:hover { background: #0B1F44; transform: translateY(-2px); }
+
+        /* Results List */
+        .results-list { display: flex; flex-direction: column; gap: 12px; text-align: left; max-height: 300px; overflow-y: auto; }
+        .result-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 14px; transition: 0.2s; }
+        .result-card:hover { border-color: #2563EB; background: #F0F9FF; }
+        .song-title { font-weight: 700; color: #0B1F44; font-size: 0.95rem; display: flex; justify-content: space-between; }
+        .artist-name { font-size: 0.8rem; color: #64748B; margin-bottom: 6px; }
+        .lyric-snippet { font-size: 0.82rem; color: #334155; font-style: italic; background: #FFF; padding: 8px 12px; border-radius: 8px; border: 1px solid #E2E8F0; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Lyric Finder</span><span class="numarqo-sub">NUMARQO TOOLS</span></div>
+        </div>
+    </header>
+
+    <div class="game-container">
+        <div class="game-header"><i class="fa-solid fa-music" style="color:#2563EB;"></i> Song &amp; Lyric Search</div>
+        <p class="game-desc">Cari potongan lirik lagu atau judul favorit Anda secara instan dengan basis data lokal / API terintegrasi.</p>
+
+        <div class="search-group">
+            <input type="text" id="searchInput" class="search-input" placeholder="Ketik potongan lirik atau judul lagu...">
+            <button class="numarqo-btn" onclick="searchSongs()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <div class="results-list" id="resultsContainer">
+            <p style="color: #94A3B8; font-size: 0.85rem; text-align: center; padding: 20px;">Masukkan kata kunci lirik di atas untuk mulai mencari.</p>
+        </div>
+    </div>
+
+    <script>
+        // Data sampel basis data lokal untuk demonstrasi cepat (dapat dihubungkan ke API musik eksternal)
+        const songDatabase = [
+            { title: "Bohemian Rhapsody", artist: "Queen", snippet: "Is this the real life? Is this just fantasy?" },
+            { title: "Shape of You", artist: "Ed Sheeran", snippet: "The club isn't the best place to find a lover..." },
+            { title: "Blinding Lights", artist: "The Weeknd", snippet: "I've been tryna call, I've been on my own for long enough..." },
+            { title: "Yellow", artist: "Coldplay", snippet: "Look at the stars, look how they shine for you..." }
+        ];
+
+        function searchSongs() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = '';
+
+            if (!query) {
+                container.innerHTML = '<p style="color: #94A3B8; font-size: 0.85rem; text-align: center; padding: 20px;">Silakan masukkan kata kunci terlebih dahulu.</p>';
+                return;
+            }
+
+            const filtered = songDatabase.filter(song => 
+                song.title.toLowerCase().includes(query) || 
+                song.artist.toLowerCase().includes(query) || 
+                song.snippet.toLowerCase().includes(query)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p style="color: #64748B; font-size: 0.85rem; text-align: center; padding: 20px;">Tidak ditemukan potongan lagu yang cocok.</p>';
+                return;
+            }
+
+            filtered.forEach(song => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `
+                    <div class="song-title">${song.title} <i class="fa-solid fa-compact-disc" style="color:#2563EB;"></i></div>
+                    <div class="artist-name">by ${song.artist}</div>
+                    <div class="lyric-snippet">"${song.snippet}"</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>

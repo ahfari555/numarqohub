@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Jam Escape - Numarqo Games</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(135deg, #0B1F44 0%, #1e3a8a 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.9); backdrop-filter: blur(10px); color: #FFFFFF; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-emblem { width: 40px; height: 40px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 600; color: #06B6D4; letter-spacing: 0.1em; text-transform: uppercase; }
+
+        .game-container { max-width: 440px; width: 92%; margin: 24px auto; padding: 20px; background: #FFFFFF; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); text-align: center; }
+        .game-header { font-size: 1.3rem; font-weight: 700; color: #0B1F44; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        
+        .parking-lot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #0B1F44; padding: 12px; border-radius: 16px; margin-bottom: 16px; min-height: 200px; align-content: center; }
+        .bus-card { background: #FFF; border-radius: 10px; padding: 16px 8px; font-weight: 700; font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: 0.2s; }
+        .bus-card:hover { transform: scale(0.95); }
+        
+        .bus-blue { background: #2563EB; color: #FFF; }
+        .bus-cyan { background: #06B6D4; color: #FFF; }
+        .bus-emerald { background: #10B981; color: #FFF; }
+
+        .numarqo-btn { padding: 10px 18px; background: #2563EB; color: #FFF; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+        .numarqo-btn:hover { background: #0B1F44; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <div class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Bus Jam Escape</span><span class="numarqo-sub">NUMARQO GAMES</span></div>
+        </div>
+    </header>
+
+    <div class="game-container">
+        <div class="game-header"><i class="fa-solid fa-bus" style="color:#2563EB;"></i> Bus Jam Puzzle</div>
+        <p style="font-size:0.82rem; color:#64748b; margin-bottom:14px;">Tap matching color buses to clear the parking lot!</p>
+
+        <div class="parking-lot" id="busLot"></div>
+        <button class="numarqo-btn" onclick="initBusGame()"><i class="fa-solid fa-rotate-right"></i> Reset Level</button>
+    </div>
+
+    <script>
+        const buses = [
+            { id: 1, type: 'bus-blue', label: '🚌 Blue' },
+            { id: 2, type: 'bus-cyan', label: '🚌 Cyan' },
+            { id: 3, type: 'bus-emerald', label: '🚌 Emerald' },
+            { id: 1, type: 'bus-blue', label: '🚌 Blue' },
+            { id: 3, type: 'bus-emerald', label: '🚌 Emerald' },
+            { id: 2, type: 'bus-cyan', label: '🚌 Cyan' }
+        ];
+        let currentBuses = [];
+
+        function initBusGame() {
+            currentBuses = [...buses].sort(() => Math.random() - 0.5);
+            renderBuses();
+        }
+
+        function renderBuses() {
+            const lot = document.getElementById('busLot');
+            lot.innerHTML = '';
+            currentBuses.forEach((bus, index) => {
+                const el = document.createElement('div');
+                el.className = `bus-card ${bus.type}`;
+                el.innerText = bus.label;
+                el.onclick = () => removeBus(index);
+                lot.appendChild(el);
+            });
+            if (currentBuses.length === 0) {
+                alert('Congratulations! Parking lot cleared!');
+                initBusGame();
+            }
+        }
+
+        function removeBus(idx) {
+            currentBuses.splice(idx, 1);
+            renderBuses();
+        }
+
+        initBusGame();
+    </script>
+</body>
+</html>
