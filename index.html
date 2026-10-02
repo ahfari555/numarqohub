@@ -30,6 +30,11 @@
         .hero-title { font-size: 2.1rem; font-weight: 900; color: #1E3A8A; margin-bottom: 10px; }
         .hero-desc { font-size: 0.95rem; color: #1E40AF; line-height: 1.6; max-width: 600px; font-weight: 500; }
         
+        /* Category Filter Pills */
+        .filter-wrap { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        .filter-btn { padding: 10px 22px; border-radius: 14px; border: 1px solid #CBD5E1; background: #F8FAFC; color: #334155; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
+        .filter-btn.active, .filter-btn:hover { background: #2563EB; color: #FFF; border-color: #2563EB; box-shadow: 0 4px 15px rgba(37,99,235,0.4); }
+
         .category-section { margin-bottom: 40px; }
         .category-header { font-size: 1.3rem; font-weight: 800; color: #0B1F44; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; }
         .category-title-wrap { display: flex; align-items: center; gap: 12px; }
@@ -81,6 +86,13 @@
             </div>
         </div>
 
+        <!-- Category Filter Pills -->
+        <div class="filter-wrap">
+            <button class="filter-btn active" onclick="filterApps('all', this)">All Apps (15)</button>
+            <button class="filter-btn" onclick="filterApps('utility', this)">Productivity &amp; Tools (8)</button>
+            <button class="filter-btn" onclick="filterApps('game', this)">Casual Games (7)</button>
+        </div>
+
         <!-- Kategori 1: Productivity & Utilities (8 Apps) -->
         <div class="category-section">
             <div class="category-header">
@@ -89,77 +101,77 @@
             </div>
             <div class="app-grid">
                 <!-- 1. Secure Vault -->
-                <a href="numarqo_vaultcalculator.html" class="app-card">
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-vault"></i></div><span class="app-badge">Security</span></div>
                         <div class="app-name">Secure Calculator Vault</div>
                         <div class="app-desc">Penyimpanan file terenkripsi lokal yang disamarkan di balik antarmuka kalkulator ilmiah.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v2.4 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_vaultcalculator.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 2. Tip Calculator -->
-                <a href="numarqo_tipcalculator.html" class="app-card">
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-receipt"></i></div><span class="app-badge">Finance</span></div>
                         <div class="app-name">US Tip &amp; Split Pro</div>
                         <div class="app-desc">Kalkulator tip restoran, estimasi pajak penjualan negara bagian AS, dan pembagi tagihan grup.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v2.1 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_tipcalculator.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 3. IP & Speed Meter -->
-                <a href="numarqo_iputility.html" class="app-card">
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-gauge-high"></i></div><span class="app-badge">Network</span></div>
                         <div class="app-name">IP &amp; Speed Meter</div>
                         <div class="app-desc">Inspeksi telemetri IP publik, cek protokol enkripsi keamanan, dan pengukur kecepatan bandwith.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.8 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_iputility.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 4. SmartPrint AI -->
-                <a href="numarqo_smartprint.html" class="app-card">
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-print"></i></div><span class="app-badge">Utility</span></div>
                         <div class="app-name">SmartPrint AI</div>
                         <div class="app-desc">Pemindai dokumen berbasis kecerdasan buatan dan pengonversi format cetak profesional.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.5 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
-                <!-- 5. SmartForms AI Pro (ADA DI SINI) -->
-                <a href="numarqo_smartforms.html" class="app-card">
+                    <a href="numarqo_smartprint.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <!-- 5. SmartForms AI Pro -->
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-file-invoice"></i></div><span class="app-badge" style="background:#FEF3C7; color:#D97706;">Forms</span></div>
                         <div class="app-name">SmartForms AI Pro</div>
                         <div class="app-desc">Penyusun formulir otomatis dan tanda tangan digital untuk dokumen standar Amerika Serikat.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.2 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_smartforms.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 6. SmartScan AI Pro -->
-                <a href="numarqo_smartscan.html" class="app-card">
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-file-lines"></i></div><span class="app-badge">Scanner</span></div>
                         <div class="app-name">SmartScan AI Pro</div>
                         <div class="app-desc">Pemindai dokumen dan utilitas pengenalan karakter optik cerdas.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.4 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_smartscan.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 7. Expense Tracker -->
-                <a href="numarqo_expensetracker.html" class="app-card">
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-wallet"></i></div><span class="app-badge">Finance</span></div>
                         <div class="app-name">Numarqo Expense &amp; Tax Tracker</div>
                         <div class="app-desc">Pelacak pengeluaran harian dan kalkulator pajak operasional yang akurat.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v2.0 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_expensetracker.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 8. AI Audio Suite -->
-                <a href="numarqo_ai_audio_suite.html" class="app-card">
+                <div class="app-card" data-category="utility">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-microphone-lines"></i></div><span class="app-badge">Audio</span></div>
                         <div class="app-name">AI Voice &amp; Music Suite Pro</div>
                         <div class="app-desc">Transkripsi memo suara, ringkasan dokumen AI, dan pencari musik bergaya Shazam.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.0 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_ai_audio_suite.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
 
@@ -171,68 +183,68 @@
             </div>
             <div class="app-grid">
                 <!-- 9. Petdoku -->
-                <a href="numarqo_petdoku.html" class="app-card">
+                <div class="app-card" data-category="game">
                     <div>
                         <div class="app-top"><div class="app-icon" style="color:#059669; background:#ECFDF5;"><i class="fa-solid fa-paw"></i></div><span class="app-badge" style="background:#D1FAE5; color:#065F46;">Puzzle</span></div>
                         <div class="app-name">Petdoku Puzzle</div>
                         <div class="app-desc">Game puzzle balok sudoku bertema hewan peliharaan yang lucu untuk pasar AS.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v3.0 Release</span><span class="app-launch-link" style="color:#059669;">Play <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_petdoku.html" class="app-launch-link" style="color:#059669; margin-top:16px;">Play <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 10. Block Blast -->
-                <a href="numarqo_blockblast.html" class="app-card">
+                <div class="app-card" data-category="game">
                     <div>
                         <div class="app-top"><div class="app-icon" style="color:#059669; background:#ECFDF5;"><i class="fa-solid fa-cubes"></i></div><span class="app-badge" style="background:#D1FAE5; color:#065F46;">Arcade</span></div>
                         <div class="app-name">Blockblast Numarqo Edition</div>
                         <div class="app-desc">Game puzzle balok klasik berkecepatan tinggi dengan antarmuka glassmorphism.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v2.2 Release</span><span class="app-launch-link" style="color:#059669;">Play <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_blockblast.html" class="app-launch-link" style="color:#059669; margin-top:16px;">Play <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 11. Tasty Travel -->
-                <a href="numarqo_tastytravel.html" class="app-card">
+                <div class="app-card" data-category="game">
                     <div>
                         <div class="app-top"><div class="app-icon" style="color:#059669; background:#ECFDF5;"><i class="fa-solid fa-utensils"></i></div><span class="app-badge" style="background:#D1FAE5; color:#065F46;">Adventure</span></div>
                         <div class="app-name">Tasty Travel</div>
                         <div class="app-desc">Game petualangan kuliner kasual menjelajahi resep global dan teka-teki makanan.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.9 Release</span><span class="app-launch-link" style="color:#059669;">Play <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_tastytravel.html" class="app-launch-link" style="color:#059669; margin-top:16px;">Play <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 12. BizMathLab -->
-                <a href="numarqo_bizmathlab.html" class="app-card">
+                <div class="app-card" data-category="game">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-chart-line"></i></div><span class="app-badge">Business</span></div>
                         <div class="app-name">BizMathLab Hub</div>
                         <div class="app-desc">Kalkulator penggajian, biaya karyawan, dan nilai cuti (PTO) untuk korporasi.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v2.0 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_bizmathlab.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 13. Overtime Calc -->
-                <a href="numarqo_overtimecalc.html" class="app-card">
+                <div class="app-card" data-category="game">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-clock"></i></div><span class="app-badge">Utility</span></div>
                         <div class="app-name">Overtime Pay Calculator</div>
-                        <div class="app-desc">Penghitung upah lembur otomatis sesuai standar ketenagakerjaan US.</div>
+                        <div class="app-desc">Numarqo Overtime Pay Calculator standar ketenagakerjaan US.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.1 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_overtimecalc.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 14. PTO Calc -->
-                <a href="numarqo_ptocalc.html" class="app-card">
+                <div class="app-card" data-category="game">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-calendar-days"></i></div><span class="app-badge">HR Tool</span></div>
                         <div class="app-name">PTO Value Calculator</div>
                         <div class="app-desc">Kalkulator konversi cuti berbayar ke nilai finansial secara instan.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v1.1 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_ptocalc.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
                 <!-- 15. AI Math -->
-                <a href="numarqo_aimath.html" class="app-card">
+                <div class="app-card" data-category="game">
                     <div>
                         <div class="app-top"><div class="app-icon"><i class="fa-solid fa-brain"></i></div><span class="app-badge">AI Tool</span></div>
                         <div class="app-name">Smart AI Math Calculator</div>
                         <div class="app-desc">Kalkulator matematika cerdas dengan penjelasan langkah demi langkah berbasis AI.</div>
                     </div>
-                    <div class="app-footer-meta"><span>v2.5 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
-                </a>
+                    <a href="numarqo_aimath.html" class="app-launch-link" style="margin-top:16px;">Launch <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
 
@@ -246,5 +258,21 @@
         </div>
 
     </div>
+
+    <script>
+        function filterApps(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.app-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
