@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us, Privacy Policy & Terms — NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; scroll-behavior: smooth; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-bottom: 60px; }
+        
+        /* Navbar Numarqo */
+        .numarqo-navbar { width: 100%; max-width: 900px; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); border-radius: 0 0 24px 24px; box-shadow: 0 4px 25px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 100; }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .numarqo-emblem { width: 42px; height: 42px; background: #0B1F44; border-radius: 12px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(37,99,235,0.6); }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #2563EB; left: 5px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 5px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.3rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.7rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+
+        .back-link { color: #60A5FA; text-decoration: none; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; }
+        .back-link:hover { color: #FFFFFF; }
+
+        /* Container Content */
+        .legal-container { max-width: 900px; width: 90%; margin: 30px auto; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; padding: 36px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; }
+        
+        /* Tab Navigation */
+        .legal-tabs { display: flex; gap: 10px; margin-bottom: 28px; border-bottom: 1px solid #E2E8F0; padding-bottom: 16px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 20px; border-radius: 12px; border: 1px solid #CBD5E1; background: #F8FAFC; color: #475569; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active { background: #2563EB; color: #FFF; border-color: #2563EB; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+
+        /* Section Content */
+        .content-section { display: none; }
+        .content-section.active { display: block; animation: fadeIn 0.25s ease-out; }
+
+        h2 { font-size: 1.5rem; font-weight: 800; color: #0B1F44; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+        h3 { font-size: 1.1rem; font-weight: 700; color: #1E293B; margin-top: 18px; margin-bottom: 8px; }
+        p, li { font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 12px; }
+        ul { padding-left: 20px; margin-bottom: 12px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Footer */
+        .footer { margin-top: 50px; color: #94A3B8; font-size: 0.8rem; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <a href="numarqo_hub.html" class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Numarqo Legal</span><span class="numarqo-sub">COMPLIANCE &amp; POLICIES</span></div>
+        </a>
+        <a href="numarqo_hub.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Hub</a>
+    </header>
+
+    <div class="legal-container">
+        <div class="legal-tabs">
+            <button class="tab-btn active" onclick="switchTab('about', this)">About Us</button>
+            <button class="tab-btn" onclick="switchTab('privacy', this)">Privacy Policy</button>
+            <button class="tab-btn" onclick="switchTab('terms', this)">Terms of Service</button>
+        </div>
+
+        <!-- ABOUT US -->
+        <div id="about" class="content-section active">
+            <h2><i class="fa-solid fa-building" style="color:#2563EB;"></i> About Numarqo Ecosystem</h2>
+            <p><strong>Numarqo</strong> is an advanced technology developer studio focused on building high-utility productivity suites and top-tier casual gaming applications optimized for global mobile markets, including the United States.</p>
+            <p>Our mission is to engineer lightweight, secure, and user-centric Progressive Web Apps (PWAs) that deliver seamless performance across all mobile devices and Android Google Play Store deployments.</p>
+            
+            <h3>Core Pillars</h3>
+            <ul>
+                <li><strong>Professional PWA Standard:</strong> High-performance architecture using modern web technologies.</li>
+                <li><strong>Privacy First:</strong> Local storage encryption and transparent data telemetry.</li>
+                <li><strong>US Market Readiness:</strong> Designed according to strict UI/UX standards and US consumer utilities.</li>
+            </ul>
+        </div>
+
+        <!-- PRIVACY POLICY -->
+        <div id="privacy" class="content-section content-section-hidden content-section">
+            <h2><i class="fa-solid fa-shield-halved" style="color:#059669;"></i> Privacy Policy</h2>
+            <p><em>Effective Date: January 1, 2026</em></p>
+            <p>Numarqo ("we", "our", or "us") respects your privacy. This Privacy Policy describes how our mobile and web applications collect, use, and protect your information.</p>
+
+            <h3>1. Data Collection</h3>
+            <p>Most Numarqo productivity tools (such as Secure Vault and Calculators) process and store data <strong>locally on your device</strong> using browser local storage. We do not harvest or store personal files on remote servers.</p>
+
+            <h3>2. Analytics &amp; Advertising</h3>
+            <p>Our ad-supported applications may integrate standard advertising SDKs (such as Google AdMob) that collect anonymous telemetry data to serve relevant advertisements in compliance with Google Play Developer Policies.</p>
+
+            <h3>3. Children's Privacy</h3>
+            <p>Our casual games are designed for general audiences in compliance with US COPPA regulations. We do not knowingly collect personal information from children under 13.</p>
+        </div>
+
+        <!-- TERMS OF SERVICE -->
+        <div id="terms" class="content-section content-section-hidden content-section">
+            <h2><i class="fa-solid fa-file-contract" style="color:#D97706;"></i> Terms of Service</h2>
+            <p><em>Effective Date: January 1, 2026</em></p>
+            <p>By accessing or using any application within the Numarqo Ecosystem, you agree to be bound by these Terms of Service.</p>
+
+            <h3>1. License to Use</h3>
+            <p>We grant you a personal, non-exclusive, non-transferable license to use Numarqo applications for personal, non-commercial entertainment and productivity purposes.</p>
+
+            <h3>2. Intellectual Property</h3>
+            <p>All brand assets, UI designs, code architecture, and app titles under the Numarqo brand are the exclusive property of Numarqo Developer Suite.</p>
+
+            <h3>3. Limitation of Liability</h3>
+            <p>Numarqo applications are provided "as is" without warranty of any kind. We are not liable for any data loss or financial discrepancies resulting from utility calculations or local vault usage.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        &copy; 2026 Numarqo Ecosystem. All rights reserved. Google Play Store Compliance Ready.
+    </footer>
+
+    <script>
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+
+            btn.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
