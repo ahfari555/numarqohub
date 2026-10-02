@@ -34,7 +34,7 @@
         \"relation\": [\"delegate_permission/common.handle_all_urls\"],
         \"target\": {
             \"namespace\": \"web\",
-            \"site\": \"https://numarqohub.vercel.app/numarqo_hub.html\"
+            \"site\": \"https://numarqohub.vercel.app\"
         }
     }]
     

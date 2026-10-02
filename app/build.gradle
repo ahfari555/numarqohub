@@ -22,17 +22,17 @@ plugins {
 
 def twaManifest = [
     applicationId: 'app.vercel.numarqohub.twa',
-    hostName: 'numarqohub.vercel.app/numarqo_hub.html', // The domain being opened in the TWA.
-    launchUrl: 'https://numarqohub.vercel.app/numarqo_hub.html', // The start path for the TWA. Must be relative to the domain.
-    name: 'com.numarqo.smartforms', // The application name.
-    launcherName: 'SmartFormsAI', // The name shown on the Android Launcher.
-    themeColor: '#2C3E50', // The color used for the status bar.
+    hostName: 'numarqohub.vercel.app', // The domain being opened in the TWA.
+    launchUrl: '/', // The start path for the TWA. Must be relative to the domain.
+    name: 'Numarqo Ecosystem Hub', // The application name.
+    launcherName: 'Numarqo Hub', // The name shown on the Android Launcher.
+    themeColor: '#0B1F44', // The color used for the status bar.
     themeColorDark: '#000000', // The color used for the dark status bar.
     navigationColor: '#000000', // The color used for the navigation bar.
     navigationColorDark: '#000000', // The color used for the dark navbar.
     navigationDividerColor: '#000000', // The navbar divider color.
     navigationDividerColorDark: '#000000', // The dark navbar divider color.
-    backgroundColor: '#2C3E50', // The color used for the splash screen background.
+    backgroundColor: '#0B1F44', // The color used for the splash screen background.
     enableNotifications: true, // Set to true to enable notification delegation.
     // Every shortcut must include the following fields:
     // - name: String that will show up in the shortcut.
@@ -207,6 +207,10 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    
+        implementation 'com.google.androidbrowserhelper:locationdelegation:1.1.2'
+    
+        implementation 'com.google.androidbrowserhelper:billing:1.2.0'
     
         implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.6.2'
     

@@ -1,19 +1,19 @@
 {
   "packageId": "app.vercel.numarqohub.twa",
-  "host": "numarqohub.vercel.app/numarqo_hub.html",
-  "name": "com.numarqo.smartforms",
-  "launcherName": "SmartFormsAI",
+  "host": "numarqohub.vercel.app",
+  "name": "Numarqo Ecosystem Hub",
+  "launcherName": "Numarqo Hub",
   "display": "standalone",
-  "themeColor": "#2C3E50",
+  "themeColor": "#0B1F44",
   "themeColorDark": "#000000",
   "navigationColor": "#000000",
   "navigationColorDark": "#000000",
   "navigationDividerColor": "#000000",
   "navigationDividerColorDark": "#000000",
-  "backgroundColor": "#2C3E50",
+  "backgroundColor": "#0B1F44",
   "enableNotifications": true,
-  "startUrl": "https://numarqohub.vercel.app/numarqo_hub.html",
-  "iconUrl": "https://cdn-icons-png.flaticon.com/512/337/337946.png",
+  "startUrl": "/",
+  "iconUrl": "https://numarqohub.vercel.app/icon-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "C:\\Users\\USER\\NumarqoHub\\android.keystore",
@@ -25,7 +25,14 @@
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://numarqohub.vercel.app/manifest.json",
   "fallbackType": "customtabs",
-  "features": {},
+  "features": {
+    "playBilling": {
+      "enabled": true
+    },
+    "locationDelegation": {
+      "enabled": true
+    }
+  },
   "alphaDependencies": {
     "enabled": false
   },
