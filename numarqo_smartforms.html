@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numarqo Expense & Tax Tracker Pro</title>
+    <title>SmartForms AI - Automated Form Builder & Extraction | NUMARQO</title>
     <meta name="theme-color" content="#0B1F44">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,16 +22,14 @@
         .container { max-width: 540px; width: 92%; margin: 28px auto; padding: 28px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; position: relative; }
         h1 { font-size: 1.4rem; font-weight: 800; color: #0B1F44; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
         .subtitle { font-size: 0.85rem; color: #64748B; margin-bottom: 20px; line-height: 1.4; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-        .stat-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 14px; }
-        .stat-label { font-size: 0.72rem; font-weight: 700; color: #64748B; text-transform: uppercase; margin-bottom: 4px; }
-        .stat-val { font-size: 1.2rem; font-weight: 800; color: #0B1F44; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
         .form-group label { font-size: 0.82rem; font-weight: 700; color: #1E293B; }
-        .form-input, .form-select { padding: 12px 14px; border-radius: 12px; border: 1px solid #CBD5E1; font-size: 0.9rem; background: #F8FAFC; color: #0B1F44; outline: none; }
-        .form-input:focus, .form-select:focus { border-color: #2563EB; background: #FFF; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+        .form-input, .form-select, .form-textarea { padding: 12px 14px; border-radius: 12px; border: 1px solid #CBD5E1; font-size: 0.9rem; background: #F8FAFC; color: #0B1F44; outline: none; }
+        .form-textarea { resize: vertical; min-height: 90px; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: #2563EB; background: #FFF; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
         .numarqo-btn { padding: 12px 20px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 16px rgba(37,99,235,0.3); transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .numarqo-btn:hover { background: #0B1F44; }
+        .result-box { margin-top: 20px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 16px; display: none; }
         .modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11,31,68,0.65); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; border-radius: 28px; z-index: 20; animation: fadeIn 0.2s ease-out; }
         .modal-card { background: #ECFDF5; border: 2px solid #A7F3D0; border-radius: 24px; padding: 28px; width: 85%; max-width: 310px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
         .modal-icon { font-size: 3rem; margin-bottom: 8px; }
@@ -46,7 +44,7 @@
     <header class="numarqo-navbar">
         <a href="numarqo_hub.html" class="numarqo-logo-wrap">
             <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
-            <div><span class="numarqo-title">Numarqo Expense</span><span class="numarqo-sub">FINANCE &amp; TAX</span></div>
+            <div><span class="numarqo-title">SmartForms AI</span><span class="numarqo-sub">NUMARQO FORMS</span></div>
         </a>
         <a href="numarqo_hub.html" class="nav-link"><i class="fa-solid fa-arrow-left"></i> Back to Hub</a>
     </header>
@@ -54,59 +52,55 @@
         <div id="gameModal" class="modal hidden">
             <div class="modal-card">
                 <div class="modal-icon">✨</div>
-                <div class="modal-title" id="modalTitle">Expense Saved</div>
-                <div class="modal-msg" id="modalMsg">Operational expense recorded and tax liability computed.</div>
+                <div class="modal-title" id="modalTitle">Form Generated</div>
+                <div class="modal-msg" id="modalMsg">AI form successfully structured and ready for deployment.</div>
                 <button class="numarqo-btn" style="width:100%; justify-content:center;" onclick="closeModal()">Got It</button>
             </div>
         </div>
-        <h1><i class="fa-solid fa-wallet" style="color:#2563EB;"></i> Expense &amp; Tax Tracker</h1>
-        <p class="subtitle">Pelacak pengeluaran harian dan kalkulator pajak operasional yang akurat [cite: 49].</p>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Total Expenses</div>
-                <div class="stat-val" id="totalExp">$1,240.00</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Est. Tax (21%)</div>
-                <div class="stat-val" id="totalTax">$260.40</div>
-            </div>
+        <h1><i class="fa-solid fa-file-lines" style="color:#2563EB;"></i> SmartForms AI Builder</h1>
+        <p class="subtitle">Penyusun formulir otomatis dan ekstraksi data dokumen instan untuk kebutuhan bisnis [cite: 49].</p>
+        <div class="form-group">
+            <label>Form Purpose / Objective</label>
+            <input type="text" id="formTopic" class="form-input" placeholder="e.g. Employee Onboarding & Compliance">
         </div>
         <div class="form-group">
-            <label>Expense Description</label>
-            <input type="text" id="expDesc" class="form-input" placeholder="e.g. Server Hosting &amp; Domain">
-        </div>
-        <div class="form-group">
-            <label>Amount ($)</label>
-            <input type="number" id="expAmount" class="form-input" placeholder="0.00">
-        </div>
-        <div class="form-group">
-            <label>Tax Category</label>
-            <select id="expCategory" class="form-select">
-                <option value="Operational">Operational Software &amp; Cloud (21%)</option>
-                <option value="Marketing">Marketing &amp; Ads (15%)</option>
-                <option value="Equipment">Hardware &amp; Equipment (10%)</option>
+            <label>Target Audience / Industry</label>
+            <select id="formIndustry" class="form-select">
+                <option value="Corporate">Corporate Enterprise US</option>
+                <option value="Tech">Tech Startup &amp; SaaS</option>
+                <option value="Retail">E-Commerce &amp; Retail</option>
             </select>
         </div>
-        <button class="numarqo-btn" onclick="addExpense()"><i class="fa-solid fa-plus"></i> Record Expense &amp; Compute Tax</button>
+        <div class="form-group">
+            <label>Custom Prompts / Additional Fields</label>
+            <textarea id="formPrompt" class="form-textarea" placeholder="Describe specific fields needed (e.g. Tax ID, Emergency Contact, Digital Signature)..."></textarea>
+        </div>
+        <button class="numarqo-btn" onclick="generateForm()"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Form Structure</button>
+        <div class="result-box" id="resultBox">
+            <div style="font-size:0.9rem; font-weight:800; color:#0B1F44; margin-bottom:8px;">Structured Form JSON / Schema</div>
+            <div id="formOutput" style="font-size:0.82rem; color:#334155; background:#FFF; padding:12px; border-radius:10px; border:1px solid #CBD5E1; font-family:monospace; max-height:130px; overflow-y:auto;"></div>
+        </div>
         <div class="footer">&copy; 2026 Numarqo Ecosystem. All rights reserved.</div>
     </div>
     <script>
-        let total = 1240.00;
-        let tax = 260.40;
-        function addExpense() {
-            const desc = document.getElementById('expDesc').value.trim();
-            const amt = parseFloat(document.getElementById('expAmount').value) || 0;
-            if (!desc || amt <= 0) {
-                alert('Please enter valid expense details and amount.');
-                return;
-            }
-            total += amt;
-            tax += amt * 0.21;
-            document.getElementById('totalExp').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('totalTax').innerText = `$${tax.toFixed(2)}`;
-            document.getElementById('expDesc').value = '';
-            document.getElementById('expAmount').value = '';
-            document.getElementById('modalMsg').innerText = `Recorded "$${amt.toFixed(2)}" for ${desc}. Tax updated.`;
+        function generateForm() {
+            const topic = document.getElementById('formTopic').value.trim() || 'General Business Form';
+            const industry = document.getElementById('formIndustry').value;
+            document.getElementById('formOutput').innerHTML = `
+{
+  "form_title": "${topic}",
+  "target_industry": "${industry}",
+  "ai_confidence": "99.4%",
+  "fields": [
+    {"label": "Full Legal Name", "type": "text", "required": true},
+    {"label": "Business Email Address", "type": "email", "required": true},
+    {"label": "Tax Identification / EIN", "type": "text", "required": false},
+    {"label": "Digital Authorization Signature", "type": "signature", "required": true}
+  ],
+  "status": "Ready for deployment"
+}`;
+            document.getElementById('resultBox').style.display = 'block';
+            document.getElementById('modalMsg').innerText = `Form schema for "${topic}" generated successfully by SmartForms AI.`;
             document.getElementById('gameModal').classList.remove('hidden');
         }
         function closeModal() {
