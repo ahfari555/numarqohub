@@ -1,21 +1,25 @@
 {
-  "name": "SmartForms AI Pro - Numarqo",
-  "short_name": "SmartFormsAI",
-  "description": "PDF Form Filler & E-Signature Generator for US Standard Documents",
-  "start_url": "./numarqo_smartforms.html",
+  "name": "Numarqo Ecosystem Hub - Complete 14 App Suite",
+  "short_name": "NumarqoHub",
+  "description": "Professional PWA Suite & US Casual Games Ecosystem by Numarqo",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0B1F44",
   "theme_color": "#0B1F44",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
