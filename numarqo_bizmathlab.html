@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizMathLab - Payroll & Employee Cost Calculator Hub | NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+        .nav-link { color: #CBD5E1; text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+        .nav-link:hover { color: #FFFFFF; }
+
+        .container { max-width: 640px; width: 92%; margin: 28px auto; padding: 28px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; position: relative; }
+        h1 { font-size: 1.4rem; font-weight: 800; color: #0B1F44; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .subtitle { font-size: 0.85rem; color: #64748B; margin-bottom: 20px; line-height: 1.4; }
+
+        .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+        .tool-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 18px; text-decoration: none; color: inherit; transition: 0.2s; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .tool-card:hover { border-color: #2563EB; background: #EFF6FF; transform: translateY(-2px); }
+        .tool-icon { font-size: 1.6rem; color: #2563EB; margin-bottom: 4px; }
+        .tool-title { font-size: 0.95rem; font-weight: 800; color: #0B1F44; }
+        .tool-desc { font-size: 0.78rem; color: #64748B; line-height: 1.4; }
+
+        .calculator-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 18px; padding: 20px; margin-top: 16px; }
+        .calc-title { font-size: 1rem; font-weight: 800; color: #0B1F44; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-group label { font-size: 0.8rem; font-weight: 700; color: #1E293B; }
+        .form-input { padding: 10px 14px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.9rem; background: #FFF; color: #0B1F44; outline: none; }
+        .form-input:focus { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+        .numarqo-btn { padding: 12px 20px; background: #2563EB; color: #FFF; border: none; border-radius: 12px; font-weight: 700; font-size: 0.88rem; cursor: pointer; box-shadow: 0 4px 12px rgba(37,99,235,0.25); transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .numarqo-btn:hover { background: #0B1F44; }
+
+        .result-display { margin-top: 14px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 14px; font-size: 0.85rem; font-weight: 700; color: #1E40AF; display: flex; justify-content: space-between; align-items: center; }
+
+        .footer { margin-top: 30px; font-size: 0.78rem; color: #94A3B8; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <a href="numarqo_hub.html" class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">BizMathLab</span><span class="numarqo-sub">NUMARQO FINANCE</span></div>
+        </a>
+        <a href="numarqo_hub.html" class="nav-link"><i class="fa-solid fa-arrow-left"></i> Back to Hub</a>
+    </header>
+
+    <div class="container">
+        <h1><i class="fa-solid fa-calculator" style="color:#2563EB;"></i> BizMathLab Calculator Hub</h1>
+        <p class="subtitle">Pusat kalkulator penggajian karyawan (payroll), biaya tenaga kerja, dan nilai cuti (PTO) profesional untuk kebutuhan bisnis US dan global.</p>
+
+        <div class="tools-grid">
+            <a href="numarqo_employeecost.html" class="tool-card">
+                <div class="tool-icon"><i class="fa-solid fa-users-gear"></i></div>
+                <div class="tool-title">Employee Cost Calculator</div>
+                <div class="tool-desc">Hitung total pengeluaran riil perusahaan per karyawan termasuk pajak dan benefit.</div>
+            </a>
+            <a href="numarqo_ptocalc.html" class="tool-card">
+                <div class="tool-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                <div class="tool-title">PTO Value Calculator</div>
+                <div class="tool-desc">Kalkulator nilai finansial cuti berbayar (Paid Time Off) karyawan.</div>
+            </a>
+            <a href="numarqo_overtimecalc.html" class="tool-card">
+                <div class="tool-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <div class="tool-title">Overtime Pay Calculator</div>
+                <div class="tool-desc">Hitung upah lembur secara akurat berdasarkan standar regulasi kerja.</div>
+            </a>
+            <a href="numarqo_expense.html" class="tool-card">
+                <div class="tool-icon"><i class="fa-solid fa-wallet"></i></div>
+                <div class="tool-title">Expense &amp; Tax Tracker</div>
+                <div class="tool-desc">Pelacak pengeluaran operasional dan estimasi pajak perusahaan.</div>
+            </a>
+        </div>
+
+        <div class="calculator-box">
+            <div class="calc-title"><i class="fa-solid fa-bolt" style="color:#2563EB;"></i> Quick Payroll Estimator</div>
+            <div class="form-group">
+                <label>Hourly Wage ($ / hour)</label>
+                <input type="number" id="hourlyWage" class="form-input" placeholder="25.00" value="25">
+            </div>
+            <div class="form-group">
+                <label>Weekly Hours</label>
+                <input type="number" id="weeklyHours" class="form-input" placeholder="40" value="40">
+            </div>
+            <button class="numarqo-btn" onclick="calculatePayroll()"><i class="fa-solid fa-calculator"></i> Calculate Monthly Payroll</button>
+            
+            <div class="result-display" id="resultBox" style="display:none;">
+                <span>Estimated Monthly Cost:</span>
+                <span id="monthlyResult" style="font-size:1.1rem; font-weight:800;">$0.00</span>
+            </div>
+        </div>
+
+        <div class="footer">&copy; 2026 Numarqo Ecosystem. All rights reserved.</div>
+    </div>
+
+    <script>
+        function calculatePayroll() {
+            let wage = parseFloat(document.getElementById('hourlyWage').value) || 0;
+            let hours = parseFloat(document.getElementById('weeklyHours').value) || 0;
+            let monthly = wage * hours * 4.33; // 4.33 weeks per month
+            document.getElementById('monthlyResult.innerText` = `$${monthly.toFixed(2)}`; // wait fixing string
+            document.getElementById('monthlyResult').innerText = `$${monthly.toFixed(2)}`;
+            document.getElementById('resultBox').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
