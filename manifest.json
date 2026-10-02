@@ -2,7 +2,7 @@
     "name": "Numarqo Ecosystem Hub",
     "short_name": "Numarqo Hub",
     "description": "Professional PWA Suite & US Casual Games",
-    "start_url": "./numarqo_hub.html",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#0B1F44",
     "theme_color": "#0B1F44",
