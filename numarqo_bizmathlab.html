@@ -109,7 +109,7 @@
             let wage = parseFloat(document.getElementById('hourlyWage').value) || 0;
             let hours = parseFloat(document.getElementById('weeklyHours').value) || 0;
             let monthly = wage * hours * 4.33; // 4.33 weeks per month
-            document.getElementById('monthlyResult.innerText` = `$${monthly.toFixed(2)}`; // wait fixing string
+            document.getElementById('monthlyResult').innerText = `$${monthly.toFixed(2)}`; // wait fixing string
             document.getElementById('monthlyResult').innerText = `$${monthly.toFixed(2)}`;
             document.getElementById('resultBox').style.display = 'flex';
         }
