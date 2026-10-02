@@ -3,285 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numarqo Ecosystem — Professional PWA Suite & US Casual Games</title>
+    <title>Numarqo Ecosystem Hub - Professional US App Suite</title>
     <meta name="theme-color" content="#0B1F44">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; scroll-behavior: smooth; }
-        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
         
         /* Navbar Numarqo */
-        .numarqo-navbar { width: 100%; max-width: 1080px; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); border-radius: 0 0 24px 24px; box-shadow: 0 4px 25px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 100; }
-        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
-        .numarqo-emblem { width: 42px; height: 42px; background: #0B1F44; border-radius: 12px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(37,99,235,0.6); }
-        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #2563EB; left: 5px; transform: skewX(-15deg); }
-        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 5px; transform: skewX(-15deg); }
-        .numarqo-title { font-size: 1.3rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
-        .numarqo-sub { font-size: 0.7rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
-
-        .nav-badge { background: rgba(37,99,235,0.2); border: 1px solid rgba(37,99,235,0.5); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; color: #60A5FA; display: inline-flex; align-items: center; gap: 6px; }
-
-        /* Hero Section */
-        .hero-container { max-width: 1080px; width: 90%; margin: 40px auto 20px; text-align: center; color: #FFFFFF; }
-        .hero-tag { background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.4); color: #22D3EE; padding: 6px 16px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 14px; }
-        .hero-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; line-height: 1.2; }
-        .hero-desc { font-size: 1rem; color: #94A3B8; max-width: 680px; margin: 0 auto 24px; line-height: 1.5; }
-
-        /* Category Filter Pills */
-        .filter-wrap { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
-        .filter-btn { padding: 10px 22px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); color: #CBD5E1; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
-        .filter-btn.active, .filter-btn:hover { background: #2563EB; color: #FFF; border-color: #2563EB; box-shadow: 0 4px 15px rgba(37,99,235,0.4); }
-
-        /* Grid Apps */
-        .apps-grid { max-width: 1080px; width: 90%; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .app-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 24px; padding: 22px; border: 1px solid rgba(255,255,255,0.6); box-shadow: 0 15px 35px rgba(0,0,0,0.3); display: flex; flex-direction: column; justify-content: space-between; transition: 0.25s; text-align: left; }
-        .app-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: #2563EB; }
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
         
-        .card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
-        .card-icon { width: 48px; height: 48px; background: #EFF6FF; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #2563EB; border: 1px solid #BFDBFE; }
-        .card-tag { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 8px; }
-        .tag-game { background: #FEF3C7; color: #D97706; }
-        .tag-utility { background: #ECFDF5; color: #059669; }
+        .nav-links { display: flex; gap: 18px; font-size: 0.88rem; font-weight: 700; }
+        .nav-links a { color: #CBD5E1; text-decoration: none; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .nav-links a:hover { color: #FFFFFF; }
 
-        .card-name { font-size: 1.1rem; font-weight: 800; color: #0B1F44; margin-bottom: 4px; }
-        .card-desc { font-size: 0.8rem; color: #64748B; margin-bottom: 16px; line-height: 1.4; }
+        /* Container Hub */
+        .hub-container { max-width: 720px; width: 92%; margin: 32px auto; padding: 32px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; }
+        .hub-header { font-size: 1.8rem; font-weight: 800; color: #0B1F44; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .hub-desc { font-size: 0.9rem; color: #64748B; margin-bottom: 24px; line-height: 1.5; }
 
-        .card-link { padding: 10px 16px; background: #2563EB; color: #FFF; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 0.82rem; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
-        .card-link:hover { background: #0B1F44; }
+        .section-title { font-size: 1.15rem; font-weight: 800; color: #1E293B; margin: 24px 0 12px 0; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        
+        .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
+        .app-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 18px; text-decoration: none; color: inherit; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; }
+        .app-card:hover { transform: translateY(-3px); border-color: #2563EB; background: #FFF; box-shadow: 0 8px 20px rgba(37,99,235,0.15); }
+        .app-icon { font-size: 1.8rem; color: #2563EB; margin-bottom: 10px; }
+        .app-name { font-size: 0.95rem; font-weight: 800; color: #0B1F44; margin-bottom: 4px; }
+        .app-desc { font-size: 0.78rem; color: #64748B; line-height: 1.4; }
 
-        /* Footer */
-        .footer { margin-top: 60px; color: #64748B; font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 1080px; padding-top: 20px; }
-
-        @media (max-width: 600px) {
-            .hero-title { font-size: 1.8rem; }
-            .numarqo-navbar { padding: 14px 20px; }
-        }
+        .footer { margin-top: 32px; text-align: center; font-size: 0.78rem; color: #94A3B8; }
     </style>
 </head>
 <body>
     <header class="numarqo-navbar">
-        <div class="numarqo-logo-wrap">
+        <a href="index.html" class="numarqo-logo-wrap">
             <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
-            <div><span class="numarqo-title">Numarqo Suite</span><span class="numarqo-sub">OFFICIAL ECOSYSTEM HUB</span></div>
-        </div>
-        <div class="nav-badge"><i class="fa-solid fa-shield-verified"></i> US Market Ready</div>
+            <div><span class="numarqo-title">Numarqo Ecosystem</span><span class="numarqo-sub">OFFICIAL HUB</span></div>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html" style="color:#60A5FA;"><i class="fa-solid fa-house"></i> Hub</a>
+            <a href="numarqo_legal.html"><i class="fa-solid fa-scale-balanced"></i> Legal</a>
+            <a href="numarqo_support.html"><i class="fa-solid fa-headset"></i> Support</a>
+        </nav>
     </header>
 
-    <div class="hero-container">
-        <span class="hero-tag">Professional PWA Ecosystem</span>
-        <h1 class="hero-title">High-Utility Tools &amp; Casual Gaming Suite</h1>
-        <p class="hero-desc">Explore our certified collection of lightweight, high-performance Progressive Web Apps optimized for US mobile standards and Google Play Store deployment.</p>
+    <div class="hub-container">
+        <div class="hub-header"><i class="fa-solid fa-layer-group" style="color:#2563EB;"></i> Numarqo App Suite</div>
+        <p class="hub-desc">Welcome to the official ecosystem portal. Access our professional suite of casual games, financial calculators, security vaults, and network utility tools.</p>
 
-        <div class="filter-wrap">
-            <button class="filter-btn active" onclick="filterApps('all', this)">All Apps (14)</button>
-            <button class="filter-btn" onclick="filterApps('game', this)">Casual Games (6)</button>
-            <button class="filter-btn" onclick="filterApps('utility', this)">Productivity &amp; Tools (8)</button>
+        <div class="section-title"><i class="fa-solid fa-calculator" style="color:#2563EB;"></i> Productivity & Financial Utilities</div>
+        <div class="app-grid">
+            <a href="numarqo_vaultcalculator.html" class="app-card">
+                <div>
+                    <div class="app-icon"><i class="fa-solid fa-vault"></i></div>
+                    <div class="app-name">Secure Calculator Vault</div>
+                    <div class="app-desc">Encrypted local file storage disguised behind a functional calculator.</div>
+                </div>
+            </a>
+            <a href="numarqo_tipcalculator.html" class="app-card">
+                <div>
+                    <div class="app-icon"><i class="fa-solid fa-receipt"></i></div>
+                    <div class="app-name">US Tip & Split Pro</div>
+                    <div class="app-desc">Restaurant tipping, US state sales tax, and group bill splitter.</div>
+                </div>
+            </a>
+            <a href="numarqo_iputility.html" class="app-card">
+                <div>
+                    <div class="app-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <div class="app-name">IP & Speed Meter</div>
+                    <div class="app-desc">Public IP telemetry, security protocols, and live bandwidth meter.</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="section-title"><i class="fa-solid fa-puzzle-piece" style="color:#059669;"></i> Casual Games & Puzzles</div>
+        <div class="app-grid">
+            <a href="numarqo_petdoku.html" class="app-card">
+                <div>
+                    <div class="app-icon"><i class="fa-solid fa-paw"></i></div>
+                    <div class="app-name">Petdoku Puzzle</div>
+                    <div class="app-desc">Cute animal sudoku block puzzle for casual US gaming.</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 Numarqo Ecosystem. Designed for US Market Excellence &amp; Google Play Store Compliance.
         </div>
     </div>
-
-    <div class="apps-grid" id="appsGrid">
-        <!-- 1. Petdoku -->
-        <div class="app-card" data-category="game">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-paw"></i></div>
-                    <span class="card-tag tag-game">Casual Game</span>
-                </div>
-                <div class="card-name">Petdoku Pro</div>
-                <div class="card-desc">Animal grid puzzle with adorable mascot themes and smooth block placement mechanics.</div>
-            </div>
-            <a href="numarqo_petdoku.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 2. Color Sort -->
-        <div class="app-card" data-category="game">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-flask"></i></div>
-                    <span class="card-tag tag-game">Casual Game</span>
-                </div>
-                <div class="card-name">Color Sort Pro</div>
-                <div class="card-desc">Fluid and marble physics puzzle featuring smooth tilting tube animations.</div>
-            </div>
-            <a href="numarqo_colorsort.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 3. Block Blast -->
-        <div class="app-card" data-category="game">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-cubes"></i></div>
-                    <span class="card-tag tag-game">Casual Game</span>
-                </div>
-                <div class="card-name">Block Blast Pro</div>
-                <div class="card-desc">Grid block puzzle with bright color palettes and sparkling row destruction effects.</div>
-            </div>
-            <a href="numarqo_blockblast.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 4. Tasty Travels -->
-        <div class="app-card" data-category="game">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-utensils"></i></div>
-                    <span class="card-tag tag-game">Casual Game</span>
-                </div>
-                <div class="card-name">Tasty Travels Pro</div>
-                <div class="card-desc">Merge and kitchen story puzzle with bright culinary vector graphics and luxury restaurant vibes.</div>
-            </div>
-            <a href="numarqo_tastytravels.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 5. Physics Drop -->
-        <div class="app-card" data-category="game">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-pencil"></i></div>
-                    <span class="card-tag tag-game">Casual Game</span>
-                </div>
-                <div class="card-name">Physics Drop Pro</div>
-                <div class="card-desc">Draw-line physics puzzle with clear visual baskets and anti-stuck ball mechanics.</div>
-            </div>
-            <a href="numarqo_physicsdrop.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 6. Arrow Tap -->
-        <div class="app-card" data-category="game">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
-                    <span class="card-tag tag-game">Casual Game</span>
-                </div>
-                <div class="card-name">Arrow Escape Pro</div>
-                <div class="card-desc">Directional tap puzzle featuring path-blocking obstacles and interactive guidance.</div>
-            </div>
-            <a href="numarqo_arrowpuzzle.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 7. SmartScan AI -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-file-lines"></i></div>
-                    <span class="card-tag tag-utility">Productivity</span>
-                </div>
-                <div class="card-name">SmartScan AI Pro</div>
-                <div class="card-desc">Document scanner and intelligent optical character recognition utility.</div>
-            </div>
-            <a href="numarqo_smartscan.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 8. AI Calculator -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-calculator"></i></div>
-                    <span class="card-tag tag-utility">Utility</span>
-                </div>
-                <div class="card-name">AI Math Calculator Pro</div>
-                <div class="card-desc">Advanced calculator with step-by-step AI reasoning and scientific functions.</div>
-            </div>
-            <a href="numarqo_aicalculator.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 9. Tip Calculator -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-receipt"></i></div>
-                    <span class="card-tag tag-utility">Lifestyle</span>
-                </div>
-                <div class="card-name">US Tip &amp; Split Pro</div>
-                <div class="card-desc">Precise restaurant tipping, state sales tax inclusion, and group bill splitter.</div>
-            </div>
-            <a href="numarqo_tipcalculator.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 10. Secure Vault -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
-                    <span class="card-tag tag-utility">Security</span>
-                </div>
-                <div class="card-name">Secure Vault Pro</div>
-                <div class="card-desc">Fully functional calculator disguised vault with encrypted local file storage and PIN management.</div>
-            </div>
-            <a href="numarqo_vaultcalculator.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 11. IP & Network Meter -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                    <span class="card-tag tag-utility">Network</span>
-                </div>
-                <div class="card-name">IP &amp; Speed Meter</div>
-                <div class="card-desc">Monitor public IP telemetry, security protocols, and live download/upload bandwidth.</div>
-            </div>
-            <a href="numarqo_iputility.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 12. Media Utility -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div>
-                    <span class="card-tag tag-utility">Media Utility</span>
-                </div>
-                <div class="card-name">Media Utility Pro</div>
-                <div class="card-desc">Fetch and manage public archives, creative commons files, and educational video assets.</div>
-            </div>
-            <a href="numarqo_videoutility.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 13. AI Audio Suite -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div>
-                    <span class="card-tag tag-utility">Productivity</span>
-                </div>
-                <div class="card-name">AI Voice &amp; Music Suite Pro</div>
-                <div class="card-desc">Voice memo transcription, AI document summarizer, and Shazam-style music finder.</div>
-            </div>
-            <a href="numarqo_ai_audio_suite.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-
-        <!-- 14. Monetization Hub -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                    <span class="card-tag tag-utility">Analytics</span>
-                </div>
-                <div class="card-name">Monetization Suite Pro</div>
-                <div class="card-desc">Real-time financial telemetry for ad revenue, freemium subscriptions, and payout requests.</div>
-            </div>
-            <a href="numarqo_monetization_dashboard.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-    </div>
-
-    <footer class="footer">
-        &copy; 2026 Numarqo Ecosystem. All rights reserved. Designed for Google Play Store publication &amp; US Market standards.
-    </footer>
-
-    <script>
-        function filterApps(category, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const cards = document.querySelectorAll('.app-card');
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
 </body>
 </html>
