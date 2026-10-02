@@ -12,7 +12,7 @@
         body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
         
         /* Navbar Numarqo */
-        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 100; }
         .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
         .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
         .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
@@ -20,25 +20,28 @@
         .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
         .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
         
-        .nav-links { display: flex; gap: 18px; font-size: 0.88rem; font-weight: 700; }
+        .nav-links { display: flex; gap: 20px; font-size: 0.88rem; font-weight: 700; }
         .nav-links a { color: #CBD5E1; text-decoration: none; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
         .nav-links a:hover { color: #FFFFFF; }
 
-        /* Container Hub */
-        .hub-container { max-width: 720px; width: 92%; margin: 32px auto; padding: 32px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; }
-        .hub-header { font-size: 1.8rem; font-weight: 800; color: #0B1F44; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .hub-desc { font-size: 0.9rem; color: #64748B; margin-bottom: 24px; line-height: 1.5; }
+        /* Container Pro Hub */
+        .hub-container { max-width: 900px; width: 92%; margin: 36px auto; padding: 36px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; }
+        .hero-banner { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border: 1px solid #BFDBFE; border-radius: 20px; padding: 28px; margin-bottom: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .hero-title { font-size: 1.6rem; font-weight: 800; color: #1E40AF; margin-bottom: 6px; }
+        .hero-desc { font-size: 0.9rem; color: #1E3A8A; line-height: 1.5; max-width: 520px; }
 
-        .section-title { font-size: 1.15rem; font-weight: 800; color: #1E293B; margin: 24px 0 12px 0; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .category-header { font-size: 1.2rem; font-weight: 800; color: #0B1F44; margin: 30px 0 14px 0; border-bottom: 2px solid #E2E8F0; padding-bottom: 8px; display: flex; align-items: center; gap: 10px; }
         
-        .app-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
-        .app-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px; padding: 18px; text-decoration: none; color: inherit; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; }
-        .app-card:hover { transform: translateY(-3px); border-color: #2563EB; background: #FFF; box-shadow: 0 8px 20px rgba(37,99,235,0.15); }
-        .app-icon { font-size: 1.8rem; color: #2563EB; margin-bottom: 10px; }
-        .app-name { font-size: 0.95rem; font-weight: 800; color: #0B1F44; margin-bottom: 4px; }
-        .app-desc { font-size: 0.78rem; color: #64748B; line-height: 1.4; }
+        .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .app-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 18px; padding: 20px; text-decoration: none; color: inherit; transition: 0.25s; box-shadow: 0 4px 12px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; }
+        .app-card:hover { transform: translateY(-4px); border-color: #2563EB; background: #FFFFFF; box-shadow: 0 12px 30px rgba(37,99,235,0.18); }
+        .app-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .app-icon { width: 44px; height: 44px; background: #EFF6FF; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #2563EB; border: 1px solid #BFDBFE; }
+        .app-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; background: #DBEAFE; color: #1D4ED8; padding: 4px 8px; border-radius: 6px; }
+        .app-name { font-size: 1rem; font-weight: 800; color: #0B1F44; margin-bottom: 4px; }
+        .app-desc { font-size: 0.81rem; color: #64748B; line-height: 1.4; }
 
-        .footer { margin-top: 32px; text-align: center; font-size: 0.78rem; color: #94A3B8; }
+        .footer { margin-top: 36px; text-align: center; font-size: 0.8rem; color: #94A3B8; border-top: 1px solid #E2E8F0; padding-top: 20px; }
     </style>
 </head>
 <body>
@@ -55,47 +58,66 @@
     </header>
 
     <div class="hub-container">
-        <div class="hub-header"><i class="fa-solid fa-layer-group" style="color:#2563EB;"></i> Numarqo App Suite</div>
-        <p class="hub-desc">Welcome to the official ecosystem portal. Access our professional suite of casual games, financial calculators, security vaults, and network utility tools.</p>
+        <div class="hero-banner">
+            <div>
+                <div class="hero-title"><i class="fa-solid fa-rocket" style="color:#2563EB;"></i> Numarqo US App Suite</div>
+                <div class="hero-desc">Welcome to the official ecosystem portal. Explore our professional collection of high-performance Progressive Web Apps, security vaults, financial calculators, and casual digital games.</div>
+            </div>
+            <div>
+                <a href="numarqo_legal.html" style="padding: 12px 20px; background: #2563EB; color: #FFF; border-radius: 14px; font-weight: 700; font-size: 0.85rem; text-decoration: none; box-shadow: 0 4px 14px rgba(37,99,235,0.4); display: inline-flex; align-items: center; gap: 8px;"><i class="fa-solid fa-shield-halved"></i> Trust &amp; Compliance</a>
+            </div>
+        </div>
 
-        <div class="section-title"><i class="fa-solid fa-calculator" style="color:#2563EB;"></i> Productivity & Financial Utilities</div>
+        <div class="category-header"><i class="fa-solid fa-calculator" style="color:#2563EB;"></i> Productivity &amp; Financial Utilities</div>
         <div class="app-grid">
             <a href="numarqo_vaultcalculator.html" class="app-card">
                 <div>
-                    <div class="app-icon"><i class="fa-solid fa-vault"></i></div>
+                    <div class="app-top">
+                        <div class="app-icon"><i class="fa-solid fa-vault"></i></div>
+                        <span class="app-badge">Security</span>
+                    </div>
                     <div class="app-name">Secure Calculator Vault</div>
-                    <div class="app-desc">Encrypted local file storage disguised behind a functional calculator.</div>
+                    <div class="app-desc">Encrypted local file storage disguised securely behind a fully functional scientific calculator interface.</div>
                 </div>
             </a>
             <a href="numarqo_tipcalculator.html" class="app-card">
                 <div>
-                    <div class="app-icon"><i class="fa-solid fa-receipt"></i></div>
-                    <div class="app-name">US Tip & Split Pro</div>
-                    <div class="app-desc">Restaurant tipping, US state sales tax, and group bill splitter.</div>
+                    <div class="app-top">
+                        <div class="app-icon"><i class="fa-solid fa-receipt"></i></div>
+                        <span class="app-badge">Finance</span>
+                    </div>
+                    <div class="app-name">US Tip &amp; Split Pro</div>
+                    <div class="app-desc">Restaurant tipping calculator, US state sales tax estimator, and group bill split utility.</div>
                 </div>
             </a>
             <a href="numarqo_iputility.html" class="app-card">
                 <div>
-                    <div class="app-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                    <div class="app-name">IP & Speed Meter</div>
-                    <div class="app-desc">Public IP telemetry, security protocols, and live bandwidth meter.</div>
+                    <div class="app-top">
+                        <div class="app-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                        <span class="app-badge">Network</span>
+                    </div>
+                    <div class="app-name">IP &amp; Speed Meter</div>
+                    <div class="app-desc">Public IP telemetry inspection, encryption security check, and live bandwidth speed meter.</div>
                 </div>
             </a>
         </div>
 
-        <div class="section-title"><i class="fa-solid fa-puzzle-piece" style="color:#059669;"></i> Casual Games & Puzzles</div>
+        <div class="category-header"><i class="fa-solid fa-puzzle-piece" style="color:#059669;"></i> Casual Games &amp; Digital Entertainment</div>
         <div class="app-grid">
             <a href="numarqo_petdoku.html" class="app-card">
                 <div>
-                    <div class="app-icon"><i class="fa-solid fa-paw"></i></div>
+                    <div class="app-top">
+                        <div class="app-icon"><i class="fa-solid fa-paw"></i></div>
+                        <span class="app-badge">Puzzle</span>
+                    </div>
                     <div class="app-name">Petdoku Puzzle</div>
-                    <div class="app-desc">Cute animal sudoku block puzzle for casual US gaming.</div>
+                    <div class="app-desc">Cute animal sudoku block puzzle game designed for casual gaming audiences in the US market.</div>
                 </div>
             </a>
         </div>
 
         <div class="footer">
-            &copy; 2026 Numarqo Ecosystem. Designed for US Market Excellence &amp; Google Play Store Compliance.
+            &copy; 2026 Numarqo Ecosystem. All rights reserved. Designed for US Market Excellence &amp; Google Play Store Compliance.
         </div>
     </div>
 </body>
