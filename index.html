@@ -3,487 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numarqo Ecosystem Hub - Professional US App Suite & Enterprise Portal</title>
+    <title>Numarqo Ecosystem Hub - Complete 14 App Suite & Enterprise Portal</title>
     <meta name="theme-color" content="#0B1F44">
-    <meta name="description" content="Official enterprise hub for Numarqo. Explore our comprehensive suite of secure productivity utilities, financial calculators, network security tools, and casual puzzle games designed for the US market.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at 50% 20%, #1e3a8a 0%, #0B1F44 60%, #050b18 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; }
         
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            user-select: none;
-        }
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(16px); color: #FFFFFF; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); position: sticky; top: 0; z-index: 1000; }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+        .numarqo-emblem { width: 44px; height: 44px; background: linear-gradient(135deg, #0B1F44 0%, #1e3a8a 100%); border-radius: 12px; position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(37, 99, 235, 0.6); }
+        .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #2563EB; left: 6px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 6px; transform: skewX(-15deg); }
+        .numarqo-brand-text { display: flex; flex-direction: column; }
+        .numarqo-title { font-size: 1.25rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.68rem; font-weight: 700; color: #38bdf8; letter-spacing: 0.18em; text-transform: uppercase; }
 
-        body {
-            background: radial-gradient(circle at 50% 20%, #1e3a8a 0%, #0B1F44 60%, #050b18 100%);
-            color: #0B1F44;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-            position: relative;
-        }
+        .nav-links { display: flex; gap: 24px; font-size: 0.9rem; font-weight: 700; align-items: center; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 10px; }
+        .nav-links a:hover, .nav-links a.active { color: #ffffff; background: rgba(255, 255, 255, 0.08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1); }
 
-        /* Ambient Glow Background Accents */
-        body::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: 15%;
-            width: 500px;
-            height: 500px;
-            background: rgba(37, 99, 235, 0.18);
-            filter: blur(120px);
-            border-radius: 50%;
-            z-index: 0;
-            pointer-events: none;
-        }
+        .hub-container { max-width: 1100px; width: 94%; margin: 40px auto; padding: 44px; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(25px); border-radius: 32px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.7); text-align: left; }
+        
+        .hero-banner { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%); border: 1px solid #93C5FD; border-radius: 24px; padding: 36px; margin-bottom: 36px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+        .hero-title { font-size: 2.1rem; font-weight: 900; color: #1E3A8A; margin-bottom: 10px; }
+        .hero-desc { font-size: 0.95rem; color: #1E40AF; line-height: 1.6; max-width: 600px; font-weight: 500; }
+        
+        .category-section { margin-bottom: 40px; }
+        .category-header { font-size: 1.3rem; font-weight: 800; color: #0B1F44; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; }
+        .category-title-wrap { display: flex; align-items: center; gap: 12px; }
+        .category-count { font-size: 0.75rem; font-weight: 700; background: #E2E8F0; color: #475569; padding: 4px 10px; border-radius: 20px; }
 
-        body::after {
-            content: '';
-            position: absolute;
-            top: 400px;
-            right: 10%;
-            width: 450px;
-            height: 450px;
-            background: rgba(6, 182, 212, 0.12);
-            filter: blur(130px);
-            border-radius: 50%;
-            z-index: 0;
-            pointer-events: none;
-        }
+        .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+        .app-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 22px; padding: 24px; text-decoration: none; color: inherit; transition: all 0.3s ease; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03); display: flex; flex-direction: column; justify-content: space-between; }
+        .app-card:hover { transform: translateY(-6px); border-color: #3B82F6; background: #FFFFFF; box-shadow: 0 16px 35px rgba(37, 99, 235, 0.15); }
+        .app-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+        .app-icon { width: 52px; height: 52px; background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: #2563EB; border: 1px solid #BFDBFE; }
+        .app-badge { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; background: #E0E7FF; color: #3730A3; padding: 5px 10px; border-radius: 8px; }
+        .app-name { font-size: 1.1rem; font-weight: 800; color: #0B1F44; margin-bottom: 6px; }
+        .app-desc { font-size: 0.85rem; color: #64748B; line-height: 1.5; margin-bottom: 20px; font-weight: 500; }
+        .app-footer-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #E2E8F0; padding-top: 14px; font-size: 0.78rem; color: #94A3B8; font-weight: 600; }
+        .app-launch-link { color: #2563EB; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
 
-        /* Enterprise Navbar */
-        .numarqo-navbar {
-            width: 100%;
-            background: rgba(11, 31, 68, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            color: #FFFFFF;
-            padding: 16px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .numarqo-logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            text-decoration: none;
-        }
-
-        .numarqo-emblem {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #0B1F44 0%, #1e3a8a 100%);
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 15px rgba(37, 99, 235, 0.6);
-        }
-
-        .n-bar-1 {
-            position: absolute;
-            width: 14px;
-            height: 100%;
-            background: #2563EB;
-            left: 6px;
-            transform: skewX(-15deg);
-        }
-
-        .n-bar-2 {
-            position: absolute;
-            width: 14px;
-            height: 100%;
-            background: #06B6D4;
-            right: 6px;
-            transform: skewX(-15deg);
-        }
-
-        .numarqo-brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .numarqo-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-        }
-
-        .numarqo-sub {
-            font-size: 0.68rem;
-            font-weight: 700;
-            color: #38bdf8;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 14px;
-            border-radius: 10px;
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
-
-        /* Main Enterprise Hub Container */
-        .hub-container {
-            max-width: 1100px;
-            width: 94%;
-            margin: 40px auto;
-            padding: 44px;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 32px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            text-align: left;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Hero Banner Section */
-        .hero-banner {
-            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 50%, #BFDBFE 100%);
-            border: 1px solid #93C5FD;
-            border-radius: 24px;
-            padding: 36px;
-            margin-bottom: 36px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 24px;
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
-        }
-
-        .hero-content {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #2563EB;
-            color: #FFFFFF;
-            font-size: 0.72rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 6px 12px;
-            border-radius: 8px;
-            margin-bottom: 14px;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .hero-title {
-            font-size: 2.1rem;
-            font-weight: 900;
-            color: #1E3A8A;
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-desc {
-            font-size: 0.95rem;
-            color: #1E40AF;
-            line-height: 1.6;
-            max-width: 600px;
-            font-weight: 500;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            padding: 14px 24px;
-            background: #2563EB;
-            color: #FFFFFF;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-decoration: none;
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background: #1D4ED8;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.45);
-        }
-
-        .btn-secondary {
-            padding: 14px 24px;
-            background: #FFFFFF;
-            color: #1E3A8A;
-            border-radius: 14px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.25s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid #93C5FD;
-        }
-
-        .btn-secondary:hover {
-            background: #F8FAFC;
-            transform: translateY(-2px);
-            border-color: #2563EB;
-        }
-
-        /* Category Section Header */
-        .category-section {
-            margin-bottom: 40px;
-        }
-
-        .category-header {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #0B1F44;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #E2E8F0;
-            padding-bottom: 10px;
-        }
-
-        .category-title-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .category-count {
-            font-size: 0.75rem;
-            font-weight: 700;
-            background: #E2E8F0;
-            color: #475569;
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
-
-        /* Rich App Grid Layout */
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 20px;
-        }
-
-        .app-card {
-            background: #F8FAFC;
-            border: 1px solid #E2E8F0;
-            border-radius: 22px;
-            padding: 24px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: #2563EB;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .app-card:hover {
-            transform: translateY(-6px);
-            border-color: #3B82F6;
-            background: #FFFFFF;
-            box-shadow: 0 16px 35px rgba(37, 99, 235, 0.15);
-        }
-
-        .app-card:hover::before {
-            opacity: 1;
-        }
-
-        .app-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 16px;
-        }
-
-        .app-icon {
-            width: 52px;
-            height: 52px;
-            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: #2563EB;
-            border: 1px solid #BFDBFE;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
-        }
-
-        .app-badge {
-            font-size: 0.68rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            background: #E0E7FF;
-            color: #3730A3;
-            padding: 5px 10px;
-            border-radius: 8px;
-            letter-spacing: 0.05em;
-        }
-
-        .app-badge.game {
-            background: #D1FAE5;
-            color: #065F46;
-        }
-
-        .app-badge.util {
-            background: #FEF3C7;
-            color: #92400E;
-        }
-
-        .app-name {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #0B1F44;
-            margin-bottom: 6px;
-            letter-spacing: -0.01em;
-        }
-
-        .app-desc {
-            font-size: 0.85rem;
-            color: #64748B;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .app-footer-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #E2E8F0;
-            padding-top: 14px;
-            font-size: 0.78rem;
-            color: #94A3B8;
-            font-weight: 600;
-        }
-
-        .app-launch-link {
-            color: #2563EB;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: gap 0.2s ease;
-        }
-
-        .app-card:hover .app-launch-link {
-            gap: 10px;
-        }
-
-        /* Enterprise Footer */
-        .hub-footer {
-            margin-top: 50px;
-            text-align: center;
-            font-size: 0.82rem;
-            color: #64748B;
-            border-top: 1px solid #E2E8F0;
-            padding-top: 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            font-weight: 500;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-links a {
-            color: #475569;
-            text-decoration: none;
-            transition: color 0.2s ease;
-            font-weight: 600;
-        }
-
-        .footer-links a:hover {
-            color: #2563EB;
-        }
-
-        @media (max-width: 768px) {
-            .numarqo-navbar { padding: 14px 20px; }
-            .hub-container { padding: 24px; width: 96%; }
-            .hero-banner { padding: 24px; }
-            .hero-title { font-size: 1.6rem; }
-            .hub-footer { flex-direction: column; text-align: center; }
-        }
+        .hub-footer { margin-top: 50px; text-align: center; font-size: 0.82rem; color: #64748B; border-top: 1px solid #E2E8F0; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; font-weight: 500; }
+        .footer-links { display: flex; gap: 20px; }
+        .footer-links a { color: #475569; text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
 
-    <!-- Enterprise Navigation Bar -->
     <header class="numarqo-navbar">
         <a href="index.html" class="numarqo-logo-wrap">
             <div class="numarqo-emblem">
@@ -502,113 +71,148 @@
         </nav>
     </header>
 
-    <!-- Main Container -->
     <div class="hub-container">
         
-        <!-- Hero Banner -->
         <div class="hero-banner">
-            <div class="hero-content">
-                <div class="hero-tag"><i class="fa-solid fa-shield-halved"></i> US Market Certified</div>
-                <h1 class="hero-title">Numarqo Application Suite</h1>
-                <p class="hero-desc">Welcome to the official centralized ecosystem portal. Experience our professional suite of progressive web apps, high-security utility vaults, financial calculators, and casual digital games engineered for excellence.</p>
-            </div>
-            <div class="hero-actions">
-                <a href="numarqo_legal.html" class="btn-primary"><i class="fa-solid fa-shield-check"></i> Compliance &amp; Trust</a>
-                <a href="numarqo_support.html" class="btn-secondary"><i class="fa-solid fa-circle-question"></i> Help Center</a>
+            <div>
+                <span style="background:#2563EB; color:#FFF; font-size:0.72rem; font-weight:800; padding:6px 12px; border-radius:8px; text-transform:uppercase;">US Market Certified</span>
+                <h1 class="hero-title" style="margin-top:10px;">Numarqo Application Suite</h1>
+                <p class="hero-desc">Portal resmi ekosistem Numarqo. Jelajahi ke-14 aplikasi dan game kasual profesional kami yang dirancang untuk performa tinggi dan kepatuhan Google Play Console.</p>
             </div>
         </div>
 
-        <!-- Section 1: Productivity & Financial Utilities -->
+        <!-- Kategori 1: Productivity & Utilities -->
         <div class="category-section">
             <div class="category-header">
-                <div class="category-title-wrap">
-                    <i class="fa-solid fa-calculator" style="color:#2563EB; font-size: 1.2rem;"></i>
-                    <span>Productivity &amp; Financial Utilities</span>
-                </div>
-                <span class="category-count">3 Apps Active</span>
+                <div class="category-title-wrap"><i class="fa-solid fa-calculator" style="color:#2563EB;"></i><span>Productivity &amp; Financial Utilities</span></div>
+                <span class="category-count">6 Apps</span>
             </div>
-
             <div class="app-grid">
-                <!-- App 1: Secure Calculator Vault -->
                 <a href="numarqo_vaultcalculator.html" class="app-card">
                     <div>
-                        <div class="app-top">
-                            <div class="app-icon"><i class="fa-solid fa-vault"></i></div>
-                            <span class="app-badge util">Security</span>
-                        </div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-vault"></i></div><span class="app-badge">Security</span></div>
                         <div class="app-name">Secure Calculator Vault</div>
-                        <div class="app-desc">Encrypted local file storage and confidential notes disguised behind a fully functional scientific calculator interface.</div>
+                        <div class="app-desc">Penyimpanan file terenkripsi lokal yang disamarkan di balik antarmuka kalkulator ilmiah.</div>
                     </div>
-                    <div class="app-footer-meta">
-                        <span>v2.4 Stable</span>
-                        <span class="app-launch-link">Launch Utility <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
+                    <div class="app-footer-meta"><span>v2.4 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
                 </a>
-
-                <!-- App 2: US Tip & Split Pro -->
                 <a href="numarqo_tipcalculator.html" class="app-card">
                     <div>
-                        <div class="app-top">
-                            <div class="app-icon"><i class="fa-solid fa-receipt"></i></div>
-                            <span class="app-badge util">Finance</span>
-                        </div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-receipt"></i></div><span class="app-badge">Finance</span></div>
                         <div class="app-name">US Tip &amp; Split Pro</div>
-                        <div class="app-desc">Restaurant tipping calculator, US state sales tax estimator, and group bill split utility optimized for dining out across America.</div>
+                        <div class="app-desc">Kalkulator tip restoran, estimasi pajak penjualan negara bagian AS, dan pembagi tagihan grup.</div>
                     </div>
-                    <div class="app-footer-meta">
-                        <span>v2.1 Stable</span>
-                        <span class="app-launch-link">Launch Utility <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
+                    <div class="app-footer-meta"><span>v2.1 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
                 </a>
-
-                <!-- App 3: IP & Speed Meter -->
                 <a href="numarqo_iputility.html" class="app-card">
                     <div>
-                        <div class="app-top">
-                            <div class="app-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                            <span class="app-badge util">Network</span>
-                        </div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-gauge-high"></i></div><span class="app-badge">Network</span></div>
                         <div class="app-name">IP &amp; Speed Meter</div>
-                        <div class="app-desc">Public IP telemetry inspection, encryption security protocol check, and live download/upload bandwidth meter.</div>
+                        <div class="app-desc">Inspeksi telemetri IP publik, cek protokol enkripsi keamanan, dan pengukur kecepatan bandwith.</div>
                     </div>
-                    <div class="app-footer-meta">
-                        <span>v1.8 Stable</span>
-                        <span class="app-launch-link">Launch Utility <i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="app-footer-meta"><span>v1.8 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_smartprint.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-print"></i></div><span class="app-badge">Utility</span></div>
+                        <div class="app-name">SmartPrint AI</div>
+                        <div class="app-desc">Pemindai dokumen berbasis kecerdasan buatan dan pengonversi format cetak profesional.</div>
                     </div>
+                    <div class="app-footer-meta"><span>v1.5 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_smartforms.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-file-invoice"></i></div><span class="app-badge">Forms</span></div>
+                        <div class="app-name">SmartForms AI</div>
+                        <div class="app-desc">Penyusun formulir otomatis dan ekstraksi data dokumen instan untuk kebutuhan bisnis.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v1.2 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_expensetracker.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-wallet"></i></div><span class="app-badge">Finance</span></div>
+                        <div class="app-name">Numarqo Expense &amp; Tax Tracker</div>
+                        <div class="app-desc">Pelacak pengeluaran harian dan kalkulator pajak operasional yang akurat.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v2.0 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
                 </a>
             </div>
         </div>
 
-        <!-- Section 2: Casual Games & Entertainment -->
+        <!-- Kategori 2: Casual Games & Puzzles (14 App Total Representation) -->
         <div class="category-section">
             <div class="category-header">
-                <div class="category-title-wrap">
-                    <i class="fa-solid fa-puzzle-piece" style="color:#059669; font-size: 1.2rem;"></i>
-                    <span>Casual Games &amp; Digital Entertainment</span>
-                </div>
-                <span class="category-count">1 Game Active</span>
+                <div class="category-title-wrap"><i class="fa-solid fa-puzzle-piece" style="color:#059669;"></i><span>Casual Games &amp; Digital Entertainment</span></div>
+                <span class="category-count">8 Games &amp; Tools</span>
             </div>
-
             <div class="app-grid">
-                <!-- App 4: Petdoku Puzzle -->
                 <a href="numarqo_petdoku.html" class="app-card">
                     <div>
-                        <div class="app-top">
-                            <div class="app-icon" style="color:#059669; background:#ECFDF5; border-color:#A7F3D0;"><i class="fa-solid fa-paw"></i></div>
-                            <span class="app-badge game">Puzzle</span>
-                        </div>
+                        <div class="app-top"><div class="app-icon" style="color:#059669; background:#ECFDF5;"><i class="fa-solid fa-paw"></i></div><span class="app-badge" style="background:#D1FAE5; color:#065F46;">Puzzle</span></div>
                         <div class="app-name">Petdoku Puzzle</div>
-                        <div class="app-desc">Cute animal sudoku block puzzle game designed for casual gaming audiences in the United States market with smooth glassmorphism UI.</div>
+                        <div class="app-desc">Game puzzle balok sudoku bertema hewan peliharaan yang lucu untuk pasar AS.</div>
                     </div>
-                    <div class="app-footer-meta">
-                        <span>v3.0 Release</span>
-                        <span class="app-launch-link" style="color:#059669;">Play Game <i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="app-footer-meta"><span>v3.0 Release</span><span class="app-launch-link" style="color:#059669;">Play <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_blockblast.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon" style="color:#059669; background:#ECFDF5;"><i class="fa-solid fa-cubes"></i></div><span class="app-badge" style="background:#D1FAE5; color:#065F46;">Arcade</span></div>
+                        <div class="app-name">Blockblast Numarqo Edition</div>
+                        <div class="app-desc">Game puzzle balok klasik berkecepatan tinggi dengan antarmuka glassmorphism.</div>
                     </div>
+                    <div class="app-footer-meta"><span>v2.2 Release</span><span class="app-launch-link" style="color:#059669;">Play <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_tastytravel.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon" style="color:#059669; background:#ECFDF5;"><i class="fa-solid fa-utensils"></i></div><span class="app-badge" style="background:#D1FAE5; color:#065F46;">Adventure</span></div>
+                        <div class="app-name">Tasty Travel</div>
+                        <div class="app-desc">Game petualangan kuliner kasual menjelajahi resep global dan teka-teki makanan.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v1.9 Release</span><span class="app-launch-link" style="color:#059669;">Play <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_bizmathlab.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-chart-line"></i></div><span class="app-badge">Business</span></div>
+                        <div class="app-name">BizMathLab Hub</div>
+                        <div class="app-desc">Kalkulator penggajian, biaya karyawan, dan nilai cuti (PTO) untuk korporasi.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v2.0 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_overtimecalc.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-clock"></i></div><span class="app-badge">Utility</span></div>
+                        <div class="app-name">Overtime Pay Calculator</div>
+                        <div class="app-desc">Penghitung upah lembur otomatis sesuai standar ketenagakerjaan US.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v1.1 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_ptocalc.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-calendar-days"></i></div><span class="app-badge">HR Tool</span></div>
+                        <div class="app-name">PTO Value Calculator</div>
+                        <div class="app-desc">Kalkulator konversi cuti berbayar ke nilai finansial secara instan.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v1.1 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_employeecost.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-users-gear"></i></div><span class="app-badge">Business</span></div>
+                        <div class="app-name">Employee Cost Calculator</div>
+                        <div class="app-desc">Estimator biaya operasional total tenaga kerja perusahaan.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v1.3 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
+                </a>
+                <a href="numarqo_aimath.html" class="app-card">
+                    <div>
+                        <div class="app-top"><div class="app-icon"><i class="fa-solid fa-brain"></i></div><span class="app-badge">AI Tool</span></div>
+                        <div class="app-name">Smart AI Math Calculator</div>
+                        <div class="app-desc">Kalkulator matematika cerdas dengan penjelasan langkah demi langkah berbasis AI.</div>
+                    </div>
+                    <div class="app-footer-meta"><span>v2.5 Stable</span><span class="app-launch-link">Launch <i class="fa-solid fa-arrow-right"></i></span></div>
                 </a>
             </div>
         </div>
 
-        <!-- Footer -->
         <div class="hub-footer">
             <div>&copy; 2026 Numarqo Ecosystem. All rights reserved. Built for US Market Excellence.</div>
             <div class="footer-links">
@@ -619,386 +223,5 @@
         </div>
 
     </div>
-
-
-        <!-- Enterprise Architecture Component Module 1: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 2: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 3: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 4: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 5: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 6: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 7: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 8: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 9: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 10: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 11: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 12: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 13: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 14: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 15: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 16: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 17: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 18: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 19: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 20: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 21: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 22: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 23: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 24: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 25: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 26: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 27: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 28: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 29: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 30: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 31: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 32: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 33: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 34: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 35: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 36: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 37: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 38: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 39: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 40: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 41: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 42: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 43: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 44: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 45: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 46: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 47: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 48: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 49: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 50: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 51: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 52: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 53: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 54: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 55: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 56: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 57: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 58: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 59: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 60: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 61: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 62: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 63: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 64: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 65: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 66: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 67: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 68: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 69: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 70: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 71: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 72: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 73: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 74: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 75: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 76: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 77: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 78: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 79: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 80: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 81: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 82: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 83: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 84: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 85: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 86: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 87: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 88: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 89: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 90: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 91: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 92: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 93: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 94: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 95: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 96: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 97: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 98: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 99: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 100: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 101: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 102: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 103: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 104: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 105: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 106: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 107: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 108: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 109: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 110: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 111: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 112: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 113: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 114: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 115: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 116: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 117: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 118: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 119: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 120: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 121: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 122: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 123: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 124: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 125: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 126: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 127: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 128: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 129: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 130: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 131: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 132: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 133: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 134: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 135: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 136: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 137: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 138: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 139: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 140: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 141: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 142: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 143: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 144: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 145: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 146: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 147: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 148: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 149: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 150: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 151: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 152: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 153: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 154: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 155: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 156: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 157: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 158: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 159: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 160: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 161: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 162: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 163: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 164: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 165: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 166: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 167: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 168: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 169: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 170: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 171: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 172: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 173: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 174: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 175: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 176: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 177: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 178: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 179: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 180: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 181: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 182: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 183: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 184: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 185: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 186: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 187: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 188: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 189: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 190: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 191: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 192: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 193: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 194: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 195: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 196: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 197: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 198: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 199: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 200: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 201: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 202: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 203: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 204: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 205: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 206: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 207: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 208: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 209: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 210: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 211: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 212: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 213: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 214: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 215: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 216: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 217: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 218: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 219: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 220: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 221: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 222: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 223: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 224: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 225: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 226: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 227: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 228: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 229: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 230: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 231: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 232: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 233: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 234: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 235: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 236: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 237: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 238: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 239: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 240: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 241: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 242: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 243: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 244: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 245: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 246: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 247: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 248: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 249: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 250: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 251: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 252: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 253: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 254: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 255: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 256: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 257: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 258: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 259: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 260: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 261: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 262: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 263: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 264: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 265: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 266: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 267: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 268: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 269: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 270: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 271: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 272: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 273: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 274: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 275: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 276: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 277: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 278: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 279: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 280: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 281: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 282: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 283: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 284: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 285: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 286: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 287: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 288: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 289: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 290: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 291: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 292: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 293: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 294: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 295: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 296: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 297: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 298: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 299: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 300: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 301: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 302: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 303: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 304: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 305: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 306: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 307: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 308: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 309: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 310: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 311: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 312: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 313: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 314: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 315: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 316: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 317: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 318: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 319: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 320: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 321: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 322: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 323: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 324: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 325: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 326: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 327: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 328: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 329: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 330: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 331: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 332: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 333: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 334: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 335: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 336: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 337: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 338: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 339: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 340: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 341: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 342: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 343: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 344: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 345: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 346: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 347: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 348: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 349: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 350: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 351: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 352: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 353: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 354: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 355: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 356: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 357: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 358: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 359: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 360: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 361: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 362: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 363: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 364: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 365: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 366: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 367: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 368: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 369: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 370: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 371: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 372: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 373: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 374: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 375: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 376: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 377: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 378: Numarqo Secure Core Verification -->
-    <!-- Enterprise Architecture Component Module 379: Numarqo Secure Core Verification -->
 </body>
 </html>
