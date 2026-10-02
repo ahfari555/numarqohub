@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numarqo Ecosystem — Professional PWA Suite & US Casual Games</title>
+    <title>Numarqo Ecosystem Hub — Professional PWA Suite & US Casual Games</title>
     <meta name="theme-color" content="#0B1F44">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,14 +13,16 @@
         
         /* Navbar Numarqo */
         .numarqo-navbar { width: 100%; max-width: 1080px; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); border-radius: 0 0 24px 24px; box-shadow: 0 4px 25px rgba(0,0,0,0.3); position: sticky; top: 0; z-index: 100; }
-        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
         .numarqo-emblem { width: 42px; height: 42px; background: #0B1F44; border-radius: 12px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(37,99,235,0.6); }
         .n-bar-1 { position: absolute; width: 14px; height: 100%; background: #2563EB; left: 5px; transform: skewX(-15deg); }
         .n-bar-2 { position: absolute; width: 14px; height: 100%; background: #06B6D4; right: 5px; transform: skewX(-15deg); }
         .numarqo-title { font-size: 1.3rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
         .numarqo-sub { font-size: 0.7rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
 
-        .nav-badge { background: rgba(37,99,235,0.2); border: 1px solid rgba(37,99,235,0.5); padding: 6px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; color: #60A5FA; display: inline-flex; align-items: center; gap: 6px; }
+        .nav-links { display: flex; gap: 18px; font-size: 0.85rem; font-weight: 700; align-items: center; }
+        .nav-links a { color: #CBD5E1; text-decoration: none; transition: 0.2s; display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; }
+        .nav-links a:hover, .nav-links a.active { color: #FFF; background: rgba(255,255,255,0.1); }
 
         /* Hero Section */
         .hero-container { max-width: 1080px; width: 90%; margin: 40px auto 20px; text-align: center; color: #FFFFFF; }
@@ -51,31 +53,37 @@
         .card-link:hover { background: #0B1F44; }
 
         /* Footer */
-        .footer { margin-top: 60px; color: #64748B; font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 1080px; padding-top: 20px; }
+        .footer { margin-top: 60px; color: #94A3B8; font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 1080px; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .footer-links { display: flex; gap: 15px; }
+        .footer-links a { color: #94A3B8; text-decoration: none; font-weight: 600; }
 
         @media (max-width: 600px) {
             .hero-title { font-size: 1.8rem; }
-            .numarqo-navbar { padding: 14px 20px; }
+            .numarqo-navbar { padding: 14px 20px; flex-direction: column; gap: 12px; }
         }
     </style>
 </head>
 <body>
     <header class="numarqo-navbar">
-        <div class="numarqo-logo-wrap">
+        <a href="numarqo_hub.html" class="numarqo-logo-wrap">
             <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
             <div><span class="numarqo-title">Numarqo Suite</span><span class="numarqo-sub">OFFICIAL ECOSYSTEM HUB</span></div>
-        </div>
-        <div class="nav-badge"><i class="fa-solid fa-shield-verified"></i> US Market Ready</div>
+        </a>
+        <nav class="nav-links">
+            <a href="numarqo_hub.html" class="active"><i class="fa-solid fa-house"></i> Hub</a>
+            <a href="numarqo_legal.html"><i class="fa-solid fa-scale-balanced"></i> Legal</a>
+            <a href="numarqo_support.html"><i class="fa-solid fa-headset"></i> Support</a>
+        </nav>
     </header>
 
     <div class="hero-container">
-        <span class="hero-tag">Professional PWA Ecosystem</span>
+        <span class="hero-tag">Professional PWA Ecosystem • 15 App Suite</span>
         <h1 class="hero-title">High-Utility Tools &amp; Casual Gaming Suite</h1>
         <p class="hero-desc">Explore our certified collection of lightweight, high-performance Progressive Web Apps optimized for US mobile standards and Google Play Store deployment.</p>
 
         <div class="filter-wrap">
-            <button class="filter-btn active" onclick="filterApps('all', this)">All Apps (14)</button>
-            <button class="filter-btn" onclick="filterApps('game', this)">Casual Games (6)</button>
+            <button class="filter-btn active" onclick="filterApps('all', this)">All Apps (15)</button>
+            <button class="filter-btn" onclick="filterApps('game', this)">Casual Games (7)</button>
             <button class="filter-btn" onclick="filterApps('utility', this)">Productivity &amp; Tools (8)</button>
         </div>
     </div>
@@ -159,7 +167,20 @@
             <a href="numarqo_arrowpuzzle.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- 7. SmartScan AI -->
+        <!-- 7. BizMathLab Hub -->
+        <div class="app-card" data-category="game">
+            <div>
+                <div class="card-top">
+                    <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <span class="card-tag tag-game">Casual Tool</span>
+                </div>
+                <div class="card-name">BizMathLab Hub</div>
+                <div class="card-desc">Payroll calculator, employee cost estimator, and PTO value conversion hub.</div>
+            </div>
+            <a href="numarqo_bizmathlab.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- 8. SmartScan AI -->
         <div class="app-card" data-category="utility">
             <div>
                 <div class="card-top">
@@ -172,7 +193,20 @@
             <a href="numarqo_smartscan.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- 8. AI Calculator -->
+        <!-- 9. SmartForms AI Pro -->
+        <div class="app-card" data-category="utility">
+            <div>
+                <div class="card-top">
+                    <div class="card-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                    <span class="card-tag tag-utility" style="background:#FEF3C7; color:#D97706;">Forms</span>
+                </div>
+                <div class="card-name">SmartForms AI Pro</div>
+                <div class="card-desc">PDF form filler and electronic signature generator for US standard documents.</div>
+            </div>
+            <a href="numarqo_smartforms.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- 10. AI Calculator -->
         <div class="app-card" data-category="utility">
             <div>
                 <div class="card-top">
@@ -185,7 +219,7 @@
             <a href="numarqo_aicalculator.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- 9. Tip Calculator -->
+        <!-- 11. Tip Calculator -->
         <div class="app-card" data-category="utility">
             <div>
                 <div class="card-top">
@@ -198,7 +232,7 @@
             <a href="numarqo_tipcalculator.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- 10. Secure Vault -->
+        <!-- 12. Secure Vault -->
         <div class="app-card" data-category="utility">
             <div>
                 <div class="card-top">
@@ -211,7 +245,7 @@
             <a href="numarqo_vaultcalculator.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- 11. IP & Network Meter -->
+        <!-- 13. IP & Network Meter -->
         <div class="app-card" data-category="utility">
             <div>
                 <div class="card-top">
@@ -224,7 +258,7 @@
             <a href="numarqo_iputility.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- 12. Media Utility -->
+        <!-- 14. Media Utility -->
         <div class="app-card" data-category="utility">
             <div>
                 <div class="card-top">
@@ -237,7 +271,7 @@
             <a href="numarqo_videoutility.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- 13. AI Audio Suite -->
+        <!-- 15. AI Audio Suite -->
         <div class="app-card" data-category="utility">
             <div>
                 <div class="card-top">
@@ -249,23 +283,14 @@
             </div>
             <a href="numarqo_ai_audio_suite.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-
-        <!-- 14. Monetization Hub -->
-        <div class="app-card" data-category="utility">
-            <div>
-                <div class="card-top">
-                    <div class="card-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                    <span class="card-tag tag-utility">Analytics</span>
-                </div>
-                <div class="card-name">Monetization Suite Pro</div>
-                <div class="card-desc">Real-time financial telemetry for ad revenue, freemium subscriptions, and payout requests.</div>
-            </div>
-            <a href="numarqo_monetization_dashboard.html" class="card-link" target="_blank">Launch App <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
     </div>
 
     <footer class="footer">
-        &copy; 2026 Numarqo Ecosystem. All rights reserved. Designed for Google Play Store publication &amp; US Market standards.
+        <div>&copy; 2026 Numarqo Ecosystem. All rights reserved. Designed for Google Play Store publication.</div>
+        <div class="footer-links">
+            <a href="numarqo_legal.html">Privacy Policy</a>
+            <a href="numarqo_support.html">Support</a>
+        </div>
     </footer>
 
     <script>
