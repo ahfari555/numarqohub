@@ -2,7 +2,7 @@
   "name": "Numarqo Ecosystem Hub - Complete 14 App Suite",
   "short_name": "NumarqoHub",
   "description": "Professional PWA Suite & US Casual Games Ecosystem by Numarqo",
-  "start_url": "./index.html",
+  "start_url": "./numarqo_hub.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0B1F44",
