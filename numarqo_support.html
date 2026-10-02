@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support & FAQ Center - NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 16px; font-size: 0.85rem; font-weight: 600; }
+        .nav-links a { color: #CBD5E1; text-decoration: none; transition: 0.2s; }
+        .nav-links a:hover { color: #FFFFFF; }
+
+        .container { max-width: 680px; width: 92%; margin: 32px auto; padding: 32px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; }
+        h1 { font-size: 1.8rem; font-weight: 800; color: #0B1F44; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .subtitle { font-size: 0.9rem; color: #64748B; margin-bottom: 24px; line-height: 1.5; }
+
+        .section-title { font-size: 1.15rem; font-weight: 800; color: #1E293B; margin: 24px 0 12px 0; border-bottom: 2px solid #E2E8F0; padding-bottom: 6px; }
+        
+        .faq-item { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+        .faq-q { font-size: 0.92rem; font-weight: 800; color: #0B1F44; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .faq-a { font-size: 0.85rem; color: #475569; line-height: 1.5; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-group label { font-size: 0.82rem; font-weight: 700; color: #1E293B; }
+        .form-input, .form-textarea { padding: 12px 14px; border-radius: 12px; border: 1px solid #CBD5E1; font-size: 0.9rem; background: #F8FAFC; color: #0B1F44; outline: none; }
+        .form-textarea { resize: vertical; min-height: 100px; }
+        .form-input:focus, .form-textarea:focus { border-color: #2563EB; background: #FFF; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+        .numarqo-btn { padding: 12px 20px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 16px rgba(37,99,235,0.3); transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .numarqo-btn:hover { background: #0B1F44; }
+
+        .footer { margin-top: 32px; text-align: center; font-size: 0.78rem; color: #94A3B8; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <a href="numarqo_hub.html" class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Numarqo Support</span><span class="numarqo-sub">HELP CENTER</span></div>
+        </a>
+        <nav class="nav-links">
+            <a href="numarqo_hub.html">Hub</a>
+            <a href="numarqo_legal.html">Legal</a>
+            <a href="numarqo_support.html" style="color:#60A5FA;">Support</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1><i class="fa-solid fa-headset" style="color:#2563EB;"></i> Support & FAQ Center</h1>
+        <p class="subtitle">Welcome to Numarqo Customer Support. Find answers to common questions about our application suite or submit a support ticket directly to our technical team.</p>
+
+        <div class="section-title">Frequently Asked Questions (FAQ)</div>
+
+        <div class="faq-item">
+            <div class="faq-q"><i class="fa-solid fa-circle-question" style="color:#2563EB;"></i> What are Numarqo PWAs?</div>
+            <div class="faq-a">Numarqo builds high-performance Progressive Web Apps (PWAs) combining casual gaming and high-utility productivity tools optimized for lightweight mobile usage across global markets.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q"><i class="fa-solid fa-circle-question" style="color:#2563EB;"></i> Are Numarqo apps free to use?</div>
+            <div class="faq-a">Yes, our entire suite of casual games and utility tools is available as lightweight web applications, with select native packages distributed via the Google Play Store.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q"><i class="fa-solid fa-circle-question" style="color:#2563EB;"></i> How do I secure my data in Secure Calculator Vault?</div>
+            <div class="faq-a">All sensitive files and notes stored inside the Numarqo Secure Vault are encrypted locally on your device storage using robust client-side algorithms. We never upload your private files to external servers.</div>
+        </div>
+
+        <div class="section-title">Submit a Support Ticket</div>
+        <form onsubmit="event.preventDefault(); alert('Support ticket successfully submitted! Our team will get back to you within 24 hours.');">
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" class="form-input" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" class="form-input" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Select App / Subject</label>
+                <select class="form-input" required>
+                    <option value="">Choose application or inquiry type</option>
+                    <option value="general">General Ecosystem Inquiry</option>
+                    <option value="vault">Secure Calculator Vault</option>
+                    <option value="games">Casual Games (Petdoku, Block Blast, etc.)</option>
+                    <option value="utilities">Utility & Network Tools</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Message / Description</label>
+                <textarea class="form-textarea" placeholder="Describe your issue or feedback in detail..." required></textarea>
+            </div>
+            <button type="submit" class="numarqo-btn"><i class="fa-solid fa-paper-plane"></i> Send Support Request</button>
+        </form>
+
+        <div class="footer">
+            &copy; 2026 Numarqo Ecosystem. All rights reserved. Designed for US Market Excellence.
+        </div>
+    </div>
+</body>
+</html>
