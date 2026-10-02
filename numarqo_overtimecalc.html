@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overtime Pay Calculator Pro - NUMARQO</title>
+    <meta name="theme-color" content="#0B1F44">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; user-select: none; }
+        body { background: radial-gradient(circle at center, #1e3a8a 0%, #0B1F44 100%); color: #0B1F44; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        
+        .numarqo-navbar { width: 100%; background: rgba(11, 31, 68, 0.85); backdrop-filter: blur(12px); color: #FFFFFF; padding: 14px 32px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .numarqo-logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+        .numarqo-emblem { width: 38px; height: 38px; background: #0B1F44; border-radius: 10px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+        .n-bar-1 { position: absolute; width: 13px; height: 100%; background: #2563EB; left: 4px; transform: skewX(-15deg); }
+        .n-bar-2 { position: absolute; width: 13px; height: 100%; background: #06B6D4; right: 4px; transform: skewX(-15deg); }
+        .numarqo-title { font-size: 1.15rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em; }
+        .numarqo-sub { font-size: 0.65rem; font-weight: 700; color: #06B6D4; letter-spacing: 0.15em; text-transform: uppercase; }
+        .nav-link { color: #CBD5E1; text-decoration: none; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+        .nav-link:hover { color: #FFFFFF; }
+
+        .container { max-width: 540px; width: 92%; margin: 28px auto; padding: 28px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); text-align: left; position: relative; }
+        h1 { font-size: 1.4rem; font-weight: 800; color: #0B1F44; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .subtitle { font-size: 0.85rem; color: #64748B; margin-bottom: 20px; line-height: 1.4; }
+
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+        .form-group label { font-size: 0.8rem; font-weight: 700; color: #1E293B; }
+        .form-input, .form-select { padding: 12px 14px; border-radius: 12px; border: 1px solid #CBD5E1; font-size: 0.9rem; background: #F8FAFC; color: #0B1F44; outline: none; }
+        .form-input:focus, .form-select:focus { border-color: #2563EB; background: #FFF; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+        .numarqo-btn { padding: 12px 20px; background: #2563EB; color: #FFF; border: none; border-radius: 14px; font-weight: 700; font-size: 0.9rem; cursor: pointer; box-shadow: 0 6px 16px rgba(37,99,235,0.3); transition: 0.2s; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
+        .numarqo-btn:hover { background: #0B1F44; }
+
+        .result-card { background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border: 1px solid #BFDBFE; border-radius: 18px; padding: 18px; margin-top: 20px; }
+        .result-row { display: flex; justify-content: space-between; font-size: 0.88rem; font-weight: 700; color: #1E40AF; margin-bottom: 8px; }
+        .result-row.total { font-size: 1.15rem; border-top: 1px solid #BFDBFE; padding-top: 10px; color: #0B1F44; }
+
+        .footer { margin-top: 30px; font-size: 0.78rem; color: #94A3B8; text-align: center; }
+    </style>
+</head>
+<body>
+    <header class="numarqo-navbar">
+        <a href="numarqo_hub.html" class="numarqo-logo-wrap">
+            <div class="numarqo-emblem"><div class="n-bar-1"></div><div class="n-bar-2"></div></div>
+            <div><span class="numarqo-title">Overtime Calculator</span><span class="numarqo-sub">NUMARQO FINANCE</span></div>
+        </a>
+        <a href="numarqo_hub.html" class="nav-link"><i class="fa-solid fa-arrow-left"></i> Back to Hub</a>
+    </header>
+
+    <div class="container">
+        <h1><i class="fa-solid fa-clock-rotate-left" style="color:#2563EB;"></i> Overtime Pay Calculator</h1>
+        <p class="subtitle">Kalkulator upah lembur karyawan secara akurat berdasarkan standar regulasi kerja dan tarif pengali profesional.</p>
+
+        <div class="form-group">
+            <label>Hourly Regular Wage ($ / hour)</label>
+            <input type="number" id="baseWage" class="form-input" placeholder="25.00" value="25">
+        </div>
+        <div class="form-group">
+            <label>Overtime Hours Worked</label>
+            <input type="number" id="otHours" class="form-input" placeholder="10" value="10">
+        </div>
+        <div class="form-group">
+            <label>Overtime Multiplier Rate</label>
+            <select id="otMultiplier" class="form-select">
+                <option value="1.5">1.5x Standard Overtime (Time-and-a-Half)</option>
+                <option value="2.0">2.0x Double Time (Holiday / Weekend)</option>
+                <option value="1.25">1.25x Minor Overtime</option>
+            </select>
+        </div>
+
+        <button class="numarqo-btn" onclick="calculateOvertime()"><i class="fa-solid fa-calculator"></i> Calculate Overtime Pay</button>
+
+        <div class="result-card" id="resultCard" style="display:none;">
+            <div class="result-row"><span>Regular Hourly Rate:</span> <span id="regularRate">$25.00</span></div>
+            <div class="result-row"><span>Overtime Rate:</span> <span id="overtimeRate">$37.50</span></div>
+            <div class="result-row total"><span>Total Overtime Pay:</span> <span id="totalOvertime">$375.00</span></div>
+        </div>
+
+        <div class="footer">&copy; 2026 Numarqo Ecosystem. All rights reserved.</div>
+    </div>
+
+    <script>
+        function calculateOvertime() {
+            let wage = parseFloat(document.getElementById('baseWage').value) || 0;
+            let hours = parseFloat(document.getElementById('otHours').value) || 0;
+            let multiplier = parseFloat(document.getElementById('otMultiplier').value) || 1.5;
+
+            let otRate = wage * multiplier;
+            let totalOT = otRate * hours;
+
+            document.getElementById('regularRate').innerText = `$${wage.toFixed(2)}`;
+            document.getElementById('overtimeRate').innerText = `$${otRate.toFixed(2)}`;
+            document.getElementById('totalOvertime').innerText = `$${totalOT.toFixed(2)}`;
+            document.getElementById('resultCard').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
