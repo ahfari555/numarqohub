@@ -5,6 +5,8 @@
 -keep class app.vercel.numarqohub.twa.Application { <init>(); }
 -keep class app.vercel.numarqohub.twa.DelegationService { <init>(); }
 -keep class app.vercel.numarqohub.twa.LauncherActivity { <init>(); }
+-keep class com.google.android.gms.common.api.GoogleApiActivity { <init>(); }
+-keep class com.google.androidbrowserhelper.locationdelegation.PermissionRequestActivity { <init>(); }
 -keep class com.google.androidbrowserhelper.trusted.FocusActivity { <init>(); }
 -keep class com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity { <init>(); }
 -keep class com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity { <init>(); }

@@ -8,9 +8,9 @@
     <!-- Value from default config. -->
     <bool name="enableSiteSettingsShortcut">true</bool>
     <!-- Value from default config. -->
-    <color name="backgroundColor">#2C3E50</color>
+    <color name="backgroundColor">#0B1F44</color>
     <!-- Value from default config. -->
-    <color name="colorPrimary">#2C3E50</color>
+    <color name="colorPrimary">#0B1F44</color>
     <!-- Value from default config. -->
     <color name="colorPrimaryDark">#000000</color>
     <!-- Value from default config. -->
@@ -24,7 +24,7 @@
     <!-- Value from default config. -->
     <integer name="splashScreenFadeOutDuration">300</integer>
     <!-- Value from default config. -->
-    <string name="appName" translatable="false">com.numarqo.smartforms</string>
+    <string name="appName" translatable="false">Numarqo Ecosystem Hub</string>
     <!-- Value from default config. -->
     <string name="fallbackType" translatable="false">customtabs</string>
     <!-- Value from default config. -->
@@ -32,11 +32,11 @@
     <!-- Value from default config. -->
     <string name="generatorApp" translatable="false">bubblewrap-cli</string>
     <!-- Value from default config. -->
-    <string name="hostName" translatable="false">numarqohub.vercel.app/numarqo_hub.html</string>
+    <string name="hostName" translatable="false">numarqohub.vercel.app</string>
     <!-- Value from default config. -->
-    <string name="launchUrl" translatable="false">https://numarqohub.vercel.app/numarqo_hub.htmlhttps://numarqohub.vercel.app/numarqo_hub.html</string>
+    <string name="launchUrl" translatable="false">https://numarqohub.vercel.app/</string>
     <!-- Value from default config. -->
-    <string name="launcherName" translatable="false">SmartFormsAI</string>
+    <string name="launcherName" translatable="false">Numarqo Hub</string>
     <!-- Value from default config. -->
     <string name="orientation" translatable="false">default</string>
     <!-- Value from default config. -->
