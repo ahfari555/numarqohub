@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://numarqohub.vercel.app/sitemap.xml
